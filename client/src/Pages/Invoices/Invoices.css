@@ -1,0 +1,59 @@
+/* 
+.table-container {
+    overflow-x: auto;
+}
+
+.invoices-page table {
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    background-color: white;
+    box-shadow: 10px 10px 10px rgb(77, 74, 74);
+    padding: 11px;
+} */
+
+.invoices-page {
+    padding-top: 26px; /* Add space at the top of the page */
+}
+
+
+.invoices-page .table-container {
+    padding-top: 1px;
+    overflow-x: auto;
+    border: 1px solid rgb(214, 211, 211);
+    box-shadow: 1px 1px 15px 1px rgb(244, 243, 243);
+    border-radius: 10px;
+    background-color: white;
+
+}
+
+.invoices-page table {
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    padding: 10px;
+    
+}
+
+
+.invoices-page th {
+    border-bottom: 1px solid #ccc;
+    padding: 2px;
+}
+
+.invoices-page th,
+td {
+    text-align: left;
+    padding: 13px 18px;
+    white-space: nowrap;
+}
+
+
+/* .invoices-page tr:nth-child(even) {
+    background-color: #f2f2f2;
+} */
+
+  .invoices-page tbody tr.spacer-row {
+    height: 20px; /* Adjust the height for the space you need */
+    background-color: transparent; /* Make sure it's invisible */
+}

@@ -1,0 +1,583 @@
+// tap-top css
+.tap-top {
+  text-align: center;
+  cursor: pointer;
+  display: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 5;
+  // color: $white;
+  color: black;
+  // background: $primary-color;
+  background-color: white;
+  border: none;
+  padding: 7px;
+  box-shadow: 0 0 10px $primary-color;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+  &:hover {
+    transition: all 0.3s ease;
+    opacity: 1;
+  }
+  svg {
+    width: 20px;
+  }
+}
+// jsgrid css
+.jsgrid-filter-row {
+  select,
+  input {
+    padding: 6px 10px;
+    border: 1px solid $horizontal-border-color;
+    background: $white;
+  }
+}
+.sc-kDvujY {
+  display: none;
+}
+.form-check-input {
+  border: none;
+  &:checked {
+    border: none;
+  }
+}
+.order-history {
+  &.wishlist {
+    table {
+      tbody {
+        input {
+          border-radius: 30px 0 0 30px ;
+        }
+      }
+    }
+  }
+}
+.starred {
+  color: $warning-color !important;
+}
+.page-wrapper {
+  .page-header {
+    .header-wrapper {
+      .nav-right {
+        .onhover-show-div {
+          .dropdown-title {
+            h6 {
+              background-color: rgba($primary-color, 0.1);
+              color: $primary-color;
+              display: block;
+              text-align: start;
+            }
+          }
+        }
+      }
+      .bookmark-flip {
+        .bookmark-dropdown {
+          .bookmark-content {
+            &:hover {
+              .bookmark-icon {
+                a {
+                  svg {
+                    stroke: $primary-color;
+                  }
+                }
+              }
+            }
+            .bookmark-icon {
+              align-items: center;
+              border: 1px solid #eee;
+              border-radius: 100%;
+              display: flex;
+              height: 40px;
+              justify-content: center;
+              margin: 0 auto 8px;
+              width: 40px;
+            }
+          }
+        }
+      }
+      .nav-right {
+        .onhover-show-div:not(.profile-dropdown) {
+          &.bookmark-flip{
+            .bookmark-dropdown{
+              .ProfileCard-avatar{
+                svg{
+                  width: 18px;
+                  height: 18px;
+                  position: unset;
+                  stroke: $theme-body-font-color;
+                  opacity: 1;
+                }
+              }
+              .ProfileCard-realName{
+                i{
+                  color: $theme-body-font-color;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.product-filter {
+  .slick-slider {
+    .product-box {
+      +.product-box {
+        margin-top: 15px;
+      }
+    }  
+  }
+}
+.slick-next, .slick-prev {
+  &:before {
+    color: $dark-gray;
+  }
+}
+.product-box {
+  .product-details {
+    h4 {
+      font-size: 18px;
+    }
+  }
+}
+// .product-box {
+//   .modal {
+//     .modal-header {
+//       .product-box {
+//         .product-details {
+//           .product-price {
+//             margin-bottom: 10px;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+.email-wrap {
+  .actions {
+    li {
+      margin-left: 10px;
+    }
+  }
+}
+// popover
+.popover {
+  background-color: $white;
+  border: none;
+  -webkit-box-shadow: 0 0 20px rgba($primary-color, 0.1);
+  box-shadow: 0 0 20px rgba($primary-color, 0.1);
+  .popover-header {
+    background-color: $theme-medium-color;
+    color: $primary-color;
+    border-bottom: none;
+  }
+  .popover-body {
+    color: rgba(43, 43, 43, 0.7);
+  }
+}
+
+// tooltip css start
+.tooltip {
+  &.bs-tooltip-top {
+    .tooltip-arrow {
+      &:before {
+        border-top-color: $theme-medium-color;
+      }
+    }
+  }
+  &.bs-tooltip-bottom {
+    .tooltip-arrow {
+      &:before {
+        border-bottom-color: $theme-medium-color;
+        border-top-color: transparent;
+      }
+    }
+  }
+  &.bs-tooltip-start {
+    .tooltip-arrow {
+      &:before {
+        border-left-color: $theme-medium-color;
+        border-top-color: transparent;
+      }
+    }
+  }
+  &.bs-tooltip-end {
+    .tooltip-arrow {
+      &:before {
+        border-right-color: $theme-medium-color;
+        border-top-color: transparent;
+      }
+    }
+  }
+  .tooltip-inner {
+    background-color: $theme-medium-color;
+    color: $primary-color;
+  }
+  .tooltip-arrow {
+    &:before {
+      border-top-color: $theme-medium-color;
+    }
+  }
+}
+// tooltip css end
+
+// dropdown css start
+.dropdown-basic {
+  .dropdown {
+    .dropdown-content {
+      a {
+        padding: 6px 16px;
+        color: $dark-editor-document;
+        opacity: 0.6;
+        font-size: 13px;
+        border-top: 1px solid $light-semi-gray;
+        background: $white;
+        &:hover {
+          background-color: $white;
+        }
+      }
+      .dropdown-header {
+        padding: 8px 16px;
+        font-weight: 400;
+        color: $dark-color;
+        font-size: 13px;
+      }
+    }
+  }
+  .dropup {
+    .dropup-content {
+      top: auto;
+    }
+  }
+}
+// dropdown css end
+
+// tab-bootstrap css start
+.nav-tabs {
+  border-bottom-color: $light-semi-gray;
+  .nav-bottom {
+    .nav-item {
+      .nav-link.active {
+        border-color: $light-semi-gray;
+      }
+    }
+  }
+}
+.nav-tabs {
+  .nav-item {
+    &.show {
+      .nav-link {
+        font-weight: 500;
+      }
+    }
+  }
+  .nav-link {
+    color: $dark-color;
+    &.active {
+      font-weight: 500;
+      border-color: $light-gray $light-gray $white;
+    }
+    &.dropdown-toggle {
+      border-radius: 5px;
+      border-bottom: none;
+    }
+  }
+  &.nav-bottom {
+    .nav-item {
+      .nav-link {
+        &.active {
+          border-color: $light-gray $light-gray #fff;
+        }
+      }
+    }
+  }
+}
+.dropdown-menu {
+  -webkit-box-shadow: 0 0 20px rgba(89, 102, 122, 0.1);
+  box-shadow: 0 0 20px rgba(89, 102, 122, 0.1);
+  border: none;
+  padding: 0;
+  .dropdown-item {
+    color: #2b2b2b;
+    opacity: 0.6;
+    font-size: 13px;
+    padding: 6px 12px;
+    border-top: 1px solid $light-semi-gray;
+    background: $white;
+    &:hover {
+      background-color: $white;
+    }
+  }
+  .dropdown-divider {
+    margin: 0;
+    border-top: 1px solid $light-gray;
+  }
+}
+// tab-bootstrap css end
+.border-tab {
+  .nav-tabs {
+    .nav-item {
+      .nav-link {
+        &.active {
+          border-bottom: 2px solid $primary-color;
+        }
+        &.show {
+          border-bottom: 2px solid $primary-color;
+        }
+        &:focus {
+          border-bottom: 2px solid $primary-color;
+        }
+      }
+    }
+  }
+}
+.tabbed-card {
+  .nav-tabs {
+    .nav-item {
+      .nav-link {
+        top: 17px;
+      }
+    }
+  }
+}
+.timeliny {
+  .timeliny-dot::before {
+    font-size: $btn-lg-font-size;
+  }
+}
+.form-builder-header-1,
+.form-builder-2-header {
+  background-color: #f7f6ff;
+  .nav-primary {
+    .nav-link {
+      color: $dark-color;
+      font-weight: 400;
+      &.active {
+        color: $white;
+      }
+    }
+  }
+  h6 {
+    margin-bottom: 0;
+    font-weight: 400;
+    line-height: 36px;
+  }
+}
+.component {
+  .input-group {
+    .btn {
+      line-height: 32px;
+      text-transform: capitalize;
+    }
+  }
+}
+.form-builder {
+  .drag-box {
+    fieldset {
+      margin-top: 0;
+    }
+  }
+}
+.login-card {
+  .login-main {
+    .theme-form {
+      label {
+        font-size: $body-font-size;
+      }
+      .show-hide {
+        top: 50%;
+      }
+    }
+  }
+}
+
+// faq css start
+// .faq-accordion {
+//     .card {
+//         .btn-link {
+//             svg {
+//                 margin-left: 20px;
+//             }
+//         }
+//     }
+// }
+
+// faq css end
+.job-filter {
+  .faq-form {
+    .form-control {
+      font-size: 14px;
+    }
+    .search-icon {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+// list group //
+.list-group-item {
+  border-color: $light-gray;
+}
+
+// pagination //
+.page-link {
+  border-color: $light-gray;
+}
+
+// gallery //
+.img-thumbnail {
+  border-color: $light-gray;
+}
+.my-gallery.gallery-with-description {
+  border-color: $light-gray !important;
+}
+.gallery-with-description {
+  a {
+    > div {
+      border-color: $light-gray;
+    }
+  }
+}
+
+// editor
+.editor-toolbar,
+.editor-statusbar,
+.CodeMirror {
+  border-color: $light-gray;
+}
+
+// clockpicker
+.clockpicker {
+  input {
+    border-radius: 10px !important;
+  }
+}
+
+// progress
+.progress {
+  border-radius: 30px;
+}
+
+// modal
+.modal-header,
+.modal-footer,
+.modal-content {
+  .btn-close {
+    position: absolute;
+    top: 30px;
+    right: 25px;
+  }
+}
+
+// datatable
+.live-dom-table {
+  tr {
+    th,
+    td {
+      min-width: 300px !important;
+    }
+  }
+}
+
+.dataTables_wrapper {
+  table {
+    &.column-selector {
+      tbody {
+        td,
+        th {
+          &.select-checkbox {
+            &:before {
+              left: 45px;
+            }
+            &:after {
+              left: 19px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// react scss
+.default-button, .support-forms{
+  .form-check-input{
+    border: 1px solid rgba($black, 0.25);
+  }
+}
+.slick-dots{
+  li{
+    button:before{
+      color: rgba($primary-color, 0.7);
+      font-size: 8px;
+    }
+  }
+  li.slick-active{
+    button:before{
+      color: $primary-color;
+    }
+  }
+}
+.carousal-page{
+  .card-body{
+    .slick-slider{
+      .slick-slide>div:first-child{
+        margin: 0 5px;
+      }
+      .slick-dots{
+        li{
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+.sticky-header-main{
+  .sticky-note{
+    .note.ui-draggable{
+      margin-bottom: 0;
+    }
+  }
+}
+.draggable-normal{
+  .react-trello-board{
+    height: auto;
+    padding: 0;
+  }
+}
+.modal-dialog{
+  &.static-modal{
+    .modal-content{
+      border: 1px solid $light-gray;
+      border-radius: 0.3rem;
+      .modal-header , .modal-footer , .modal-body{
+        padding: 1rem;
+      }
+      .modal-header, .modal-body{
+        border-bottom: 1px solid $light-gray;
+      }
+      .modal-footer{
+        border-top: none !important;
+      }
+    }
+  }
+}
+.data-tables{
+  .rdt_Table{
+    .rdt_TableHead{
+      .rdt_TableCol{
+        .rdt_TableCol_Sortable{
+          div{
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+}
