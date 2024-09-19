@@ -82,7 +82,8 @@ exports.notAssignedCustomers = async (affiliateId, req) => {
             where: {
                 id: {
                     [Op.notIn]: assignedUserIds.length > 0 ? assignedUserIds : [0]
-                }
+                },
+                role: 'customer'
             },
             order: [['createdAt', 'DESC']],
             distinct: true
