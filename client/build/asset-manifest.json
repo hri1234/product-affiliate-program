@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/static/css/main.3a4ca661.css",
+    "main.css": "/static/css/main.c9d06fef.css",
     "main.js": "/static/js/main.93f5812c.js",
     "static/media/loginBanner.png": "/static/media/loginBanner.e936c0bdca72e31543a9.png",
     "static/media/InterVariable-Italic.woff2": "/static/media/InterVariable-Italic.e295f70fe3e2df296c7b.woff2",
@@ -10,11 +10,11 @@
     "static/media/loading-7528_512.gif": "/static/media/loading-7528_512.77926b8d27137c1189c9.gif",
     "static/media/cropped-ITGeeks-Technologies-Pvt.-Ltd.-Logo.png": "/static/media/cropped-ITGeeks-Technologies-Pvt.-Ltd.-Logo.d25a6bf544ebe55950e6.png",
     "index.html": "/index.html",
-    "main.3a4ca661.css.map": "/static/css/main.3a4ca661.css.map",
+    "main.c9d06fef.css.map": "/static/css/main.c9d06fef.css.map",
     "main.93f5812c.js.map": "/static/js/main.93f5812c.js.map"
   },
   "entrypoints": [
-    "static/css/main.3a4ca661.css",
+    "static/css/main.c9d06fef.css",
     "static/js/main.93f5812c.js"
   ]
 }
