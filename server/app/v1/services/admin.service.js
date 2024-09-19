@@ -19,6 +19,7 @@ exports.allUsers = async (req) => {
         const result = await Users.findAndCountAll({
             limit: limit,
             offset: offset,
+            where: { role: 'customer' },
             include:
             {
                 model: AffiliateAssign,
