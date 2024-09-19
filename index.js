@@ -58,15 +58,16 @@ const parentDirectory = path.join(__dirname, "server/app/v1/utils")
 //important to server the static file 
 // app.use(express.static(path.join(parentDirectory)));
 
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
+
 app.use('/', express.static(path.join(parentDirectory, 'images')));
 
 app.use(process.env.BASE_URL, routes);
 
 app.get('/:shortLinkId', redirectShortLink)
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-});
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;
