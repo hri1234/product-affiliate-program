@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaLink } from "react-icons/fa6";
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { Pagination } from '@mui/material';
+import { FaEdit } from "react-icons/fa";
 
 function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage }) {
 
@@ -17,6 +18,11 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage })
 
     const handlePageChange = (e, page) => {
         setCurrentPage(page)
+    }
+
+    const handleEdit = (id,name) => {
+        console.log(id, 'idd');
+        navigate(`edit/${id}`)
     }
 
     return (
@@ -45,10 +51,7 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage })
                                   Affiliate Links
                                     </H5> */}
                                 </span>
-                                {/* <Btn className="bg-white text-black" onClick={() => navigate('add')}>
-                                 Create Links
-                                  </Btn> */}
-                                <span onClick={() => navigate('add')} className=' cursor-pointer p-2 bg-black text-white rounded'>
+                                <span onClick={() => navigate('add')} className=' hover:opacity-90 cursor-pointer p-2 bg-black text-white rounded'>
                                     Create Links
                                 </span>
                             </div>
@@ -63,7 +66,7 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage })
                                                     {itm?.imageUrl ? (
                                                         <img
                                                             className='w-full h-full object-fit rounded-xl'
-                                                            src={`https://${itm?.imageUrl}`}
+                                                            src={`${itm?.imageUrl}`}
                                                             alt="Affiliate Link"
                                                         />
                                                     ) : (
@@ -73,7 +76,12 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage })
 
                                                 <div className=' w-full  p-1  rounded-xl mr-1 flex flex-col justify-between'>
                                                     <div className=' flex flex-col gap-5'>
-                                                        <span className='font-semibold text-lg'>{itm?.name}</span>
+                                                        <div className='flex items-center justify-between relative'>
+                                                            <span className='font-semibold text-lg'>{itm?.name}</span>
+                                                            {/* <span onClick={() => { handleEdit(itm?.id,itm?.name) }} className=' pl-[20px] cursor-pointer hover:opacity-90 absolute right-[-15px] top-[-16px]'>
+                                                                <FaEdit size={18} />
+                                                            </span> */}
+                                                        </div>
                                                         <div className='flex flex-col gap-3'>
 
                                                             <span className=' flex gap-2 items-center text-[14.5px] border p-2 text-ellipsis rounded w-full justify-center  cursor-pointer'>

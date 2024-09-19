@@ -14,14 +14,12 @@ function AdminDashboardWrapper() {
   const [count, setCount] = useState(1);
   const navigate = useNavigate()
   const userToken = Cookies.get("isLogged");
-  useEffect(()=>
-  {
-    if(!userToken || userToken==null || userToken=='')
-    {
+  useEffect(() => {
+    if (!userToken || userToken == null || userToken == '') {
       navigate('/');
-      
+
     }
-  },[userToken])
+  }, [userToken])
 
   const dataPerPage = 6;
 
@@ -41,7 +39,7 @@ function AdminDashboardWrapper() {
       setLoading(false);
       setListData(data?.result);
       console.log(data?.result?.result?.count, 'count')
-      setCount(Math.ceil(data?.result?.result?.count/dataPerPage))
+      setCount(Math.ceil(data?.result?.result?.count / dataPerPage))
     }
   }, [isLoading, isFetching, data])
 

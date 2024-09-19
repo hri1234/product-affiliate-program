@@ -18,7 +18,7 @@ const ProfileService = CreateApi.injectEndpoints(
                 ), 
                 UpdateProfile: builder.mutation(
                     {
-                        providesTags: ['profile'],
+                        invalidatesTags: ['profile'],
                         query: ({ Id, data }) => (
                             {
                                 url:`/auth/profile-update`,

@@ -6,7 +6,7 @@ const AffiliateService = CreateApi.injectEndpoints(
             {
                 GetAffiliateList: builder.query(
                     {
-                        providesTags: ["links"],
+                        providesTags: ["links","adminAffiliate"],
                         query: ({ Id, data }) => (
                             {
                                 url: `/affiliate/list`,
@@ -39,7 +39,9 @@ const AffiliateService = CreateApi.injectEndpoints(
                             }
                         )
                     }
-                )
+                ),
+                
+
             }
         )
     }

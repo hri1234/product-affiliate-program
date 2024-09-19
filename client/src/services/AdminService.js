@@ -88,10 +88,47 @@ const AdminService = CreateApi.injectEndpoints(
                         )
                     }
                 ),
+                EditAffiliate: builder.mutation(
+                    {
+                        invalidatesTags: ["adminAffiliate"],
+                        query: ({ Id, data }) => (
+                            {
+                                url: `/admin/affiliate/${Id}`,
+                                method: "POST",
+                                body: data
+                            }
+                        )
+                    }
+                ),
+                GetSingleAffiliate: builder.query(
+                    {
+                        providesTags: ["adminAffiliate"],
+                        query: ({ Id, data }) => (
+                            {
+                                url: `/affiliate/getAffiliateById/${Id}`,
+                                method: "POST",
+                                body: data
+                            }
+                        )
+                    }
+                ),
+                UploadImage: builder.mutation(
+                    {
+                        providesTags: ["image"],
+                        query: ({ Id, data }) => (
+                            {
+                                url: `/affiliate/upload`,
+                                method: "POST",
+                                body: data
+                            }
+                        )
+                    }
+                ),
+
 
             }
         )
     }
 );
 
-export const { useGetUserListQuery, useAddInvoiceMutation, useGetIndividualInvoiceListQuery, useUpdateInvoiceStatusMutation, useGetAffiliateAvailableUsersQuery, useAssignAffiliateMutation, useGetAssignedCustomerListQuery } = AdminService;
+export const { useGetUserListQuery, useAddInvoiceMutation, useGetIndividualInvoiceListQuery, useUpdateInvoiceStatusMutation, useGetAffiliateAvailableUsersQuery, useAssignAffiliateMutation, useGetAssignedCustomerListQuery ,useEditAffiliateMutation ,useGetSingleAffiliateQuery  ,useUploadImageMutation } = AdminService;

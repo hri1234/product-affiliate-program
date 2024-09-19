@@ -120,6 +120,10 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
         console.log(SelectedUsers, 'selectedUsers');
 
     }
+    console.log(
+
+        AssignedListData
+    )
 
     return (
         <>
@@ -132,103 +136,121 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
                     </div>
 
                     :
-                    NotAssignedlistData?.result?.rows?.length <= 0 ?
-                        <div className=' w-full flex items-center justify-center'>
-                            <span className=' w-fit flex  items-center justify-center'>
-                                {/* <AiOutlineLoading3Quarters /> */}
-                                No data found
+
+                    <div className=' flex flex-col gap-3'>
+
+                        <div className='mb-3'>
+                            <div className='flex w-full justify-between px-1 py-2 mb-2'>
+                                <span onClick={() => { navigate('/dashboard/affiliate-links') }} className='font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
+                                    <IoArrowBack size={20} />
+                                </span>
+                            </div>
+                            <hr className='mb-2' />
+
+                            <span className=' font-semibold text-[20px]'>
+                                Assigned Users
                             </span>
-                        </div>
-                        :
-                        <div className=' flex flex-col gap-3'>
-
-                            <div className='mb-3'>
-                                <div className='flex w-full justify-between px-1 py-2 mb-2'>
-                                    <span onClick={() => { navigate('/dashboard/affiliate-links') }} className='font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
-                                        <IoArrowBack size={20} />
-                                    </span>
-                                </div>
-                                <hr className='mb-2' />
-
-                                <span className=' font-semibold text-[20px]'>
-                                    Assigned Users
-                                </span>
-                                <div className='invoices-page'>
-                                    <div className='table-container'>
-                                        <table className=''>
-                                            <thead>
-                                                <tr>
-                                                    <th>User Email</th>
-                                                    <th>Country</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-
-                                                {
-
-                                                    AssignedListData?.rows?.map((itm, indx) => (
-                                                        <tr key={indx}>
-                                                            <td>{itm?.user?.email}</td>
-                                                            <td>{itm?.user?.country}</td>
-
-                                                        </tr>
-                                                    ))
-                                                }
-                                                <tr className="spacer-row">
-                                                    <td colSpan="5"></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                            {
+                                AssignedListData?.result?.rows?.length <= 0 ?
+                                    <div className=' w-full flex items-center justify-center'>
+                                        <span className=' w-fit flex  items-center justify-center'>
+                                            {/* <AiOutlineLoading3Quarters /> */}
+                                            No data found
+                                        </span>
                                     </div>
-                                </div>
-                            </div>
+                                    :
 
-                            <hr />
-                            <div className=' mt-2'>
-                                <span className='font-semibold text-[20px]'>
+                                    <div className='invoices-page'>
+                                        <div className='table-container'>
+                                            <table className=''>
+                                                <thead>
+                                                    <tr>
+                                                        <th>User Email</th>
+                                                        <th>Country</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
 
-                                    Not Assigned Users
-                                </span>
-                                <div className='invoices-page'>
-                                    <div className='table-container'>
-                                        <table className=''>
-                                            <thead>
-                                                <tr>
-                                                    <th>User Email</th>
-                                                    <th>Country</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
+                                                    {
 
-                                                {
+                                                        AssignedListData?.rows?.map((itm, indx) => (
+                                                            <tr key={indx}>
+                                                                <td>{itm?.user?.email}</td>
+                                                                <td>{itm?.user?.country}</td>
 
-                                                    NotAssignedlistData?.result?.rows?.map((itm, indx) => (
-                                                        <tr key={indx}>
-                                                            <td>{itm?.email}</td>
-                                                            <td>{itm?.country}</td>
-                                                            <td className=' flex gap-2 items-center mt-1 pl-[30px]'>
-
-                                                                <input value={itm?.id} checked={SelectedUsers?.includes(itm?.id)} onChange={handleCheckboxChange} type="checkbox" />
-
-                                                            </td>
-                                                        </tr>
-                                                    ))
-                                                }
-                                                <tr className="spacer-row">
-                                                    <td colSpan="5"></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                                            </tr>
+                                                        ))
+                                                    }
+                                                    <tr className="spacer-row">
+                                                        <td colSpan="5"></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className='w-full flex justify-end px-4'>
-                                    <button onClick={() => handleSubmit()} className=' w-[120px] bg-black text-white rounded py-2 mt-3'>
-                                        Submit
-                                    </button>
-                                </div>
-                            </div>
+                            }
                         </div>
+
+                        <hr />
+
+                        <div className=' mt-2'>
+                            <span className='font-semibold text-[20px]'>
+
+                                Not Assigned Users
+                            </span>
+                            {
+                                NotAssignedlistData?.result?.rows?.length <= 0 ?
+                                    <div className=' w-full flex items-center justify-center'>
+                                        <span className=' w-fit flex  items-center justify-center'>
+                                            {/* <AiOutlineLoading3Quarters /> */}
+                                            No data found
+                                        </span>
+                                    </div>
+                                    :
+                                    <>
+                                        <div className='invoices-page'>
+                                            <div className='table-container'>
+                                                <table className=''>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>User Email</th>
+                                                            <th>Country</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        {
+
+                                                            NotAssignedlistData?.result?.rows?.map((itm, indx) => (
+                                                                <tr key={indx}>
+                                                                    <td>{itm?.email}</td>
+                                                                    <td>{itm?.country}</td>
+                                                                    <td className=' flex gap-2 items-center mt-1 pl-[30px]'>
+
+                                                                        <input value={itm?.id} checked={SelectedUsers?.includes(itm?.id)} onChange={handleCheckboxChange} type="checkbox" />
+
+                                                                    </td>
+                                                                </tr>
+                                                            ))
+                                                        }
+                                                        <tr className="spacer-row">
+                                                            <td colSpan="5"></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div className='w-full flex justify-end px-4'>
+                                            <button onClick={() => handleSubmit()} className=' w-[120px] bg-black text-white rounded py-2 mt-3'>
+                                                Submit
+                                            </button>
+                                        </div>
+                                    </>
+                            }
+
+                        </div>
+                    </div>
 
             }
         </>

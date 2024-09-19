@@ -29,6 +29,7 @@ import AdminAffiliateLinksWrapper from './Pages/ADMIN/Affiliate/AdminAffiliateLi
 import AdminAddAffiliateLinksWrapper from './Pages/ADMIN/Affiliate/AddAffiliate/AddAffiliateLinksWrapper';
 import AssignAffiliateWrapper from './Pages/ADMIN/Affiliate/AssignAffiliate/AssignAffiliateWrapper';
 import AnalyticsGraphWrapper from './Pages/AnalyticsGraph/AnalyticsGraphWrapper';
+import EditAffiliateWrapper from './Pages/ADMIN/Affiliate/EditAffiliate/EditAffiliateWrapper';
 
 function Routing() {
     const [authenticateLogin, setAthenticateLogin] = useState(false);
@@ -83,14 +84,16 @@ function Routing() {
                             <Route path='analytics/:id/:name' element={<AnalyticsGraphWrapper />} />
                         </Route>
                         :
+                        authenticateLogin &&
                         <Route path='/dashboard/' element={<Layout />} >
                             <Route path='' element={<AdminDashboardWrapper />} />
                             <Route path='profile' element={<ProfileWrapper />} />
                             <Route path='invoice/add/:id/:email' element={<AddInvoiceWrapper />} />
                             <Route path='invoice/view/:id/:email' element={<ViewInvoiceWrapper />} />
                             <Route path='affiliate-links' element={<AdminAffiliateLinksWrapper />} />
-                            <Route path='affiliate-links/add' element={<AdminAddAffiliateLinksWrapper/>} />
-                            <Route path='affiliate-links/assign/:id' element={<AssignAffiliateWrapper/>} />
+                            <Route path='affiliate-links/add' element={<AdminAddAffiliateLinksWrapper />} />
+                            <Route path='affiliate-links/edit/:id' element={<EditAffiliateWrapper />} />
+                            <Route path='affiliate-links/assign/:id' element={<AssignAffiliateWrapper />} />
                         </Route>
                 }
             </Routes>

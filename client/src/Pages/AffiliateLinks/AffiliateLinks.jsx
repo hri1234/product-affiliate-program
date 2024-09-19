@@ -60,7 +60,7 @@ function AffiliateLinks({ uniqueId, listData, loading }) {
                         <div className=' object-contain w-1/2 shadow-sm rounded-xl h-[220px]  p-2 bg-slate-100'>
                           {/* <img src="https://partners.krownthemes.com/_next/image?url=%2Fimages%2Flocal.jpg&w=384&q=75" alt="" /> */}
 
-                          <img className='object-fit h-full w-full' src={`https://${itm?.affiliate?.imageUrl}`} alt="IMG" />
+                          <img className='object-fit h-full w-full' src={`${itm?.affiliate?.imageUrl}`} alt="IMG" />
                         </div>
                         <div className=' w-full  p-1  rounded-xl mr-1 flex flex-col justify-between'>
                           <div className=' flex flex-col gap-5'>

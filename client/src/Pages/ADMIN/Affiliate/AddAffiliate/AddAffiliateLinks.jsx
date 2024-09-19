@@ -9,6 +9,7 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import toast from 'react-hot-toast';
 import { useAddAffiliateLinkMutation } from '../../../../services/AffiliateService';
 import { useNavigate } from 'react-router-dom';
+import { useUploadImageMutation } from '../../../../services/AdminService';
 // import { useGetProfileDataQuery } from '../../services/AuthServices';
 
 function AdminAddAffiliateLinks({ listData, loading }) {
@@ -19,7 +20,8 @@ function AdminAddAffiliateLinks({ listData, loading }) {
     const [AddAffiliate] = useAddAffiliateLinkMutation();
     const [FileName, setFileName] = useState('No file choosen');
     const [ImageUrl, setImageUrl] = useState('');
-    const [ImageData, setImageData] = useState(null);
+
+    const [UploadImage] = useUploadImageMutation();
 
     console.log(submitLoading, 'SubmitLoading')
 
@@ -53,21 +55,31 @@ function AdminAddAffiliateLinks({ listData, loading }) {
 
         setSubmitLoading(true);
 
+
+        // const formData = new FormData();
+        // formData.append('image', ImageUrl);
+        // formData.append('name', data?.name);
+        // formData.append('link', data?.link);
+        // formData.append('dropboxLink', data?.dropboxLink);
+
         let DataForApi = {
             "name": data?.name,
             "link": data?.link,
             "dropboxLink": data?.dropboxLink,
+            "imageUrl": ImageUrl
             // "purchases": data?.purchases,
             // "clickCount": data?.clickCount
         }
 
-        const formData = new FormData();
-        formData.append('image', ImageData);
-        formData.append('name', data?.name);
-        formData.append('link', data?.link);
-        formData.append('dropboxLink', data?.dropboxLink);
+        // let DataForApi = {
+        //     "name": data?.name,
+        //     "link": data?.link,
+        //     "dropboxLink": data?.dropboxLink,
+        //     // "purchases": data?.purchases,
+        //     // "clickCount": data?.clickCount
+        // }
 
-        AddAffiliate({ data: formData })
+        AddAffiliate({ data: DataForApi })
             .then((res) => {
                 if (res.error) {
                     console.log(res.error, 'res.error');
@@ -92,8 +104,24 @@ function AdminAddAffiliateLinks({ listData, loading }) {
         const File = event.target.files[0];
         if (File) {
 
-            setFileName(File.name);
-            setImageData(File);
+            const formData = new FormData()
+            formData.append('file', File);
+
+            UploadImage({ data: formData })
+                .then((res) => {
+                    if (res?.error) {
+                        console.log(res?.error?.data?.message || "Internal server error", 'reserror')
+                    }
+                    else {
+
+                        console.log(res?.data?.result?.url, 'res res');
+                        setImageUrl(res?.data?.result?.url)
+                        setFileName(File.name);
+                    }
+                })
+                .catch((err) => {
+                    console.log(err?.data?.error || "Internal server errors", 'err')
+                })
 
             // const formData = new FormData();
             // formData.append('file', File);
@@ -101,7 +129,6 @@ function AdminAddAffiliateLinks({ listData, loading }) {
         else {
             setFileName('No file choosen');
             setImageUrl('');
-            setImageData(null);
         }
 
     }
