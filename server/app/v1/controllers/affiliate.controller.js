@@ -4,13 +4,24 @@ const { SuccessMessage, ErrorMessage } = require("../constants/messages.js");
 const statusCode = require("../constants/statusCodes.js");
 const db = require("../models");
 const Affiliate = db.affiliate;
+//aws 
+const aws = require("aws-sdk");
+const { v4: uuidv4 } = require("uuid");
+const path = require("path");
+
+const spacesEndpoint = new aws.Endpoint(process.env.S3_ENDPOINT);
+const s3 = new aws.S3({
+    endpoint: spacesEndpoint,
+    credentials: {
+        accessKeyId: process.env.S3_ACCESS_KEY,
+        secretAccessKey: process.env.S3_ACCESS_SECRET_KEY
+    }
+});
 
 //add affiliate link
 exports.addAffiliate = async (req, res) => {
     try {
-        if (req.checkImage === "Only images are allowed") {
-            return sendResponse(res, statusCode.BAD_REQUEST, false, `Only Images Are Allowed`)
-        }
+
         const link = req.body.link
         //short link id generate
         const shortUrl = await service.shortLink(req, res, link)
@@ -128,3 +139,52 @@ exports.updateAffiliate = async (req, res) => {
         return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR)
     }
 }
+
+exports.fileUpload = async (request, response) => {
+    try {
+       
+        const shop = "images"
+        let uploadPromises = {}
+        const file = request.file
+        if (request.file) {
+            const storageUuid = uuidv4();
+            const fileContent = file.buffer;
+            const originalname = file.originalname;
+            const extension = path.extname(originalname);
+            const type = file.mimetype;
+            const key = `${storageUuid}${extension}`;
+            const params = {
+                Bucket: `${process.env.S3_BUCKET}/${shop}`,
+                Key: key,
+                Body: fileContent,
+                ACL: "public-read",
+                ContentType: type
+            };
+
+            // Create a promise for each file upload
+            const uploadPromise = new Promise((resolve, reject) => {
+                s3.putObject(params, (err, data) => {
+                    if (err) {
+                        console.error("Error uploading image:", err);
+                        reject(err);
+                    } else {
+                        const fileUrl = `${process.env.S3_BASEURL}/${shop}/${key}`;
+                        resolve({ id: storageUuid, url: fileUrl });
+                    }
+                });
+            });
+            const result = await uploadPromise
+            uploadPromises.id = await result.id;
+            uploadPromises.url = await result.url;
+
+        }
+        if (uploadPromises) {
+            return sendResponse(response, statusCode.OK, true, SuccessMessage.UPLOAD_FILE_SUCCESS, uploadPromises);
+        } else {
+            return sendResponse(response, statusCode.BAD_REQUEST, false, ErrorMessage.UPLOAD_FILE_FAILURE);
+        }
+    } catch (error) {
+        console.log(error);
+        return sendResponse(response, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR);
+    }
+};

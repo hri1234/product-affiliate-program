@@ -27,7 +27,7 @@ exports.allUsers = async (req) => {
             },
 
             order: [['createdAt', 'DESC']],
-            attributes: ["id", "email", "country", "city", "userId", "address", "companyName", "companyNumber", 'createdAt'],
+            attributes: ["id", "email", "country", "city", "address", "userId", "companyName", "companyNumber", 'createdAt'],
             distinct: true
 
 

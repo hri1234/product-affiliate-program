@@ -11,6 +11,7 @@ module.exports.SuccessMessage = {
   DELETE: "Delete Success.",
   UPLOADED: "Uploaded Success.",
   SAVED: "Saved Success.",
+  UPLOAD_FILE_SUCCESS:"File Uploaded Successsfully"
 
 };
 //Error messages

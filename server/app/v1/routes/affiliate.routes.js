@@ -4,10 +4,17 @@ const router = express.Router();
 const validation = require("../validations/affiliate.validation.js");
 const upload = require('../middleware/uploadMiddleware.js')
 
+const multer = require("multer");
+const storage = multer.memoryStorage(); // Save the file as a buffer
+const uploads = multer({ storage: storage });
+
+
+
 const { authenticate } = require('../middleware/authentication.js')
 
-router.post('/add', authenticate, upload.single('image'), controllers.addAffiliate);
+router.post('/add', authenticate, controllers.addAffiliate);
 router.post('/updateAffiliate/:id',upload.single('image'),controllers.updateAffiliate)
+router.post("/upload", uploads.single("file"), controllers.fileUpload);
 router.post('/list', authenticate, controllers.getAffiliate)
 router.get('/:id', controllers.redirectShortLink);
 router.post('/assign-affiliate/add/:id',controllers.addAssignAffiliate)
