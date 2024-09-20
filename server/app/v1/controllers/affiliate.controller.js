@@ -140,6 +140,29 @@ exports.updateAffiliate = async (req, res) => {
     }
 }
 
+exports.getAffiliateById=async (req,res)=>{
+
+    try {
+        const id=req.params.id
+        const result = await service.getAffiliateById(id);
+        if (result.status && result) {
+            return sendResponse(res, statusCode.OK, true, `Affiliate ${SuccessMessage.FETCH}fully`, result.result)
+        }
+        else if (result.status == false && !result.result) {
+            sendResponse(res, statusCode.BAD_REQUEST, false, ErrorMessage.BAD_REQUEST)
+
+        }
+        else if (result.status == false && result.result) {
+            return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR)
+
+        }
+    } catch (error) {
+        console.log(error)
+        return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR)
+
+    }
+
+}
 exports.fileUpload = async (request, response) => {
     try {
        
