@@ -1,9 +1,13 @@
 import React from 'react';
 import './Invoices.css';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { Pagination } from '@mui/material';
 
-function Invoices({ listData, loading }) {
+function Invoices({ listData, loading, count, setCurrentPage, currentPage }) {
 
+  const handlePageChange = async (e, page) => {
+    setCurrentPage(page)
+  }
 
   return (
     <>
@@ -51,7 +55,19 @@ function Invoices({ listData, loading }) {
                     </tr>
                   </tbody>
                 </table>
-              </div>
+
+                  </div>
+                <div className='w-full flex justify-end py-4'>
+
+                  <Pagination
+                    shape="rounded"
+                    variant="outlined"
+                    color="standard"
+                    page={currentPage}
+                    count={count}
+                    onChange={handlePageChange}
+                  />
+                </div>
             </div>
       }
     </>

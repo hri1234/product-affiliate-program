@@ -7,7 +7,7 @@ import { MdRemoveRedEye } from "react-icons/md";
 import { FaSquarePlus } from "react-icons/fa6";
 import { Pagination } from '@mui/material';
 
-function AdminDashboard({ loading, ListData ,setCurrentPage ,currentPage ,count}) {
+function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count }) {
 
   const navigate = useNavigate();
 
@@ -15,15 +15,22 @@ function AdminDashboard({ loading, ListData ,setCurrentPage ,currentPage ,count}
   console.log(ListData?.rows, 'ListDataaa')
 
   const handleAddInvoice = (itm) => {
-    console.log(itm, 'itm')
-    navigate(`invoice/add/${itm?.id}/${itm?.email}`)
+    const data = { email: itm?.email }
+    navigate(`invoice/add/${itm?.id}`, { state: data })
   }
 
   const handleViewInvoice = (itm) => {
-    navigate(`invoice/view/${itm?.id}/${itm?.email}`)
+    // navigate(`invoice/view/${itm?.id}/${itm?.email}`);
+    const data = { email: itm?.email };
+    navigate(`invoice/view/${itm?.id}`, { state: data });
   }
   const handlePageChange = (e, page) => {
     setCurrentPage(page)
+  }
+
+  const handleEmailClick = (id) => {
+    console.log('email click................', id);
+    navigate(`customer/profile/${id}`)
   }
 
   return (
@@ -45,68 +52,68 @@ function AdminDashboard({ loading, ListData ,setCurrentPage ,currentPage ,count}
               </span>
             </div>
             :
-            <div> 
+            <div>
               <span className='font-semibold text-[20px]'>
                 Users List
               </span>
 
-            <div className='invoices-page'>
-              <div className='table-container'>
-                <table className=''>
-                  <thead>
-                    <tr>
-                      <th>Utm Id</th>
-                      <th>Email</th>
-                      <th>Company name</th>
-                      <th>Themes</th>
-                      <th>Invoices</th>
-                    </tr>
-                  </thead>
-                  <tbody>
+              <div className='invoices-page'>
+                <div className='table-container'>
+                  <table className=''>
+                    <thead>
+                      <tr>
+                        <th>Utm Id</th>
+                        <th>Email</th>
+                        <th>Company name</th>
+                        <th>Themes</th>
+                        <th>Invoices</th>
+                      </tr>
+                    </thead>
+                    <tbody>
 
-                    {
+                      {
 
-                      ListData?.rows?.map((itm, indx) => (
-                        <tr key={indx}>
-                          {console.log(itm,'User list item')}
-                          <td>{itm?.userId}</td>
-                          <td>{itm?.email}</td>
-                          <td>{itm?.companyName}</td>
-                          <td>{itm?.affiliateCount}</td>
-                          <td className=' flex gap-2'>
-                            <span onClick={() => { handleViewInvoice(itm) }} className=' hover:opacity-85 flex items-center justify-center cursor-pointer  rounded px-1'>
-                              {/* View */}
-                              {/* <IoEyeOutline/> */}
-                              <MdRemoveRedEye size={22} />
-                            </span>
-                            <span onClick={() => { handleAddInvoice(itm) }} className=' hover:opacity-85 rounded cursor-pointer px-1'>
-                              {/* Add */}
-                              <FaSquarePlus size={20} />
-                            </span>
+                        ListData?.rows?.map((itm, indx) => (
+                          <tr key={indx}>
+                            {console.log(itm, 'User list item')}
+                            <td>{itm?.userId}</td>
+                            <td><span className='hover:underline cursor-pointer' onClick={() => { handleEmailClick(itm?.id) }}>{itm?.email}</span></td>
+                            <td>{itm?.companyName}</td>
+                            <td>{itm?.affiliateCount}</td>
+                            <td className=' flex gap-2'>
+                              <span onClick={() => { handleViewInvoice(itm) }} className=' hover:opacity-85 flex items-center justify-center cursor-pointer  rounded px-1'>
+                                {/* View */}
+                                {/* <IoEyeOutline/> */}
+                                <MdRemoveRedEye size={22} />
+                              </span>
+                              <span onClick={() => { handleAddInvoice(itm) }} className=' hover:opacity-85 rounded cursor-pointer px-1'>
+                                {/* Add */}
+                                <FaSquarePlus size={20} />
+                              </span>
 
-                          </td>
+                            </td>
 
-                        </tr>
-                      ))
-                    }
-                    <tr className="spacer-row">
-                      <td colSpan="5"></td>
-                    </tr>
-                  </tbody>
-                </table>
+                          </tr>
+                        ))
+                      }
+                      <tr className="spacer-row">
+                        <td colSpan="5"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className='w-full flex justify-end py-4'>
+
+                  <Pagination
+                    shape="rounded"
+                    variant="outlined"
+                    color="standard"
+                    page={currentPage}
+                    count={count}
+                    onChange={handlePageChange}
+                  />
+                </div>
               </div>
-              <div className='w-full flex justify-end py-4'>
-
-                <Pagination
-                  shape="rounded"
-                  variant="outlined"
-                  color="standard"
-                  page={currentPage}
-                  count={count}
-                  onChange={handlePageChange}
-                />
-              </div>
-            </div>
             </div>
 
       }

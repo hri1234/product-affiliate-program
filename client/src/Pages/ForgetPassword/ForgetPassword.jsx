@@ -10,7 +10,8 @@ import { useResetPasswordMutation } from '../../services/AuthServices';
 import Cookies from 'js-cookie';
 // import { toast } from 'react-toastify';
 import { toast } from 'react-hot-toast'
-import LoginBanner from '../../Assets/loginBanner.png';
+// import LoginBanner from '../../Assets/loginBanner.png';
+import Banner from '../../Assets/logo/new-banner02.jpg'
 import { FiEye } from "react-icons/fi";
 import { FiEyeOff } from "react-icons/fi";
 
@@ -89,14 +90,14 @@ function ForgetPassword() {
 
                                         <div className=" w-full flex items-center justify-center login-tab">
                                             <div className="  bg-white w-[78%] border shadow-md rounded-[10px] py-6 px-6 flex md:flex-row flex-col-reverse gap-8">
-                                                <div className=" w-full md:w-[45%]">
+                                                <div className=" w-full md:w-[50%]">
 
-                                                    <div className="theme-form flex flex-col gap-3 p-2">
+                                                    <div className="theme-form flex flex-col gap-3 p-2 mt-2">
                                                         <div className=' flex flex-col gap-3'>
-                                                            <Image
+                                                            {/* <Image
                                                                 className="img-fluid for-light mx-auto h-[65px] w-[65px]"
                                                                 src={require("../../Assets/logo/itg_logo.webp")}
-                                                            />
+                                                            /> */}
                                                             <H4 className="text-center font-semibold text-2xl">Reset password</H4>
                                                         </div>
                                                         <P className="text-center">{"Enter details to reset your password"}</P>
@@ -133,8 +134,8 @@ function ForgetPassword() {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className=" w-full p-2 md:w-[60%] object-contain md:object-cover h-[200px]  md:h-[460px]">
-                                                    <img src={LoginBanner} className=" shadow-xl object-cover w-full h-full rounded-[16px]" alt="" />
+                                                <div className=" w-full p-2 md:w-[50%] object-contain md:object-cover h-[200px]  md:h-[460px]">
+                                                    <img src={Banner} className=" shadow-xl object-cover w-full h-full rounded-[16px]" alt="" />
                                                 </div>
                                             </div>
                                         </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ViewInvoice from './ViewInvoice';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useGetIndividualInvoiceListQuery } from '../../../services/AdminService';
 import { useGetMonthlyAnalysisQuery } from '../../../services/DashboardService';
 
@@ -10,6 +10,9 @@ function ViewInvoiceWrapper() {
     const id=paramData?.id;
     console.log('param id viewInvoice',id);
 
+    const location = useLocation();
+    const { email } = location.state ;
+
     const [loading,setLoading] = useState(false);
     const [ListData,setListData] = useState([]);
 
@@ -18,7 +21,7 @@ function ViewInvoiceWrapper() {
 
   
     const {data, isLoading ,isFetching}=useGetIndividualInvoiceListQuery({Id:id});
-  
+    
     useEffect(()=>
     {
       if(isLoading || isFetching)
@@ -59,7 +62,7 @@ function ViewInvoiceWrapper() {
 
   return (
     <div className='page-body px-4'>
-        <ViewInvoice listData={ListData?.result} loading={loading} OverViewData={OverViewData} />
+        <ViewInvoice listData={ListData?.result} loading={loading} OverViewData={OverViewData} email={email} />
     </div>
   )
 }

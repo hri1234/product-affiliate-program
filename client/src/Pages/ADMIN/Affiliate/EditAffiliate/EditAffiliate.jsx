@@ -29,22 +29,26 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import toast from 'react-hot-toast';
 import { useAddAffiliateLinkMutation } from '../../../../services/AffiliateService';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useUploadImageMutation } from '../../../../services/AdminService';
+import { useEditAffiliateMutation, useUploadImageMutation } from '../../../../services/AdminService';
 import { IoArrowBack } from 'react-icons/io5';
+import { FaEdit } from 'react-icons/fa';
 // import { useGetProfileDataQuery } from '../../services/AuthServices';
 
 function EditAffiliate({ listData, loading }) {
 
     const navigate = useNavigate();
     const [submitLoading, setSubmitLoading] = useState(false);
-    const [imageUploadLoading,setImageUploadLoading] = useState(false)
+    const [imageUploadLoading, setImageUploadLoading] = useState(false)
     const [AddAffiliate] = useAddAffiliateLinkMutation();
     const [FileName, setFileName] = useState('No file choosen');
     const [ImageUrl, setImageUrl] = useState('');
     const [ImageData, setImageData] = useState(null);
+    const paramData = useParams();
+    const AffiliateId = paramData?.id
 
 
     const [UploadImage] = useUploadImageMutation();
+    const [EditAffilaite] = useEditAffiliateMutation();
 
     console.log(listData, 'listDataa');
 
@@ -76,49 +80,42 @@ function EditAffiliate({ listData, loading }) {
 
         let DataForApi = {
             "name": data?.name,
+            "imageUrl": ImageUrl
             // "link": data?.link,
             // "dropboxLink": data?.dropboxLink,
             // "purchases": data?.purchases,
             // "clickCount": data?.clickCount
         }
+        EditAffilaite({ Id: AffiliateId, data: DataForApi })
+            .then((res) => {
+                if (res.error) {
+                    console.log(res.error, 'res.error');
+                    toast.error(res?.error?.data?.message || "Internal server erro");
+                    setSubmitLoading(false)
+                }
+                else {
+                    console.log(res, 'res');
+                    //   toast.success("Data updated successfully");
+                    navigate('/dashboard/affiliate-links')
+                    setSubmitLoading(false)
+                }
+            })
+            .catch((err) => {
+                console.log(err, 'err');
+                toast.error("Internal server error");
+                setSubmitLoading(false)
+            })
 
-        const formData = new FormData();
-        formData.append('image', ImageData);
-        formData.append('name', data?.name);
-        // formData.append('link', data?.link);
-        // formData.append('dropboxLink', data?.dropboxLink);
-
-        // AddAffiliate({ data: formData })
-        //     .then((res) => {
-        //         if (res.error) {
-        //             console.log(res.error, 'res.error');
-        //             toast.error(res?.error?.data?.message);
-        //             setSubmitLoading(false)
-        //         }
-        //         else {
-        //             console.log(res, 'res');
-        //             //   toast.success("Data updated successfully");
-        //             navigate('/dashboard/affiliate-links')
-        //             setSubmitLoading(false)
-        //         }
-        //     })
-        //     .catch((err) => {
-        //         console.log(err, 'err');
-        //         toast.error("Internal server error");
-        //         setSubmitLoading(false)
-        //     })
-
-        
 
     };
 
     const handleThumbnail = async (event) => {
-        setImageUploadLoading(true)
-        const File = event.target.files[0]; 
+        const File = event.target.files[0];
         if (File) {
 
             const formData = new FormData()
             formData.append('file', File);
+            setImageUploadLoading(true)
 
             UploadImage({ data: formData })
                 .then((res) => {
@@ -142,9 +139,6 @@ function EditAffiliate({ listData, loading }) {
         }
         else {
             setFileName('No file choosen');
-            // setImageUrl('');
-            setImageUploadLoading(false)
-
             setImageData(null);
         }
 
@@ -189,15 +183,9 @@ function EditAffiliate({ listData, loading }) {
                                                 <CardBody>
                                                     <Row className='g-3 pb-1'>
                                                         <Col md='6'>
-                                                            {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter First Name *' register={{ ...register('first_name', { required: 'is Required.' }) }} /> */}
                                                             {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, in! */}
                                                             <InputComponent label={"Name"} type="text" name='name' value={profileProps.values.name} placeholder='Enter affiliate name' onChange={profileProps.handleChange} />
                                                         </Col>
-                                                        {/* <Col md='4'>
-                                                        <InputComponent label={"Click count"} type={"text"} value={profileProps.values.clickCount} name='clickCount' onChange={profileProps.handleChange} placeholder={"Enter Click count"} />
-                                                    </Col> */}
-
-                                                        {/* <InputComponent label={"Purchases"} type={"text"} value={profileProps.values.purchases} name='purchases' onChange={profileProps.handleChange} placeholder={"Enter purchase count"} /> */}
                                                         <br />
                                                         <br />
                                                     </Row>
@@ -209,13 +197,31 @@ function EditAffiliate({ listData, loading }) {
                                                             <div className='flex flex-col gap-2 '>
 
                                                                 <span className=' font-semibold text-[13px]'>Thumbnail Image</span>
-                                                                <span className=' w-full flex gap-0 flex-col '>
-                                                                    <img className='w-fit max-w-[450px] max-h-[350px]' src={ImageUrl} alt="" />
-                                                                    <span className=' pt-2'>
-                                                                        <span className='hidden w-0 h-0'>
-                                                                            <input type="file" id='thumbnail' onChange={(e) => handleThumbnail(e)} />
+                                                                <span className=' w-full flex gap-2 items-center '>
+                                                                    <div className='relative flex justify-between'>
+                                                                        <img className='w-fit max-w-[450px] min-h-[300px] min-w-[400px] max-h-[350px]' src={ImageUrl} alt="" />
+                                                                        <span className='absolute right-[-8px] top-[-8px]'>
+                                                                            <span className=' w-0 h-0'>
+                                                                                    
+                                                                                <input className='hidden' type="file" id='thumbnail' onChange={(e) => handleThumbnail(e)} />
+                                                                                <label htmlFor="thumbnail">
+                                                                                    <FaEdit/>
+                                                                                </label>
+                                                                            </span>
                                                                         </span>
-                                                                        <label htmlFor="thumbnail" className='border py-[8px] rounded px-4 bg-slate-200 mt-2'>Change</label>
+                                                                    </div>
+                                                                    <span className=' pt-2'>
+
+                                                                        <span  className=' py-[8px] rounded px-4  mt-2'>
+                                                                            {
+                                                                                imageUploadLoading ?
+                                                                                    <span className=' w-fit flex py-1 items-center justify-center m-auto self-center animate-spin'>
+                                                                                        <AiOutlineLoading3Quarters />
+                                                                                    </span>
+                                                                                    :
+                                                                                    ""
+                                                                            }
+                                                                        </span>
                                                                     </span>
                                                                 </span>
 

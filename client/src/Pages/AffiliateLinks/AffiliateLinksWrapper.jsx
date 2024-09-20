@@ -8,19 +8,29 @@ function AffiliateLinksWrapper() {
 
   const UserToken = Cookies.get("isLogged");
   const [UserId, setUserId] = useState(0);
-  const [uniqueId,setUniqueId] = useState('')
+  const [uniqueId, setUniqueId] = useState('')
+  const [count, setCount] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
+  const dataPerPage = 4
+
   useEffect(() => {
     if (UserToken) {
       const decodedToken = jwtDecode(UserToken);
       console.log(decodedToken?.id, 'decodedTOKEN')
       setUserId(decodedToken?.id)
-      console.log(decodedToken?.uniqueId,'UID')
+      console.log(decodedToken?.uniqueId, 'UID')
       setUniqueId(decodedToken?.uniqueId)
     }
   }, [UserToken])
 
 
-  const { data, isLoading: listLoading, isFetching: listFetching } = useGetIndividualAffiliateListQuery({ Id: UserId })
+  const { data, isLoading: listLoading, isFetching: listFetching } = useGetIndividualAffiliateListQuery({
+    Id: UserId,
+    data: {
+      limit: dataPerPage,
+      page: currentPage
+    }
+  })
 
   const [listData, setListData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -32,6 +42,7 @@ function AffiliateLinksWrapper() {
     else {
       setLoading(false);
       setListData(data?.result || [])
+      setCount(Math.ceil((data?.result?.result?.count) / dataPerPage))
     }
   }, [listLoading, data, listFetching])
 
@@ -39,7 +50,7 @@ function AffiliateLinksWrapper() {
   return (
     <>
       <div className='page-body px-4 h-full pb-5 '>
-        <AffiliateLinks uniqueId={uniqueId} listData={listData} loading={loading} />
+        <AffiliateLinks uniqueId={uniqueId} listData={listData} loading={loading} count={count} setCurrentPage={setCurrentPage} currentPage={currentPage} />
       </div>
     </>
   )

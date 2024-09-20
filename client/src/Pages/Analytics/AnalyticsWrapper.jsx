@@ -12,6 +12,9 @@ function AnalyticsWrapper() {
     const [affiliatesData, setAffiliatesData] = useState([]);
     const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
     const [selectedYear, setSelectedYear] = useState(new Date().getFullYear())
+    const [count, setCount] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1);
+    const dataPerPage = 5
 
     console.log(selectedYear, 'seleyear')
 
@@ -33,7 +36,13 @@ function AnalyticsWrapper() {
         }
     })
 
-    const { data: affiliateData, isLoading: listLoading, isFetching: listFetching } = useGetIndividualAffiliateListQuery({ Id: UserId })
+    const { data: affiliateData, isLoading: listLoading, isFetching: listFetching } = useGetIndividualAffiliateListQuery({
+        Id: UserId,
+        data: {
+            limit: dataPerPage,
+            page: currentPage
+        }
+    })
 
     console.log(analyticsData, '-----------------------------analyticsDetail');
 
@@ -45,8 +54,9 @@ function AnalyticsWrapper() {
             setLoading(false);
             setAnalyticsData(data?.result)
             setAffiliatesData(affiliateData?.result)
+            setCount(Math.ceil(affiliateData?.result?.result?.count / dataPerPage))
         }
-    }, [data, isLoading, isFetching, listLoading, listFetching])
+    }, [data, isLoading, isFetching, listLoading, listFetching, affiliateData])
 
     const MonthList = [
         { label: "January", value: 1 },
@@ -80,7 +90,7 @@ function AnalyticsWrapper() {
     return (
         <>
             <div className='page-body px-4 pb-5'>
-                <Analytics YearList={YearList} selectedYear={selectedYear} setSelectedYear={setSelectedYear} MonthList={MonthList} setSelectedMonth={setSelectedMonth} selectedMonth={selectedMonth} loading={loading} analyticsData={analyticsData} affiliatesData={affiliatesData} />
+                <Analytics YearList={YearList} selectedYear={selectedYear} setSelectedYear={setSelectedYear} MonthList={MonthList} setSelectedMonth={setSelectedMonth} selectedMonth={selectedMonth} loading={loading} analyticsData={analyticsData} affiliatesData={affiliatesData} count={count} setCurrentPage={setCurrentPage} currentPage={currentPage} />
             </div>
         </>
     )

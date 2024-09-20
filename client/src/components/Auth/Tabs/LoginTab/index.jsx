@@ -23,6 +23,7 @@ const LoginTab = (props) => {
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState('password');
   const [loading, setLoading] = useState(false);
+  const [toastMessage, setToastMessage] = useState('')
 
   let isLogged = Cookies.get("isLogged");
   const [Login] = useLoginMutation();
@@ -48,12 +49,13 @@ const LoginTab = (props) => {
   const SimpleLoginHandle = (data, { resetForm }) => {
 
     setLoading(true);
-
+    setToastMessage('')
     Login({ data: data })
       .then((res) => {
         if (res.error) {
-          toast.error(res.error?.data?.message || "Something went wrong");
-          console.log(res.error?.data?.message, 'err');
+          setToastMessage(res?.error?.data?.message || res.error?.data?.error)
+          // toast.error(res.error?.data?.message || "Something went wrong");
+          console.log(res?.error, 'errrrrrrrrrrrrrrrrrrrrrr')
           setLoading(false);
         }
         else {
@@ -66,12 +68,14 @@ const LoginTab = (props) => {
           resetForm();
           navigate(`${process.env.PUBLIC_URL}/dashboard`);
           setLoading(false);
+          setToastMessage('')
         }
 
       })
       .catch((err) => {
-        console.log(err, 'err')
-        toast.error("Please Enter valid email or password...!");
+        console.log(err, 'errrrrrrr')
+        // toast.error("Please Enter valid email or password...!");
+        setToastMessage(err?.data?.message || "Something went wrong")
         setLoading(false)
       })
 
@@ -89,7 +93,7 @@ const LoginTab = (props) => {
         (
           <Form>
 
-            <div className="theme-form flex flex-col gap-2 px-2 pt-4 w-full">
+            <div className="theme-form flex flex-col gap-2 px-3 pt-4 w-full">
               <div className=" flex flex-col gap-3">
                 {/* <Image
                   className="img-fluid for-light mx-auto h-[65px] w-[65px]"
@@ -117,13 +121,12 @@ const LoginTab = (props) => {
                   </span>
                 </div>
               </FormGroup>
-              {/* <Btn color="primary" type="submit" className="d-block w-100 mt-2 rounded-full">
-                Sign In
-              </Btn> */}
+              <div className="flex w-full items-center justify-center">
+                <span className="text-red-500">
 
-              {/* <button className=" bg-black text-white py-[6.5px] border d-block w-100 mt-2 rounded-full" type="submit">
-                Sign In
-              </button> */}
+                  {toastMessage || ''}
+                </span>
+              </div>
               <button className=" bg-black text-white py-[6.5px] border d-block w-100 mt-2 rounded-full" type="submit">
                 {
                   loading ?
@@ -134,7 +137,7 @@ const LoginTab = (props) => {
                     "Sign In"
                 }
               </button>
-              <div className=" pt-3 w-full flex items-center justify-center">
+              <div className=" pt-4 w-full flex items-center justify-center">
                 <hr />
                 Don't have account?
                 <Link className='ms-2 text-black hover:text-black' to={`${process.env.PUBLIC_URL}/register`}>

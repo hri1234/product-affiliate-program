@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/static/css/main.2c1b57cf.css",
-    "main.js": "/static/js/main.b6fe60a2.js",
+    "main.css": "/static/css/main.4bda853a.css",
+    "main.js": "/static/js/main.0fd7c0e3.js",
     "static/media/loginBanner.png": "/static/media/loginBanner.e936c0bdca72e31543a9.png",
     "static/media/InterVariable-Italic.woff2": "/static/media/InterVariable-Italic.e295f70fe3e2df296c7b.woff2",
     "static/media/InterVariable.woff2": "/static/media/InterVariable.a0e477f2f1f9d2376fde.woff2",
+    "static/media/new-banner02.jpg": "/static/media/new-banner02.6f9239a17787c056b4bd.jpg",
+    "static/media/new-banner01.jpg": "/static/media/new-banner01.30a5d8f1f29d51909cfa.jpg",
     "static/media/Invasion of Privacy (69_365).png": "/static/media/Invasion of Privacy (69_365).3f09e5b7d2aec1df6a61.png",
-    "static/media/banner1.jpg": "/static/media/banner1.e3a29a683ebdbfc5c871.jpg",
-    "static/media/banner2.png": "/static/media/banner2.9e6ee03d7455a12ccbaa.png",
     "static/media/itg_logo.webp": "/static/media/itg_logo.cfa0316d5a44bdf33273.webp",
     "static/media/loading-7528_512.gif": "/static/media/loading-7528_512.77926b8d27137c1189c9.gif",
     "static/media/cropped-ITGeeks-Technologies-Pvt.-Ltd.-Logo.png": "/static/media/cropped-ITGeeks-Technologies-Pvt.-Ltd.-Logo.d25a6bf544ebe55950e6.png",
     "index.html": "/index.html",
-    "main.2c1b57cf.css.map": "/static/css/main.2c1b57cf.css.map",
-    "main.b6fe60a2.js.map": "/static/js/main.b6fe60a2.js.map"
+    "main.4bda853a.css.map": "/static/css/main.4bda853a.css.map",
+    "main.0fd7c0e3.js.map": "/static/js/main.0fd7c0e3.js.map"
   },
   "entrypoints": [
-    "static/css/main.2c1b57cf.css",
-    "static/js/main.b6fe60a2.js"
+    "static/css/main.4bda853a.css",
+    "static/js/main.0fd7c0e3.js"
   ]
 }

@@ -19,7 +19,8 @@ import LoginBanner from '../../Assets/loginBanner.png';
 import { FiEye } from "react-icons/fi";
 import { FiEyeOff } from "react-icons/fi";
 import demoBanner from '../../Assets/logo/Invasion of Privacy (69_365).png';
-import Banner from '../../Assets/logo/banner2.png';
+// import Banner from '../../Assets/logo/banner2.png';
+import Banner from '../../Assets/logo/new-banner01.jpg'
 
 function SignUp() {
 
@@ -29,7 +30,8 @@ function SignUp() {
   let isLogged = Cookies.get("isLogged");
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState("password");
-  const [showConfirmPassword, setShowConfirmPassword] = useState("password")
+  const [showConfirmPassword, setShowConfirmPassword] = useState("password");
+  const [toasterMessage,setToasterMessage] = useState('')
 
 
 
@@ -74,7 +76,7 @@ function SignUp() {
     companyName: yup.string().trim("Enter valid companyName").required("company name is required").strict(),
     companyUrl: yup.string().trim("Enter valid website url").required("website url is required").strict(),
     // companyNumber: yup.string().trim("Enter valid number").min(10, "Enter valid number").max(10, "Enter valid number").required("number is required"),
-    password: yup.string().trim("Enter valid password").required("password is required").strict(),
+    password: yup.string().trim("Enter valid password").min(6,"minimum 6 characters required").required("password is required").strict(),
     confirmPassword: yup.string().oneOf([yup.ref('password')], 'Passwords must match').trim("Enter valid confirm password").required("confirm password is required").strict(),
   });
 
@@ -93,21 +95,25 @@ function SignUp() {
       "password": data?.password,
       // "role":"admin"
     }
+    setToasterMessage('')
     Register({ data: registerData })
       .then((res) => {
         if (res.error) {
           console.log(res.error, 'register err')
-          toast.error(res.error?.data?.message);
+          setToasterMessage(res?.error?.data?.error || res.error?.data?.message)
+          // toast.error(res.error?.data?.message);
         }
         else {
           resetForm();
           toast.success("User Registered Successfully");
           navigate('/login');
-          console.log(res.data?.result, 'register res')
+          console.log(res.data?.result, 'register res');
+          setToasterMessage('')
         }
       })
       .catch((err) => {
-        console.log(err, 'catch err')
+        console.log(err, 'catch err');
+        setToasterMessage("Something went Wrong")
       })
 
 
@@ -158,7 +164,7 @@ function SignUp() {
                   <div className="login-card flex-column">
                     <div className=" w-full flex items-center justify-center login-tab">
                       <div className="  bg-white w-[78%] border shadow-md rounded-[10px] py-6 px-6 flex md:flex-row flex-col-reverse gap-8">
-                        <div className=" w-full md:w-[50%] mt-1">
+                        <div className=" w-full md:w-[50%] mt-1 px-3">
 
                           <div className="theme-form flex flex-col gap-3 p-1">
                             <div className=' flex flex-col gap-3'>
@@ -241,6 +247,12 @@ function SignUp() {
                                 <label className=' p-0 m-0 cursor-pointer hover:underline ' htmlFor="checkboxx"> <a target='_blank' className=' text-[14px] text-black hover:text-black' href="https://partners.krownthemes.com/terms-and-conditions">Accept terms and condition</a></label>
                               </div>
                             </div>
+                            <div className=' flex w-full items-center justify-center'>
+                            <span className='text-red-500'>
+
+                            {toasterMessage || ''}
+                            </span>
+                            </div>
                             <div className="position-relative form-group mb-0">
                               <button className=" bg-black text-white py-[6.5px] border d-block w-100 mt-2 rounded-full" type="submit">
                                 Sign up
@@ -254,8 +266,8 @@ function SignUp() {
                             </P>
                           </div>
                         </div>
-                        <div className=" w-full p-2 md:w-[520px] object-contain md:object-cover h-[200px]  md:h-[1050px]">
-                          <img src={Banner} className=" shadow-xl border object-contain w-full h-full rounded-[16px]" alt="" />
+                        <div className=" w-full p-3 md:w-[520px] object-contain md:object-cover h-[200px]  md:h-[1035px]">
+                          <img src={Banner} className=" shadow-xl border md:object-fit object-cover w-full h-full rounded-[16px]" alt="" />
                         </div>
                       </div>
                     </div>

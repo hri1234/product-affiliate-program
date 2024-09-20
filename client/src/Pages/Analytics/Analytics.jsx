@@ -5,9 +5,10 @@ import ReactApexChart from 'react-apexcharts';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { MdRemoveRedEye } from "react-icons/md";
 import Select from 'react-select';
+import { Pagination } from '@mui/material';
 
 
-function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading, analyticsData, affiliatesData, selectedMonth, setSelectedMonth }) {
+function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading, analyticsData, affiliatesData, selectedMonth, setSelectedMonth, count, setCurrentPage, currentPage }) {
 
   const navigate = useNavigate();
   const [purchasesData, setPurchasesData] = useState([]);
@@ -135,7 +136,7 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
 
 
 
-  }, [analyticsData, selectedMonth ,selectedYear])
+  }, [analyticsData, selectedMonth, selectedYear])
 
   console.log(purchaseCount, '---------------------purchaseCount');
   console.log(affiliatesData?.result, 'purdata')
@@ -144,6 +145,10 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
   const viewGraphHandle = (id, name) => {
     navigate(`${id}/${name}`);
     return;
+  }
+
+  const handlePageChange = (e, page) => {
+    setCurrentPage(page)
   }
 
 
@@ -179,7 +184,7 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
         </div>
         <div className='w-full'>
 
-          <div className=' w-full flex flex-col gap-12 pt-6'>
+          <div className=' w-full flex flex-col gap-6 pt-6'>
 
             <div className='w-full px-5 py-4 rounded border bg-white'>
               <div className='w-full flex justify-between'>
@@ -257,6 +262,20 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
               }
 
             </div>
+
+            <div className='w-full flex justify-end pb-4'>
+
+              <Pagination
+                shape="rounded"
+                variant="outlined"
+                color="standard"
+                page={currentPage}
+                count={count}
+                onChange={handlePageChange}
+              />
+            </div>
+
+
           </div>
         </div>
       </>}

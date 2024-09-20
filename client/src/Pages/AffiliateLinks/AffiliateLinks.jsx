@@ -4,8 +4,9 @@ import { Btn, H5 } from '../../components/AbstractElements';
 import { FaLink } from "react-icons/fa6";
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import Cookies from 'js-cookie';
+import { Pagination } from '@mui/material';
 
-function AffiliateLinks({ uniqueId, listData, loading }) {
+function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, currentPage }) {
 
   console.log(listData, 'ListDataaaa 12');
 
@@ -24,6 +25,9 @@ function AffiliateLinks({ uniqueId, listData, loading }) {
   //   setProfileDetails(JSON.parse(profileJson))
   // }, [profileJson])
 
+  const handlePageChange = async (e, page) => {
+    setCurrentPage(page)
+  }
 
   return (
     <>
@@ -58,9 +62,16 @@ function AffiliateLinks({ uniqueId, listData, loading }) {
                     return <>
                       <div className=' w-full flex gap-12 py-[28px] px-4 border bg-white shadow-md rounded-2xl'>
                         <div className=' object-contain w-1/2 shadow-sm rounded-xl h-[220px]  p-2 bg-slate-100'>
-                          {/* <img src="https://partners.krownthemes.com/_next/image?url=%2Fimages%2Flocal.jpg&w=384&q=75" alt="" /> */}
-
-                          <img className='object-fit h-full w-full' src={`${itm?.affiliate?.imageUrl}`} alt="IMG" />
+                          {/* <img className='object-fit h-full w-full' src={`${itm?.affiliate?.imageUrl}`} alt="IMG" /> */}
+                          {itm?.affiliate?.imageUrl ? (
+                            <img
+                              className='w-full h-full object-fit rounded-xl'
+                              src={`${itm?.affiliate?.imageUrl}`}
+                              alt="Affiliate Link"
+                            />
+                          ) : (
+                            <span className="text-gray-500">No Image Available</span>
+                          )}
                         </div>
                         <div className=' w-full  p-1  rounded-xl mr-1 flex flex-col justify-between'>
                           <div className=' flex flex-col gap-5'>
@@ -99,6 +110,19 @@ function AffiliateLinks({ uniqueId, listData, loading }) {
                     </>
                   })
                 }
+
+                <div className='w-full flex justify-end py-4'>
+
+                  <Pagination
+                    shape="rounded"
+                    variant="outlined"
+                    color="standard"
+                    page={currentPage}
+                    count={count}
+                    onChange={handlePageChange}
+                  />
+                </div>
+
               </div>
             </div>
       }

@@ -4,12 +4,19 @@ import { FaLink } from "react-icons/fa6";
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { Pagination } from '@mui/material';
 import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+import AlertComponent from '../../../components/AlertComponent.jsx';
+import { useDeleteAffiliateMutation } from '../../../services/AdminService';
+import toast from 'react-hot-toast';
 
 function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage, count }) {
 
     console.log(listData, 'ListDataa');
+    const [selectedAffiliate, setSelectedAffiliate] = useState(null)
 
     const navigate = useNavigate();
+
+    const [DeleteAffiliate] = useDeleteAffiliateMutation()
 
     const ManageAssignClick = (id) => {
         // console.log(id,'affiliate id')
@@ -23,6 +30,28 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage, c
     const handleEdit = (id, name) => {
         console.log(id, 'idd');
         navigate(`edit/${id}`)
+    }
+
+    const handleDeleteYes = () => {
+        // console.log(selectedAffiliate,'DELETED'),
+        DeleteAffiliate({ Id: selectedAffiliate })
+            .then((res) => {
+                if (res?.error) {
+                    toast.error(res?.error?.data?.message || "Internal server error");
+                }
+                else {
+                    toast.success("Data deleted successfully");
+                }
+            })
+            .catch((err) => {
+                toast.error(err?.data || "")
+            })
+
+    }
+
+    const handleDeleteClick = (id) => {
+        setSelectedAffiliate(id)
+        AlertComponent({ heading: "Are you sure to Delete ? ", handleDeleteYes })
     }
 
     return (
@@ -78,9 +107,14 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage, c
                                                     <div className=' flex flex-col gap-5'>
                                                         <div className='flex items-center justify-between relative'>
                                                             <span className='font-semibold text-lg'>{itm?.name}</span>
-                                                            {/* <span onClick={() => { handleEdit(itm?.id,itm?.name) }} className=' pl-[20px] cursor-pointer hover:opacity-90 absolute right-[-15px] top-[-16px]'>
-                                                                <FaEdit size={18} />
-                                                            </span> */}
+                                                            <div className='flex gap-2 absolute right-[-15px] top-[-16px]'>
+                                                                <span onClick={() => { handleEdit(itm?.id, itm?.name) }} className=' pl-[20px] cursor-pointer hover:opacity-90 '>
+                                                                    <FaEdit size={18} />
+                                                                </span>
+                                                                <span onClick={() => handleDeleteClick(itm?.id)} className=' cursor-pointer'>
+                                                                    <MdDelete size={19} />
+                                                                </span>
+                                                            </div>
                                                         </div>
                                                         <div className='flex flex-col gap-3'>
 
@@ -105,12 +139,6 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage, c
                                                         </div>
                                                     </div>
                                                     <div className=' flex gap-6'>
-                                                        {/* <div className='border rounded px-2 py-1 cursor-pointer'>
-                                                Assign 
-                                            </div>
-                                            <div className='border rounded px-2 py-1 cursor-pointer'>
-                                                Assigned list
-                                            </div> */}
                                                         <div onClick={() => ManageAssignClick(itm?.id)} className='border rounded px-2 py-1 cursor-pointer'>
                                                             Manage Assign
                                                         </div>
