@@ -33,8 +33,8 @@ const LoginTab = (props) => {
   };
 
   const validationSchema = yup.object().shape({
-    email: yup.string().trim("Enter valid email").required("email is required").email(),
-    password: yup.string().trim("Enter valid password").required("password is required").strict(),
+    email: yup.string().trim("Enter valid email").required("email field cannot be empty").email(),
+    password: yup.string().trim("Enter valid password").required("password field cannot be empty").strict(),
   });
 
   useEffect(() => {
@@ -89,16 +89,16 @@ const LoginTab = (props) => {
         (
           <Form>
 
-            <div className="theme-form flex flex-col gap-2 px-2 py-1 w-full">
+            <div className="theme-form flex flex-col gap-2 px-2 pt-4 w-full">
               <div className=" flex flex-col gap-3">
-                <Image
+                {/* <Image
                   className="img-fluid for-light mx-auto h-[65px] w-[65px]"
                   src={require("../../../../Assets/logo/itg_logo.webp")}
-                />
+                /> */}
                 <H4 className="text-center font-semibold text-2xl"> Sign In</H4>
               </div>
               {/* <P className="text-center">{"Enter your email & password to SignIn"}</P> */}
-              <FormGroup className=" flex flex-col gap-5">
+              <FormGroup className=" flex flex-col gap-5 mt-3">
                 <InputComponent label={"Email"} placeholder={"Enter your Email"} value={loginProps.values.email} name={"email"} type="text" onChange={loginProps.handleChange} />
                 <div className=" relative flex gap-1 justify-between">
                   <InputComponent label={"Password"} placeholder={"Enter your Password"} value={loginProps.values.password} name={"password"} type={showPassword == "password" ? "password" : "text"} onChange={loginProps.handleChange} />
@@ -137,7 +137,7 @@ const LoginTab = (props) => {
               <div className=" pt-3 w-full flex items-center justify-center">
                 <hr />
                 Don't have account?
-                <Link className='ms-2 text-black' to={`${process.env.PUBLIC_URL}/register`}>
+                <Link className='ms-2 text-black hover:text-black' to={`${process.env.PUBLIC_URL}/register`}>
                   Sign Up
                 </Link>
               </div>

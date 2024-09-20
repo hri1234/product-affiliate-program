@@ -11,8 +11,17 @@ function AssignAffiliateWrapper() {
     const AffiliateId = useParams();
     console.log(AffiliateId, 'affid')
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [count, setCount] = useState(1);
 
-    const { data, isLoading: listLoading, isFetching: listFetching } = useGetAffiliateAvailableUsersQuery({ Id: AffiliateId?.id })
+    const dataPerPage = 6;
+
+    const { data, isLoading: listLoading, isFetching: listFetching } = useGetAffiliateAvailableUsersQuery({
+        Id: AffiliateId?.id,
+        data:
+            { limit: dataPerPage, page: currentPage }
+
+    })
 
     const [NotAssignedlistData, setNotAssignedListData] = useState([]);
     const [notAssignedlistloading, setnotAssignedListLoading] = useState(false);
@@ -24,6 +33,7 @@ function AssignAffiliateWrapper() {
         else {
             setnotAssignedListLoading(false);
             setNotAssignedListData(data?.result)
+            setCount(Math.ceil(data?.result?.result?.count / dataPerPage))
         }
     }, [listLoading, data, listFetching])
 
@@ -47,7 +57,7 @@ function AssignAffiliateWrapper() {
 
     return (
         <div className='page-body pb-5 px-4'>
-            <AssignAffiliate AssignedListData={AssignedListData} Assignedlistloading={Assignedlistloading} NotAssignedlistData={NotAssignedlistData} notAssignedlistloading={notAssignedlistloading} />
+            <AssignAffiliate AssignedListData={AssignedListData} Assignedlistloading={Assignedlistloading} NotAssignedlistData={NotAssignedlistData} notAssignedlistloading={notAssignedlistloading} setCurrentPage={setCurrentPage} currentPage={currentPage} count={count} />
         </div>
     )
 }

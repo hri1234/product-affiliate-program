@@ -3,13 +3,17 @@ import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import ReactApexChart from 'react-apexcharts';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { Pagination } from '@mui/material';
 
-function Dashboard({ loading, listData, overviewLoading, overviewData }) {
+function Dashboard({ loading, listData, overviewLoading, overviewData, setCurrentPage, currentPage, count }) {
 
   const navigate = useNavigate();
 
   console.log(overviewData, 'overViewData')
 
+  const handlePageChange = (e, page) => {
+    setCurrentPage(page)
+  }
 
   return (
     <>
@@ -88,6 +92,18 @@ function Dashboard({ loading, listData, overviewLoading, overviewData }) {
                     </tbody>
                   </table>
                 </div>
+
+                <div className='w-full flex justify-end mt-3'>
+                  <Pagination
+                    shape="rounded"
+                    variant="outlined"
+                    color="standard"
+                    page={currentPage}
+                    count={count}
+                    onChange={handlePageChange}
+                  />
+                </div>
+
               </div>
             </div>
       }

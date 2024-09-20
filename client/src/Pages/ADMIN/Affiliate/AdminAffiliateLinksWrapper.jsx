@@ -4,12 +4,17 @@ import { useGetAffiliateListQuery } from '../../../services/AffiliateService';
 
 function AdminAffiliateLinksWrapper() {
 
-  const { data, isLoading: listLoading, isFetching: listFetching } = useGetAffiliateListQuery({})
-
   const [listData, setListData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1)
+  const [count, setCount] = useState(1)
 
+  const dataPerPage = 6;
+
+  const { data, isLoading: listLoading, isFetching: listFetching } = useGetAffiliateListQuery({
+    data:
+      { limit: dataPerPage, page: currentPage }
+  })
 
   useEffect(() => {
     if (listLoading || listFetching) {
@@ -18,6 +23,7 @@ function AdminAffiliateLinksWrapper() {
     else {
       setLoading(false);
       setListData(data?.result)
+      setCount(Math.ceil(data?.result?.count / dataPerPage))
     }
   }, [listLoading, data, listFetching])
 
@@ -31,6 +37,7 @@ function AdminAffiliateLinksWrapper() {
           loading={loading}
           setCurrentPage={setCurrentPage}
           currentPage={currentPage}
+          count={count}
         />
       </div>
     </>

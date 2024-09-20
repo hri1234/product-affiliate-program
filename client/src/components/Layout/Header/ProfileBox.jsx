@@ -32,7 +32,7 @@ const ProfileBox = () => {
       const dataa = ProfileData && JSON.parse(ProfileData);
 
       // const decodedProfileData = '';
-      console.log(dataa, 'DECODED PROFILE DATA')
+      console.log(dataa, 'DECODED PROFILE DATAa')
       setCookieProfile(dataa?.companyName)
 
       // const decodedData = jwtDecode(ProfileData);
@@ -46,20 +46,11 @@ const ProfileBox = () => {
   }, [ProfileData])
 
   return (
-    <div className='d-flex flex gap-3'>
+    <div className=' flex gap-2 pl-4 items-center justify-center'>
       <span className=' bg-slate-200 w-[50px] h-[50px] rounded-full flex items-center font-semibold justify-center'>{userEmail?.toUpperCase()}</span>
-      <div className=' flex flex-col gap-0'>
-        <span className=' m-0 p-0 capitalize'>{cookieProfile?.split(' ')[0] || "Profile"}</span>
-        <p className='m-0 p-0 text-slate-500 flex gap-1 items-center font-roboto'>
-          {/* {
-            role == 'admin' ?
-
-              "Admin"
-              :
-              "Customer"
-          } */}
-          {/* <FaAngleDown /> */}
-        </p>
+      <div className=' flex flex-col gap-0 w-fit'>
+        <span className=' m-0 p-0 w-fit capitalize'>{cookieProfile?.split(' ')[0] || "Profile"}</span>
+       
       </div>
     </div>
   );

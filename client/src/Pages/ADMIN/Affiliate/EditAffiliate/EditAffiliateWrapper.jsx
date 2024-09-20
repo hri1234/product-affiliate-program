@@ -15,6 +15,7 @@ function EditAffiliateWrapper() {
   
   
     useEffect(() => {
+        setLoading(true)
       if (listLoading || listFetching) {
         setLoading(true)
       }
@@ -24,7 +25,7 @@ function EditAffiliateWrapper() {
       }
     }, [listLoading, data, listFetching])
   
-
+    
   return (
     <div className='page-body px-4'>
         <EditAffiliate listData={listData} loading={loading}/>

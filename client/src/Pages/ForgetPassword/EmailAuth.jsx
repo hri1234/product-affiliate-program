@@ -285,14 +285,14 @@ function EmailAuth() {
                                             /> */}
                                         <div className=" w-full flex items-center justify-center login-tab">
                                             <div className="  bg-white w-[78%] border shadow-md rounded-[10px] py-6 px-6 flex md:flex-row flex-col-reverse gap-8">
-                                                <div className=" w-full md:w-[45%]">
+                                                <div className=" w-full md:w-[45%] mt-5">
 
                                                     <div className="theme-form flex flex-col gap-3 p-2">
                                                         <div className=' flex flex-col gap-3'>
-                                                            <Image
+                                                            {/* <Image
                                                                 className="img-fluid for-light mx-auto h-[65px] w-[65px]"
                                                                 src={require("../../Assets/logo/itg_logo.webp")}
-                                                            />
+                                                            /> */}
                                                             <H4 className="text-center font-semibold text-2xl">Forgot password</H4>
                                                         </div>
                                                         <P className="text-center">{"Enter your email to get reset link"}</P>
@@ -324,7 +324,7 @@ function EmailAuth() {
                                                         </div>
                                                         <P className='text-center mb-0 text-[16px] pt-1 mt-1 '>
                                                             Remember your password ?
-                                                            <Link className='ms-2 text-black' to={`${process.env.PUBLIC_URL}/login`}>
+                                                            <Link className='ms-2 text-black hover:text-black' to={`${process.env.PUBLIC_URL}/login`}>
                                                                 Sign in
                                                             </Link>
                                                         </P>

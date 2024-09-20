@@ -10,19 +10,19 @@ function AffiliateLinks({ uniqueId, listData, loading }) {
   console.log(listData, 'ListDataaaa 12');
 
   const navigate = useNavigate();
-  const profileJson = Cookies.get('profileData')
+  // const profileJson = Cookies.get('profileData')
 
-  const [profileDetails, setProfileDetails] = useState([]);
+  // const [profileDetails, setProfileDetails] = useState([]);
 
-  useEffect(() => {
-    console.log(JSON.parse(profileJson), '---------------------------profileDetails2');
-    if (profileJson == 'undefined' || profileJson == null) {
-      Cookies.remove("isLogged");
-      Cookies.remove("profileData");
-      navigate('/')
-    }
-    setProfileDetails(JSON.parse(profileJson))
-  }, [profileJson])
+  // useEffect(() => {
+  //   console.log(JSON.parse(profileJson), '---------------------------profileDetails2');
+  //   if (profileJson == 'undefined' || profileJson == null) {
+  //     Cookies.remove("isLogged");
+  //     Cookies.remove("profileData");
+  //     navigate('/')
+  //   }
+  //   setProfileDetails(JSON.parse(profileJson))
+  // }, [profileJson])
 
 
   return (
@@ -70,16 +70,16 @@ function AffiliateLinks({ uniqueId, listData, loading }) {
                               <span className=' flex gap-2 items-center text-[14.5px] border p-2 text-ellipsis rounded w-full justify-center  cursor-pointer'>
                                 <FaLink />
 
-                                <a href={`${itm?.affiliate?.link}?utm_campaign=${profileDetails?.userId}`} target='_blank'>
+                                <a href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank'>
                                   {`${itm?.affiliate?.shortUrl}`}
                                 </a>
                               </span>
                               <div className=' w-full flex justify-between gap-4'>
-                                <span onClick={() => { navigator.clipboard.writeText(`${itm?.affiliate?.link}?utm_campaign=${profileDetails?.userId}`) }} className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
+                                <span onClick={() => { navigator.clipboard.writeText(`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`) }} className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
                                   Copy link
                                 </span>
                                 <span className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
-                                  <a href={`${itm?.affiliate?.link}?utm_campaign=${profileDetails?.userId}`} target='_blank'>
+                                  <a href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank'>
                                     Visit link
                                   </a>
                                 </span>

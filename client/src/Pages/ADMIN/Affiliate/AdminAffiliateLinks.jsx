@@ -5,7 +5,7 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { Pagination } from '@mui/material';
 import { FaEdit } from "react-icons/fa";
 
-function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage }) {
+function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage, count }) {
 
     console.log(listData, 'ListDataa');
 
@@ -20,7 +20,7 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage })
         setCurrentPage(page)
     }
 
-    const handleEdit = (id,name) => {
+    const handleEdit = (id, name) => {
         console.log(id, 'idd');
         navigate(`edit/${id}`)
     }
@@ -120,15 +120,15 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage })
                                         </>
                                     })
                                 }
-                                <div className='flex'>
-                                    {/* <Pagination
+                                <div className='w-full flex justify-end mt-3'>
+                                    <Pagination
                                         shape="rounded"
                                         variant="outlined"
                                         color="standard"
                                         page={currentPage}
-                                        count={3}
+                                        count={count}
                                         onChange={handlePageChange}
-                                    /> */}
+                                    />
                                 </div>
                             </div>
                         </div>

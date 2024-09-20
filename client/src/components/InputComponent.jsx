@@ -14,7 +14,8 @@ function InputComponent(
         defaultValue,
         fileName,
         auto,
-        disabled
+        disabled,
+        id
     }
 ) {
     return (

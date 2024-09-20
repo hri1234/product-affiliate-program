@@ -13,11 +13,13 @@ function DashboardWrapper() {
   const [ListData, setListData] = useState([]);
   const [OverViewData, setOverViewData] = useState([]);
   const [overviewLoading, setOverViewLoading] = useState(false);
-  const navigate=useNavigate()
-
+  const navigate = useNavigate()
+  const [count, setCount] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const userToken = Cookies.get("isLogged");
   const [userId, setUserId] = useState('')
 
+  const dataPerPage = 6;
 
   const { data: profileData, isLoading: listLoading, isFetching: listFetching } = useGetProfileQuery({});
 
@@ -39,8 +41,7 @@ function DashboardWrapper() {
       console.log(token?.id, 'tokenn');
       setUserId(token?.id);
     }
-    if(!userToken || userToken === null)
-    {
+    if (!userToken || userToken === null) {
       navigate('/');
       console.log('navigating')
     }
@@ -49,7 +50,12 @@ function DashboardWrapper() {
   }, [userToken])
 
   // const { data, isLoading, isFetching } = useGetDashboardInvoiceListQuery({});
-  const { data, isLoading, isFetching } = useGetIndividualInvoiceListQuery({ Id: userId });
+  const { data, isLoading, isFetching } = useGetIndividualInvoiceListQuery({
+    Id: userId, data: {
+      limit: dataPerPage,
+      page: currentPage
+    }
+  });
 
 
   useEffect(() => {
@@ -59,10 +65,11 @@ function DashboardWrapper() {
     else {
       setLoading(false);
       setListData(data?.result)
+      setCount(Math.ceil(data?.result?.result?.count / dataPerPage))
     }
-  }, [isLoading, isFetching])
+  }, [isLoading, isFetching, data])
 
-  console.log(data?.result, 'userList');
+  console.log(data?.result, 'invoice list');
 
 
   //////// fetching monthly analysis ////////
@@ -91,7 +98,7 @@ function DashboardWrapper() {
 
   return (
     <div className="page-body px-4 h-full pb-5">
-      <Dashboard loading={loading} listData={ListData?.result} overviewLoading={overviewLoading} overviewData={OverViewData} />
+      <Dashboard loading={loading} listData={ListData?.result} overviewLoading={overviewLoading} overviewData={OverViewData} setCurrentPage={setCurrentPage} currentPage={currentPage} count={count} />
     </div>
   )
 }

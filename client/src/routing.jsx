@@ -35,7 +35,7 @@ function Routing() {
     const [authenticateLogin, setAthenticateLogin] = useState(false);
     const [decodedToken, setDecodedToken] = useState();
     const [role, setRole] = useState('');
-    console.log("Hello from Routing-----")
+    console.log("Hello from Routing")
 
     const userToken = Cookies.get("isLogged");
     //////// Checking if user is logged or not ////////////  

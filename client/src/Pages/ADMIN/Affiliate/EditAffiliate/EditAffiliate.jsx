@@ -29,20 +29,28 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import toast from 'react-hot-toast';
 import { useAddAffiliateLinkMutation } from '../../../../services/AffiliateService';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useUploadImageMutation } from '../../../../services/AdminService';
+import { IoArrowBack } from 'react-icons/io5';
 // import { useGetProfileDataQuery } from '../../services/AuthServices';
 
 function EditAffiliate({ listData, loading }) {
 
     const navigate = useNavigate();
     const [submitLoading, setSubmitLoading] = useState(false);
+    const [imageUploadLoading,setImageUploadLoading] = useState(false)
     const [AddAffiliate] = useAddAffiliateLinkMutation();
     const [FileName, setFileName] = useState('No file choosen');
     const [ImageUrl, setImageUrl] = useState('');
     const [ImageData, setImageData] = useState(null);
 
-    console.log(submitLoading, 'SubmitLoading');
 
+    const [UploadImage] = useUploadImageMutation();
 
+    console.log(listData, 'listDataa');
+
+    useEffect(() => {
+        setImageUrl(listData?.imageUrl || '')
+    }, [listData])
 
     const initialValues = {
         name: listData?.name || '',
@@ -100,21 +108,43 @@ function EditAffiliate({ listData, loading }) {
         //         setSubmitLoading(false)
         //     })
 
+        
+
     };
 
     const handleThumbnail = async (event) => {
-        const File = event.target.files[0];
+        setImageUploadLoading(true)
+        const File = event.target.files[0]; 
         if (File) {
 
-            setFileName(File.name);
-            setImageData(File);
+            const formData = new FormData()
+            formData.append('file', File);
 
-            // const formData = new FormData();
-            // formData.append('file', File);
+            UploadImage({ data: formData })
+                .then((res) => {
+                    if (res?.error) {
+                        toast.error(res?.error?.data?.message || "Internal server error")
+                        setImageUploadLoading(false)
+                    }
+                    else {
+
+                        setImageUrl(res?.data?.result?.url)
+                        setFileName(File.name);
+                        setImageUploadLoading(false)
+
+                    }
+                })
+                .catch((err) => {
+                    console.log(err?.data?.error || "Internal server errors", 'err')
+                    setImageUploadLoading(false)
+
+                })
         }
         else {
             setFileName('No file choosen');
-            setImageUrl('');
+            // setImageUrl('');
+            setImageUploadLoading(false)
+
             setImageData(null);
         }
 
@@ -141,70 +171,72 @@ function EditAffiliate({ listData, loading }) {
                                         </span>
                                     </div>
                                     :
-                                    <Fragment>
-                                        <Card className=' w-full'>
-                                            {/* <CardHeader>
-                                                <H5 className="text-black">Add Affiliate Links</H5>
-                                            </CardHeader> */}
-                                            <div className='pb-0 pt-4 px-4 flex w-full justify-between'>
-                                                <span className='text-[20px]'>
-                                                    Edit Affiliate Link
-                                                </span>
-                                                <span>{ }</span>
-                                            </div>
-                                            <CardBody>
-                                                <Row className='g-3 pb-1'>
-                                                    <Col md='6'>
-                                                        {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter First Name *' register={{ ...register('first_name', { required: 'is Required.' }) }} /> */}
-                                                        {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, in! */}
-                                                        <InputComponent label={"Name"} type="text" name='name' value={profileProps.values.name} placeholder='Enter affiliate name' onChange={profileProps.handleChange} />
-                                                    </Col>
-                                                    {/* <Col md='4'>
+                                    <div>
+                                        <div className='flex w-full justify-between px-1 py-2 mb-2'>
+                                            <span onClick={() => { navigate('/dashboard/affiliate-links') }} className='font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
+                                                <IoArrowBack size={20} />
+                                            </span>
+                                        </div>
+                                        <Fragment>
+                                            <Card className=' w-full'>
+
+                                                <div className='pb-0 pt-4 px-4 flex w-full justify-between'>
+                                                    <span className='text-[20px]'>
+                                                        Edit Affiliate Link
+                                                    </span>
+                                                    <span>{ }</span>
+                                                </div>
+                                                <CardBody>
+                                                    <Row className='g-3 pb-1'>
+                                                        <Col md='6'>
+                                                            {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter First Name *' register={{ ...register('first_name', { required: 'is Required.' }) }} /> */}
+                                                            {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, in! */}
+                                                            <InputComponent label={"Name"} type="text" name='name' value={profileProps.values.name} placeholder='Enter affiliate name' onChange={profileProps.handleChange} />
+                                                        </Col>
+                                                        {/* <Col md='4'>
                                                         <InputComponent label={"Click count"} type={"text"} value={profileProps.values.clickCount} name='clickCount' onChange={profileProps.handleChange} placeholder={"Enter Click count"} />
                                                     </Col> */}
 
-                                                    {/* <InputComponent label={"Purchases"} type={"text"} value={profileProps.values.purchases} name='purchases' onChange={profileProps.handleChange} placeholder={"Enter purchase count"} /> */}
+                                                        {/* <InputComponent label={"Purchases"} type={"text"} value={profileProps.values.purchases} name='purchases' onChange={profileProps.handleChange} placeholder={"Enter purchase count"} /> */}
+                                                        <br />
+                                                        <br />
+                                                    </Row>
                                                     <br />
-                                                    <br />
-                                                </Row>
-                                                <br />
 
-                                                <Row className='g-3'>
+                                                    <Row className='g-3'>
 
-                                                    {/* <Col md='6'> */}
-                                                    {/* <InputComponent onChange={(e) => handleThumbnail(e)} fileName={FileName} type={"file"} label={"Thumnail Image"} /> */}
-                                                    {/* </Col> */}
+                                                        <Col md='6 mb-3'>
+                                                            <div className='flex flex-col gap-2 '>
 
-                                                    <Col md='6 mb-3'>
-                                                        {/* <InputComponent label={"Link"} type={"text"} value={profileProps.values.link} name='link' onChange={profileProps.handleChange} placeholder={"Enter your link"} /> */}
-                                                        {/* <InputComponent label={"Dropbox Link"} type={"text"} value={profileProps.values.dropboxLink} name='dropboxLink' onChange={profileProps.handleChange} placeholder={"Enter dropbox link"} /> */}
-                                                        {/* <InputComponent onChange={(e) => handleThumbnail(e)} fileName={FileName} type={"file"} label={"Thumnail Image"} /> */}
-                                                        <div className='flex flex-col gap-2 '>
+                                                                <span className=' font-semibold text-[13px]'>Thumbnail Image</span>
+                                                                <span className=' w-full flex gap-0 flex-col '>
+                                                                    <img className='w-fit max-w-[450px] max-h-[350px]' src={ImageUrl} alt="" />
+                                                                    <span className=' pt-2'>
+                                                                        <span className='hidden w-0 h-0'>
+                                                                            <input type="file" id='thumbnail' onChange={(e) => handleThumbnail(e)} />
+                                                                        </span>
+                                                                        <label htmlFor="thumbnail" className='border py-[8px] rounded px-4 bg-slate-200 mt-2'>Change</label>
+                                                                    </span>
+                                                                </span>
 
-                                                            <span className=' font-semibold text-[13px]'>Thumbnail Image</span>
-                                                            <span className=' w-full flex flex-col justify-between'>
-                                                                <img className='w-fit' src="https://partners.krownthemes.com/_next/image?url=%2Fimages%2Flocal.jpg&w=384&q=75" alt="" />
-                                                                <span className=' top-1 right-1'>Change</span>
-                                                            </span>
+                                                            </div>
+                                                        </Col>
+                                                    </Row>
 
-                                                        </div>
-                                                    </Col>
-                                                </Row>
-
-                                                <button type='submit' className=' d-block mt-5 w-[120px] cursor-pointer p-2 bg-black text-white rounded'>
-                                                    {
-                                                        submitLoading ?
-                                                            <span className=' w-full flex py-1 items-center justify-center m-auto self-center animate-spin'>
-                                                                <AiOutlineLoading3Quarters />
-                                                            </span>
-                                                            :
-                                                            "Submit"
-                                                    }
-                                                </button>
-                                            </CardBody>
-                                        </Card>
-                                    </Fragment>
-
+                                                    <button type='submit' className=' d-block mt-4 w-[120px] cursor-pointer p-2 bg-black text-white rounded'>
+                                                        {
+                                                            submitLoading ?
+                                                                <span className=' w-full flex py-1 items-center justify-center m-auto self-center animate-spin'>
+                                                                    <AiOutlineLoading3Quarters />
+                                                                </span>
+                                                                :
+                                                                "Submit"
+                                                        }
+                                                    </button>
+                                                </CardBody>
+                                            </Card>
+                                        </Fragment>
+                                    </div>
                             }
 
                         </Form>

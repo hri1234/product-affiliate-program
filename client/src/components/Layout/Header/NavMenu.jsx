@@ -16,9 +16,9 @@ const NavMenu = () => {
         {/* <LI className='maximize border-0 rounded cursor-pointer h-fit p-2 w-fit bg-[#F6F8FC]'>
           <Maximize />
         </LI> */}
-        <LI className='border-0 flex flex-col gap-0 profile-nav onhover-dropdown p-0 me-0'>
+        <LI className='border-0 flex flex-col items-center justify-center gap-0 mr-[6.5px]  profile-nav onhover-dropdown p-0 me-0'>
           <ProfileBox />
-          <ProfileBoxDropdown />
+            <ProfileBoxDropdown />
         </LI>
       </div>
     </UL>

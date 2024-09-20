@@ -7,8 +7,10 @@ import { MdRemoveRedEye } from "react-icons/md";
 import { FaSquarePlus } from "react-icons/fa6";
 import { useAssignAffiliateMutation } from '../../../../services/AdminService';
 import toast from 'react-hot-toast';
+import { Pagination } from '@mui/material';
 
-function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlistloading, NotAssignedlistData }) {
+
+function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlistloading, NotAssignedlistData, setCurrentPage, currentPage, count }) {
     const invoices = [
         {
             id: 1,
@@ -124,6 +126,12 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
 
         AssignedListData
     )
+
+    const handlePageChange = (e, page) => {
+        setCurrentPage(page)
+    }
+
+
 
     return (
         <>
@@ -241,14 +249,24 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
                                                 </table>
                                             </div>
                                         </div>
-                                        <div className='w-full flex justify-end px-4'>
+                                        <div className='w-full flex justify-between px-4'>
                                             <button onClick={() => handleSubmit()} className=' w-[120px] bg-black text-white rounded py-2 mt-3'>
                                                 Submit
                                             </button>
+                                            <div className='w-full flex justify-end mt-3'>
+
+                                                <Pagination
+                                                    shape="rounded"
+                                                    variant="outlined"
+                                                    color="standard"
+                                                    page={currentPage}
+                                                    count={count}
+                                                    onChange={handlePageChange}
+                                                />
+                                            </div>
                                         </div>
                                     </>
                             }
-
                         </div>
                     </div>
 
