@@ -43,9 +43,9 @@ module.exports = (sequelize, Sequelize) => {
         companyName: {
             type: Sequelize.STRING
         },
-        companyNumber: {
-            type: Sequelize.STRING,
-        },
+        // companyNumber: {
+        //     type: Sequelize.STRING,
+        // },
         password: {
             type: Sequelize.STRING,
             allowNull: false

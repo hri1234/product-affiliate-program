@@ -29,7 +29,7 @@ exports.registerSchema = Joi.object({
     city: Joi.string().optional(),
     address: Joi.string().optional(),
     companyName: Joi.string().optional(),
-    companyNumber: Joi.number().optional(),
+    // companyNumber: Joi.number().optional(),
     companyUrl: Joi.string().optional(),
     phone: Joi.number().max(10).optional(),
     role: Joi.string().valid('admin', 'customer').optional(),
