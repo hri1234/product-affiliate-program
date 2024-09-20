@@ -13,7 +13,7 @@ const uploads = multer({ storage: storage });
 const { authenticate } = require('../middleware/authentication.js')
 
 router.post('/add', authenticate, controllers.addAffiliate);
-router.post('/updateAffiliate/:id',upload.single('image'),controllers.updateAffiliate)
+router.put('/updateAffiliate/:id',controllers.updateAffiliate)
 router.post('/getAffiliateById/:id',controllers.getAffiliateById)
 router.post("/upload", uploads.single("file"), controllers.fileUpload);
 router.post('/list', authenticate, controllers.getAffiliate)

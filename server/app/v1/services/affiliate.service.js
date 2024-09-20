@@ -186,7 +186,7 @@ exports.updateAffiliate = async (id, body, req) => {
             const result = await Affiliate.update(
                 {
                     ...body,
-                    imageUrl: req?.file?.filename
+                    imageUrl: req.body.imageUrl
                 },
                 {
                     where: {

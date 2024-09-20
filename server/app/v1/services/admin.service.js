@@ -156,6 +156,12 @@ exports.userAffiliates = async (userId, req) => {
         const limit = parseInt(req.body.limit) || 10;  // Default to 10 items per page
         const offset = (page - 1) * limit;
 
+        const user = await Users.findOne({ where: { id: userId } });
+        if (!user) {
+            return {
+                status: false,
+            }
+        }
         const assignAffiliateDetails = await AffiliateAssign.findAndCountAll({
 
             limit: limit,
@@ -176,6 +182,9 @@ exports.userAffiliates = async (userId, req) => {
 
 
 
+        const uniqueId = user.userId
+        assignAffiliateDetails["uniqueId"] = uniqueId
+
         assignAffiliateDetails?.rows.forEach(obj => {
 
 
@@ -195,6 +204,7 @@ exports.userAffiliates = async (userId, req) => {
             }
 
         });
+
         if (assignAffiliateDetails) {
             return {
                 status: true,
@@ -214,4 +224,44 @@ exports.userAffiliates = async (userId, req) => {
         }
 
     }
+}
+
+
+exports.deleteAffiliate = async (affiliateId, req) => {
+
+    try {
+        const isExist = await Affiliate.findOne({ where: { id: affiliateId } })
+        if (!isExist) {
+            return {
+                status: false,
+                isExist: false
+            }
+        }
+        const deletedData = await Affiliate.destroy({ where: { id: affiliateId } })
+        if (deletedData) {
+            return {
+                status: true,
+                result: deletedData
+            }
+        }
+        return {
+            status: false
+        }
+    } catch (error) {
+        console.log(error)
+        return {
+            status: false
+        }
+    }
+}
+
+
+//
+exports.userDetails = async (userId) => {
+    const result = await Users.findOne(
+        {
+             where: { id: userId },
+             attributes:{exclude:["password"]}
+            })
+    return result
 }

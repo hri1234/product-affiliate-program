@@ -85,3 +85,41 @@ exports.userAffiliates = async (req, res) => {
         return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
     }
 }
+
+//delete affiliate
+exports.deleteAffiliate = async (req, res) => {
+    try {
+
+        const affiliateId = req.params.id
+        const result = await service.deleteAffiliate(affiliateId, req);
+        console.log(result.isExist)
+        if (result.status == false && result.isExist == false) {
+            return sendResponse(res, statusCode.NOT_FOUND, false, `Affiliate ${ErrorMessage.NOT_FOUND}`);
+        }
+        if (result.status == false) {
+            return sendResponse(res, statusCode.BAD_REQUEST, false, `Affiliate ${ErrorMessage.NOT_CREATED}`);
+        }
+        return sendResponse(res, statusCode.OK, true, `Affiliate ${SuccessMessage.DELETE}`);
+
+
+    } catch (error) {
+        console.error(error);
+        return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
+
+    }
+
+}
+
+//userDetails
+exports.userDetails = async (req, res) => {
+    try {
+        const userId = req.params.id
+        const result = await service.userDetails(userId)
+        return sendResponse(res, statusCode.OK, true, `User Details ${SuccessMessage.FETCH}`, result)
+
+    } catch (error) {
+        console.error(error);
+        return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
+
+    }
+}
