@@ -212,7 +212,7 @@ function SignUp() {
 
 
                                 <Select
-                                  placeholder="Select Country"
+                                  placeholder="Select country"
                                   options={options}
                                   name="country"
                                   value={signupProps.values.country}
