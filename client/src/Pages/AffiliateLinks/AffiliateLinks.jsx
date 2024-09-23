@@ -60,10 +60,10 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
                 {
                   listData?.result?.rows?.map((itm) => {
                     return <>
-                      <div className=' w-full flex gap-12 py-[28px] px-4 border bg-white shadow-md rounded-2xl'>
+                      <div className=' hover:shadow-lg duration-200 w-full flex gap-12 py-[28px] px-4 border bg-white shadow-md rounded-2xl'>
                         <div className=' object-contain w-1/2 shadow-sm rounded-xl h-[220px]  p-2 bg-slate-100'>
                           {/* <img className='object-fit h-full w-full' src={`${itm?.affiliate?.imageUrl}`} alt="IMG" /> */}
-                          {itm?.affiliate?.imageUrl ? (
+                          {itm?.affiliate?.imageUrl?.includes("images") ? (
                             <img
                               className='w-full h-full object-fit rounded-xl'
                               src={`${itm?.affiliate?.imageUrl}`}

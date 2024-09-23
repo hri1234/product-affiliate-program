@@ -64,20 +64,20 @@ function SignUp() {
   };
 
   const validationSchema = yup.object().shape({
-    email: yup.string().trim("Enter valid email").required("email is required").email(),
-    payPalAddress: yup.string().trim("Enter valid address").required("address is required").strict(),
+    email: yup.string().trim("Enter valid email").required("Email is required").email(),
+    payPalAddress: yup.string().trim("Enter valid address").required("Address is required").strict(),
     // country: yup.string().trim("Enter valid country").required("country is required").strict(),
     country: yup.object().shape({
       label: yup.string().required("Country is required"),
       value: yup.string().required("Country is required")
     }).nullable().required("Country is required"),
-    city: yup.string().trim("Enter valid city").required("city is required").strict(),
-    address: yup.string().trim("Enter valid address").required("address is required").strict(),
-    companyName: yup.string().trim("Enter valid companyName").required("company name is required").strict(),
-    companyUrl: yup.string().trim("Enter valid website URL").required("website URL is required").strict(),
+    city: yup.string().trim("Enter valid city").required("City is required").strict(),
+    address: yup.string().trim("Enter valid address").required("Address is required").strict(),
+    companyName: yup.string().trim("Enter valid companyName").required("Company name is required").strict(),
+    companyUrl: yup.string().trim("Enter valid website URL").required("Website URL is required").strict(),
     // companyNumber: yup.string().trim("Enter valid number").min(10, "Enter valid number").max(10, "Enter valid number").required("number is required"),
-    password: yup.string().trim("Enter valid password").min(6, "minimum 6 characters required").required("password is required").strict(),
-    confirmPassword: yup.string().oneOf([yup.ref('password')], 'Passwords must match').trim("Enter valid confirm password").required("confirm password is required").strict(),
+    password: yup.string().trim("Enter valid password").min(6, "Minimum 6 characters required").required("Password is required").strict(),
+    confirmPassword: yup.string().oneOf([yup.ref('password')], 'Passwords must match').trim("Enter valid confirm password").required("Confirm password is required").strict(),
   });
 
   const handleSubmit = (data, { resetForm }) => {
@@ -209,6 +209,8 @@ function SignUp() {
                                     }),
                                   }}
                                 /> */}
+
+
                                 <Select
                                   placeholder="Select Country"
                                   options={options}
@@ -220,11 +222,16 @@ function SignUp() {
                                       ...baseStyles,
                                       borderRadius: '8px', // Add border-radius
                                       border: '1px solid rgb(222, 226, 230)', // Default border color
-                                      boxShadow: state.isFocused ? '0 0 0 1px rgba(222, 226, 230, 1)' : 'none', // Remove default blue focus shadow
-                                      borderColor: state.isFocused || state.isHovered ? 'rgb(222, 226, 230)' : baseStyles.borderColor, // Gray border on focus/hover
+                                      fontSize: '14px',
+                                      letterSpacing: '.8px',
+                                      boxShadow: 'none', // Remove box-shadow entirely
+                                      borderColor: 'rgb(222, 226, 230)', // Keep border consistent on focus/hover
                                       '&:hover': {
                                         borderColor: 'rgb(222, 226, 230)', // Gray border on hover
                                       },
+                                    }),
+                                    indicatorSeparator: () => ({
+                                      display: 'none', // Hide the line near the arrow button
                                     }),
                                   }}
                                 />
@@ -241,7 +248,7 @@ function SignUp() {
                               <InputComponent label={"Company name"} type={"text"} value={signupProps.values.companyName} name='companyName' onChange={signupProps.handleChange} placeholder={"Enter company name"} />
                               {/* <InputComponent label={"Company number"} type={"text"} value={signupProps.values.companyNumber} name='companyNumber' onChange={signupProps.handleChange} placeholder={"Enter company number"} /> */}
                               <InputComponent label={"Website URL"} type={"text"} value={signupProps.values.companyUrl} name='companyUrl' onChange={signupProps.handleChange} placeholder={"Enter website URL"} />
-                              <div className='mt-4 flex flex-col gap-4'>
+                              <div className='mt-4 flex flex-col gap-5'>
 
                                 <div className='relative w-full flex gap-1'>
                                   <InputComponent label={"Password"} type={showPassword == "password" ? "password" : "text"} value={signupProps.values.password} name='password' onChange={signupProps.handleChange} placeholder={"Enter your password"} />
@@ -266,7 +273,7 @@ function SignUp() {
                                   </span>
                                 </div>
                               </div>
-                              <div className=' flex gap-1 mt-[-9.5px] items-center'>
+                              <div className=' flex gap-1 mt-[-9.0px] items-center'>
                                 <input className=' cursor-pointer p-0 m-0' type="checkbox" id='checkboxx' name='checkboxx' />
                                 <label className=' p-0 m-0 cursor-pointer hover:underline ' htmlFor="checkboxx"> <a target='_blank' className=' text-[14px] text-black hover:text-black' href="https://partners.krownthemes.com/terms-and-conditions">Accept terms and condition</a></label>
                               </div>

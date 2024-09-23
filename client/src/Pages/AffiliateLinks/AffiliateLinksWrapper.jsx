@@ -24,13 +24,15 @@ function AffiliateLinksWrapper() {
   }, [UserToken])
 
 
-  const { data, isLoading: listLoading, isFetching: listFetching } = useGetIndividualAffiliateListQuery({
+  const { data, isLoading: listLoading, isFetching: listFetching ,refetch} = useGetIndividualAffiliateListQuery({
     Id: UserId,
     data: {
       limit: dataPerPage,
       page: currentPage
     }
   })
+
+  
 
   const [listData, setListData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -46,6 +48,10 @@ function AffiliateLinksWrapper() {
     }
   }, [listLoading, data, listFetching])
 
+  useEffect(()=>{
+    setLoading(true)
+    refetch();
+  },[UserId])
 
   return (
     <>

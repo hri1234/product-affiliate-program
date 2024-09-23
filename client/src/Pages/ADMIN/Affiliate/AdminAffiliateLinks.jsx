@@ -90,9 +90,9 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage, c
                                     listData?.rows?.map((itm) => {
                                         return <>
 
-                                            <div className=' w-full flex gap-12 py-[28px] px-4 border bg-white shadow-md rounded-2xl'>
+                                            <div className=' hover:shadow-lg duration-200 w-full flex gap-12 py-[28px] px-4 border bg-white shadow-md rounded-2xl'>
                                                 <div className='w-1/2 shadow-sm rounded-xl h-[220px] p-2 bg-slate-100 flex items-center justify-center'>
-                                                    {itm?.imageUrl ? (
+                                                    {itm?.imageUrl?.includes("images") ? (
                                                         <img
                                                             className='w-full h-full object-fit rounded-xl'
                                                             src={`${itm?.imageUrl}`}

@@ -171,6 +171,18 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
                 options={YearList}
                 onChange={handleYearChange}
                 defaultValue={YearList.find(month => month.value === selectedYear)}
+                styles={{
+                  control: (baseStyles, state) => ({
+                    ...baseStyles,
+                    borderRadius: '8px', // Add border-radius
+                    border: '1px solid rgb(222, 226, 230)', // Default border color
+                    boxShadow: state.isFocused ? '0 0 0 1px rgba(222, 226, 230, 1)' : 'none', // Remove default blue focus shadow
+                    borderColor: state.isFocused || state.isHovered ? 'rgb(222, 226, 230)' : baseStyles.borderColor, // Gray border on focus/hover
+                    '&:hover': {
+                      borderColor: 'rgb(222, 226, 230)', // Gray border on hover
+                    },
+                  }),
+                }}
               />
 
               <Select
@@ -178,6 +190,18 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
                 options={MonthList}
                 onChange={handleMonthChange}
                 defaultValue={MonthList.find(month => month.value === selectedMonth)}
+                styles={{
+                  control: (baseStyles, state) => ({
+                    ...baseStyles,
+                    borderRadius: '8px', // Add border-radius
+                    border: '1px solid rgb(222, 226, 230)', // Default border color
+                    boxShadow: state.isFocused ? '0 0 0 1px rgba(222, 226, 230, 1)' : 'none', // Remove default blue focus shadow
+                    borderColor: state.isFocused || state.isHovered ? 'rgb(222, 226, 230)' : baseStyles.borderColor, // Gray border on focus/hover
+                    '&:hover': {
+                      borderColor: 'rgb(222, 226, 230)', // Gray border on hover
+                    },
+                  }),
+                }}
               />
             </div>
           </div>

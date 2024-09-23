@@ -25,7 +25,7 @@ const AffiliateService = CreateApi.injectEndpoints(
                                 method: "POST",
                                 body: data
                             }
-                        )
+                        ),
                     }
                 ),
                 AddAffiliateLink: builder.mutation(

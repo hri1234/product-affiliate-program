@@ -20,6 +20,7 @@ function AdminAddAffiliateLinks({ listData, loading }) {
     const [AddAffiliate] = useAddAffiliateLinkMutation();
     const [FileName, setFileName] = useState('No file choosen');
     const [ImageUrl, setImageUrl] = useState('');
+    const [handleImageUploadloading, sethandleImageUploadLoading] = useState(false);
 
     const [UploadImage] = useUploadImageMutation();
 
@@ -43,9 +44,9 @@ function AdminAddAffiliateLinks({ listData, loading }) {
     };
 
     const validationSchema = yup.object().shape({
-        name: yup.string().trim("Enter valid name").required("name is required").strict(),
-        link: yup.string().trim("Enter valid link").required("link is required").strict(),
-        dropboxLink: yup.string().trim("Enter valid dropbox link").required("dropbox link is required").strict(),
+        name: yup.string().trim("Enter valid name").required("Name is required").strict(),
+        link: yup.string().trim("Enter valid link").required("Link is required").strict(),
+        dropboxLink: yup.string().trim("Enter valid dropbox link").required("Dropbox link is required").strict(),
         // clickCount: yup.string().matches(/^\d+$/, "Click count must be a number").required("Click count is required").strict(),
         // purchases: yup.string().matches(/^\d+$/, "Purchases must be a number").required("Purchases count is required").strict(),
         // companyNumber: yup.string().trim("Enter valid number").min(10, "Enter valid number").max(10, "Enter valid number").required("number is required"),
@@ -101,15 +102,21 @@ function AdminAddAffiliateLinks({ listData, loading }) {
     };
 
     const handleThumbnail = async (event) => {
+
+
         const File = event.target.files[0];
         if (File) {
 
             const formData = new FormData()
             formData.append('file', File);
+            sethandleImageUploadLoading(true)
 
             UploadImage({ data: formData })
                 .then((res) => {
+
+
                     if (res?.error) {
+                        sethandleImageUploadLoading(false)
                         console.log(res?.error?.data?.message || "Internal server error", 'reserror')
                     }
                     else {
@@ -117,10 +124,12 @@ function AdminAddAffiliateLinks({ listData, loading }) {
                         console.log(res?.data?.result?.url, 'res res');
                         setImageUrl(res?.data?.result?.url)
                         setFileName(File.name);
+                        sethandleImageUploadLoading(false);
                     }
                 })
                 .catch((err) => {
-                    console.log(err?.data?.error || "Internal server errors", 'err')
+                    console.log(err?.data?.error || "Internal server errors", 'err');
+                    sethandleImageUploadLoading(false);
                 })
 
             // const formData = new FormData();
@@ -190,7 +199,14 @@ function AdminAddAffiliateLinks({ listData, loading }) {
                                                     <Col md='6'>
                                                         {/* <InputControl control={control} placeholder='select...' controlInput='select' options={StateSelect} className='form-select' errors={errors} register={{ ...register('state', { required: 'is Required.' }) }} /> */}
                                                         {/* State */}
-                                                        <InputComponent onChange={(e) => handleThumbnail(e)} fileName={FileName} type={"file"} label={"Thumnail Image"} />
+                                                        {
+                                                            handleImageUploadloading ?
+                                                                <span className=' w-full flex py-2 items-center justify-center m-auto self-center animate-spin'>
+                                                                    <AiOutlineLoading3Quarters />
+                                                                </span>
+                                                                :
+                                                                <InputComponent onChange={(e) => handleThumbnail(e)} fileName={FileName} type={"file"} label={"Thumnail Image"} />
+                                                        }
                                                     </Col>
                                                 </Row>
 

@@ -31,6 +31,7 @@ import AssignAffiliateWrapper from './Pages/ADMIN/Affiliate/AssignAffiliate/Assi
 import AnalyticsGraphWrapper from './Pages/AnalyticsGraph/AnalyticsGraphWrapper';
 import EditAffiliateWrapper from './Pages/ADMIN/Affiliate/EditAffiliate/EditAffiliateWrapper';
 import CustomerProfileWrapper from './Pages/ADMIN/CustomerProfile/CustomerProfileWrapper';
+import NoPageFound from './Pages/NoPageFound';
 
 function Routing() {
     const [authenticateLogin, setAthenticateLogin] = useState(false);
@@ -85,7 +86,7 @@ function Routing() {
                             <Route path='analytics/:id/:name' element={<AnalyticsGraphWrapper />} />
                         </Route>
                         :
-                        authenticateLogin &&
+                        authenticateLogin ?
                         <Route path='/dashboard/' element={<Layout />} >
                             <Route path='' element={<AdminDashboardWrapper />} />
                             <Route path='profile' element={<ProfileWrapper />} />
@@ -99,6 +100,8 @@ function Routing() {
                             <Route path='affiliate-links/edit/:id' element={<EditAffiliateWrapper />} />
                             <Route path='affiliate-links/assign/:id' element={<AssignAffiliateWrapper />} />
                         </Route>
+                        :
+                        <Route path='*' element={<><NoPageFound/></>}/>
                 }
             </Routes>
         </div>

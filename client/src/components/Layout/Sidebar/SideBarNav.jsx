@@ -95,7 +95,7 @@ const SideBarNav = () => {
       console.log(decodingToken?.role, 'decodedToken');
       setRole(decodingToken?.role)
     }
-  }, [TokenData,testToken]);
+  }, [TokenData, testToken]);
 
   return (
     <div className='relative h-screen'>
@@ -148,7 +148,7 @@ const SideBarNav = () => {
             togglSidebar ?
 
               // <FaArrowRightArrowLeft className=' text-sm' size={22} />
-              <IoIosArrowForward  size={32} />
+              <IoIosArrowForward size={32} />
               :
               <IoIosArrowBack size={32} />
 

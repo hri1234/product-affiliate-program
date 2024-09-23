@@ -61,16 +61,16 @@ function AddInvoice({ id, email }) {
     const validationSchema = yup.object().shape({
         // themeName: yup.string().trim("Enter valid theme name").required("theme name is required").strict(),
         themeName: yup.object().shape({
-            label: yup.string().required("themeName is required"),
-            value: yup.string().required("themeName is required")
-        }).nullable().required("themeName is required"),
-        domain: yup.string().trim("Enter valid domain").required("domain is required").strict(),
-        commission: yup.string().matches(/^\d+$/, "Click count must be a number").trim("Enter valid commission").required("commission is required").strict(),
+            label: yup.string().required("ThemeName is required"),
+            value: yup.string().required("ThemeName is required")
+        }).nullable().required("ThemeName is required"),
+        domain: yup.string().trim("Enter valid domain").required("Domain is required").strict(),
+        commission: yup.string().matches(/^\d+$/, "Click count must be a number").trim("Enter valid commission").required("Commission is required").strict(),
         paymentMethod: yup.object().shape({
-            label: yup.string().required("paymentMethod is required"),
-            value: yup.string().required("paymentMethod is required")
-        }).nullable().required("themeName is required"),
-        transactionId: yup.string().required("transactionId is required").trim("Enter valid transactionId"),
+            label: yup.string().required("PaymentMethod is required"),
+            value: yup.string().required("PaymentMethod is required")
+        }).nullable().required("ThemeName is required"),
+        transactionId: yup.string().required("TransactionId is required").trim("Enter valid transactionId"),
         invoiceId: yup.string().trim("Enter valid invoiceId"),
     });
 
@@ -119,12 +119,12 @@ function AddInvoice({ id, email }) {
                         (profileProps) =>
                         (
                             <Form>
-                                    <div className='flex w-full justify-between px-1 py-2 mb-1'>
-                                        <span onClick={() => { navigate('/dashboard') }} className='font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
-                                            <IoArrowBack size={20} />
-                                        </span>
-                                    
-                                    </div>
+                                <div className='flex w-full justify-between px-1 py-2 mb-1'>
+                                    <span onClick={() => { navigate('/dashboard') }} className='font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
+                                        <IoArrowBack size={20} />
+                                    </span>
+
+                                </div>
                                 <Fragment>
                                     <Card className=' w-full'>
                                         <div className='pb-0 pt-4 w-full flex justify-between px-[26px]'>
@@ -151,6 +151,18 @@ function AddInvoice({ id, email }) {
                                                             value={profileProps.values.themeName}
                                                             // value={[{value:"IN",label:'India'}]}
                                                             onChange={value => profileProps.setFieldValue('themeName', value)}
+                                                            styles={{
+                                                                control: (baseStyles, state) => ({
+                                                                    ...baseStyles,
+                                                                    borderRadius: '8px', // Add border-radius
+                                                                    border: '1px solid rgb(222, 226, 230)', // Default border color
+                                                                    boxShadow: state.isFocused ? '0 0 0 1px rgba(222, 226, 230, 1)' : 'none', // Remove default blue focus shadow
+                                                                    borderColor: state.isFocused || state.isHovered ? 'rgb(222, 226, 230)' : baseStyles.borderColor, // Gray border on focus/hover
+                                                                    '&:hover': {
+                                                                        borderColor: 'rgb(222, 226, 230)', // Gray border on hover
+                                                                    },
+                                                                }),
+                                                            }}
                                                         />
                                                         <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"themeName"} component='div' />
                                                     </div>
@@ -188,6 +200,23 @@ function AddInvoice({ id, email }) {
                                                             value={profileProps.values.paymentMethod}
                                                             // value={[{value:"IN",label:'India'}]}
                                                             onChange={value => profileProps.setFieldValue('paymentMethod', value)}
+                                                            styles={{
+                                                                control: (baseStyles, state) => ({
+                                                                    ...baseStyles,
+                                                                    borderRadius: '8px', // Add border-radius
+                                                                    border: '1px solid rgb(222, 226, 230)', // Default border color
+                                                                    fontSize: '14px',
+                                                                    letterSpacing: '.8px',
+                                                                    boxShadow: 'none', // Remove box-shadow entirely
+                                                                    borderColor: 'rgb(222, 226, 230)', // Keep border consistent on focus/hover
+                                                                    '&:hover': {
+                                                                        borderColor: 'rgb(222, 226, 230)', // Gray border on hover
+                                                                    },
+                                                                }),
+                                                                indicatorSeparator: () => ({
+                                                                    display: 'none', // Hide the line near the arrow button
+                                                                }),
+                                                            }}
                                                         />
                                                         <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"paymentMethod"} component='div' />
                                                     </div>

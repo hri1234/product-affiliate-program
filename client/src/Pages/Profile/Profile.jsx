@@ -172,6 +172,23 @@ function Profile({ listData, loading }) {
                                 value={profileProps.values.country}
                                 // value={[{value:"IN",label:'India'}]}
                                 onChange={value => profileProps.setFieldValue('country', value)}
+                                styles={{
+                                  control: (baseStyles, state) => ({
+                                    ...baseStyles,
+                                    borderRadius: '8px', // Add border-radius
+                                    border: '1px solid rgb(222, 226, 230)', // Default border color
+                                    fontSize: '14px',
+                                    letterSpacing: '.8px',
+                                    boxShadow: 'none', // Remove box-shadow entirely
+                                    borderColor: 'rgb(222, 226, 230)', // Keep border consistent on focus/hover
+                                    '&:hover': {
+                                      borderColor: 'rgb(222, 226, 230)', // Gray border on hover
+                                    },
+                                  }),
+                                  indicatorSeparator: () => ({
+                                    display: 'none', // Hide the line near the arrow button
+                                  }),
+                                }}
                               />
                               <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"country"} component='div' />
                             </div>

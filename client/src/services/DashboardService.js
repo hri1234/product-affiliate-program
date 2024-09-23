@@ -19,7 +19,7 @@ const DashboardService = CreateApi.injectEndpoints(
                 ),
                 GetMonthlyAnalysis: builder.query(
                     {
-                        providesTags: ["dashboard","overvieww"],
+                        providesTags: ["dashboard","overvieww","analysis"],
                         query: ({ Id, data }) => (
                             {
                                 url: `/overview/get/${Id}`,

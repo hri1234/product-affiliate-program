@@ -3,7 +3,7 @@ import { Image } from "../AbstractElements";
 import LoginTab from "./Tabs/LoginTab";
 // import LoginBanner from '../../Assets/loginBanner.png'
 // import LoginBanner from '../../Assets/logo/banner1.jpg'
-import LoginBanner from '../../Assets/logo/new-banner02.jpg'
+import LoginBanner from '../../Assets/logo/image_2024_09_23T11_14_52_136Z.png'
 
 const Logins = (props) => {
 

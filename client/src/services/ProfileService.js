@@ -33,7 +33,7 @@ const ProfileService = CreateApi.injectEndpoints(
                         query: ({ Id, data }) => (
                             {
                                 url: `/admin/user-details/${Id}`,
-                                method: "POST",
+                                method: "GET",
                                 body: data
                             }
                         )

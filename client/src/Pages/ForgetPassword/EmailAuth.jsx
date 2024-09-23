@@ -39,7 +39,7 @@ function EmailAuth() {
     };
 
     const validationSchema = yup.object().shape({
-        email: yup.string().trim("Enter valid email").required("email is required").email(),
+        email: yup.string().trim("Enter valid email").required("Email is required").email(),
     });
 
     const handleSubmit = (data, { resetForm }) => {

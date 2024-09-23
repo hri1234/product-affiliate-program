@@ -38,19 +38,19 @@ function Dashboard({ loading, listData, overviewLoading, overviewData, setCurren
             <div>
               <div className='flex flex-col gap-3 mt-4'>
                 <div className=' w-full grid md:grid-cols-3 gap-6 grid-cols-1'>
-                  <div className='w-full flex-col flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
+                  <div className='w-full flex-col hover:shadow-md  duration-200 flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
                     <div className='font-semibold'>
                       Current Month Paid
                     </div>
                     {overviewData?.paid} $
                   </div>
-                  <div className='w-full flex-col flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
+                  <div className='w-full flex-col hover:shadow-md  duration-200 flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
                     <div className='font-semibold'>
                       Total Pending
                     </div>
                     {overviewData?.pending} $
                   </div>
-                  <div className='w-full flex-col flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
+                  <div className='w-full flex-col hover:shadow-md duration-200 flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
                     <div className='font-semibold'>
                       Total Paid
                     </div>
@@ -63,7 +63,7 @@ function Dashboard({ loading, listData, overviewLoading, overviewData, setCurren
               <p className='text-[20px] font-semibold'>Invoice Details</p>
 
               <div className='w-full h-full invoices-page'>
-                <div className='table-container'>
+                <div className='table-container '>
                   <table className='shadow'>
                     <thead className=' py-2'>
                       <tr className='py-2'>

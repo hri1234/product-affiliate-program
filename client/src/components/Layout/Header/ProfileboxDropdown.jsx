@@ -22,15 +22,15 @@ const ProfileboxDropdown = () => {
 
   return (
     <UL className="profile-dropdown px-[12px] py-[10px] onhover-show-div border flex flex-col gap-1 shadow-sm">
-      <LI onClick={handleProfile} className="border-0 border-b-2">
-        <Link style={{ textDecoration: 'none' }} className=' flex w-full items-center gap-3 p-1'>
+      <LI onClick={handleProfile} className="border-0 border-b-2 ">
+        <Link style={{ textDecoration: 'none' }} className=' hover:opacity-80 flex w-full text-black hover:text-black items-center gap-3 p-1'>
           <FiUser />
           <span>{Account}</span>
         </Link>
       </LI>
       <hr />
       <LI className="border-0" onClick={logout}>
-        <Link style={{ textDecoration: 'none' }} className=' flex w-full items-center gap-3 p-1' >
+        <Link style={{ textDecoration: 'none' }} className=' hover:opacity-80 flex w-full hover:text-black items-center gap-3 p-1' >
           <FiLogIn />
           <span>Log Out</span>
         </Link>

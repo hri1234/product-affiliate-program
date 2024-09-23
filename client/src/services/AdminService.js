@@ -18,7 +18,7 @@ const AdminService = CreateApi.injectEndpoints(
                 ),
                 AddInvoice: builder.mutation(
                     {
-                        invalidatesTags: ['admin'],
+                        invalidatesTags: ['admin',"analysis"],
                         query: ({ Id, data }) => (
                             {
                                 url: `/invoice/createInvoice`,
