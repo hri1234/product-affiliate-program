@@ -31,7 +31,7 @@ function SignUp() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState("password");
   const [showConfirmPassword, setShowConfirmPassword] = useState("password");
-  const [toasterMessage,setToasterMessage] = useState('')
+  const [toasterMessage, setToasterMessage] = useState('')
 
 
 
@@ -74,9 +74,9 @@ function SignUp() {
     city: yup.string().trim("Enter valid city").required("city is required").strict(),
     address: yup.string().trim("Enter valid address").required("address is required").strict(),
     companyName: yup.string().trim("Enter valid companyName").required("company name is required").strict(),
-    companyUrl: yup.string().trim("Enter valid website url").required("website url is required").strict(),
+    companyUrl: yup.string().trim("Enter valid website URL").required("website URL is required").strict(),
     // companyNumber: yup.string().trim("Enter valid number").min(10, "Enter valid number").max(10, "Enter valid number").required("number is required"),
-    password: yup.string().trim("Enter valid password").min(6,"minimum 6 characters required").required("password is required").strict(),
+    password: yup.string().trim("Enter valid password").min(6, "minimum 6 characters required").required("password is required").strict(),
     confirmPassword: yup.string().oneOf([yup.ref('password')], 'Passwords must match').trim("Enter valid confirm password").required("confirm password is required").strict(),
   });
 
@@ -174,7 +174,7 @@ function SignUp() {
                               /> */}
                               <H4 className="text-center font-semibold text-2xl"> Sign Up</H4>
                             </div>
-                            <P className="text-center">Join our affiliate program now and <br /> turn your referrals into rewards</P>
+                            <P className="text-center">Join our affiliate program now and turn your referrals into rewards</P>
                             {/* <span className='m-auto'>Join our affiliate program now and <br /> turn your referrals into rewards</span> */}
                             <div className=' w-full flex flex-col gap-6 pb-4'>
 
@@ -195,7 +195,7 @@ function SignUp() {
                               </div> */}
                               <div className='relative'>
                                 <span className='pl-[3px] font-semibold text-[13px]'>{"Country"}</span>
-                                <Select
+                                {/* <Select
                                   placeholder="Select Country"
                                   options={options}
                                   name="country"
@@ -208,7 +208,28 @@ function SignUp() {
                                       border: '1px solid rgb(222, 226, 230)', // You can add custom borders here if needed
                                     }),
                                   }}
+                                /> */}
+                                <Select
+                                  placeholder="Select Country"
+                                  options={options}
+                                  name="country"
+                                  value={signupProps.values.country}
+                                  onChange={value => signupProps.setFieldValue('country', value)}
+                                  styles={{
+                                    control: (baseStyles, state) => ({
+                                      ...baseStyles,
+                                      borderRadius: '8px', // Add border-radius
+                                      border: '1px solid rgb(222, 226, 230)', // Default border color
+                                      boxShadow: state.isFocused ? '0 0 0 1px rgba(222, 226, 230, 1)' : 'none', // Remove default blue focus shadow
+                                      borderColor: state.isFocused || state.isHovered ? 'rgb(222, 226, 230)' : baseStyles.borderColor, // Gray border on focus/hover
+                                      '&:hover': {
+                                        borderColor: 'rgb(222, 226, 230)', // Gray border on hover
+                                      },
+                                    }),
+                                  }}
                                 />
+
+
                                 <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px] mt-0' name={"country"} component='div' />
                               </div>
 
@@ -219,46 +240,48 @@ function SignUp() {
                               <InputComponent label={"Address"} type={"text"} value={signupProps.values.address} name='address' onChange={signupProps.handleChange} placeholder={"Enter your address"} />
                               <InputComponent label={"Company name"} type={"text"} value={signupProps.values.companyName} name='companyName' onChange={signupProps.handleChange} placeholder={"Enter company name"} />
                               {/* <InputComponent label={"Company number"} type={"text"} value={signupProps.values.companyNumber} name='companyNumber' onChange={signupProps.handleChange} placeholder={"Enter company number"} /> */}
-                              <InputComponent label={"Website Url"} type={"text"} value={signupProps.values.companyUrl} name='companyUrl' onChange={signupProps.handleChange} placeholder={"Enter website Url"} />
-                              <div className='relative w-full flex gap-1'>
-                                <InputComponent label={"Password"} type={showPassword == "password" ? "password" : "text"} value={signupProps.values.password} name='password' onChange={signupProps.handleChange} placeholder={"Enter your password"} />
-                                <span onClick={() => showPassword == "password" ? setShowPassword("text") : setShowPassword("password")} className=' absolute cursor-pointer right-3 bottom-3'>
-                                  {
-                                    showPassword == "password" ?
-                                      <FiEyeOff />
-                                      :
-                                      <FiEye />
-                                  }
-                                </span>
+                              <InputComponent label={"Website URL"} type={"text"} value={signupProps.values.companyUrl} name='companyUrl' onChange={signupProps.handleChange} placeholder={"Enter website URL"} />
+                              <div className='mt-4 flex flex-col gap-4'>
+
+                                <div className='relative w-full flex gap-1'>
+                                  <InputComponent label={"Password"} type={showPassword == "password" ? "password" : "text"} value={signupProps.values.password} name='password' onChange={signupProps.handleChange} placeholder={"Enter your password"} />
+                                  <span onClick={() => showPassword == "password" ? setShowPassword("text") : setShowPassword("password")} className=' absolute cursor-pointer right-3 bottom-3'>
+                                    {
+                                      showPassword == "password" ?
+                                        <FiEyeOff />
+                                        :
+                                        <FiEye />
+                                    }
+                                  </span>
+                                </div>
+                                <div className=' relative w-full flex gap-1'>
+                                  <InputComponent label={"Confirm password"} type={showConfirmPassword == "password" ? "password" : "text"} value={signupProps.values.confirmPassword} name='confirmPassword' onChange={signupProps.handleChange} placeholder={"Enter confirm password"} />
+                                  <span onClick={() => showConfirmPassword == "password" ? setShowConfirmPassword("text") : setShowConfirmPassword("password")} className=' absolute cursor-pointer right-3 bottom-3'>
+                                    {
+                                      showConfirmPassword == "password" ?
+                                        <FiEyeOff />
+                                        :
+                                        <FiEye />
+                                    }
+                                  </span>
+                                </div>
                               </div>
-                              <div className=' relative w-full flex gap-1'>
-                                <InputComponent label={"Confirm password"} type={showConfirmPassword == "password" ? "password" : "text"} value={signupProps.values.confirmPassword} name='confirmPassword' onChange={signupProps.handleChange} placeholder={"Enter confirm password"} />
-                                <span onClick={() => showConfirmPassword == "password" ? setShowConfirmPassword("text") : setShowConfirmPassword("password")} className=' absolute cursor-pointer right-3 bottom-3'>
-                                  {
-                                    showConfirmPassword == "password" ?
-                                      <FiEyeOff />
-                                      :
-                                      <FiEye />
-                                  }
-                                </span>
-                              </div>
-                              <div className=' flex gap-2 items-center'>
+                              <div className=' flex gap-1 mt-[-9.5px] items-center'>
                                 <input className=' cursor-pointer p-0 m-0' type="checkbox" id='checkboxx' name='checkboxx' />
                                 <label className=' p-0 m-0 cursor-pointer hover:underline ' htmlFor="checkboxx"> <a target='_blank' className=' text-[14px] text-black hover:text-black' href="https://partners.krownthemes.com/terms-and-conditions">Accept terms and condition</a></label>
                               </div>
                             </div>
-                            <div className=' flex w-full items-center justify-center'>
-                            <span className='text-red-500'>
-
-                            {toasterMessage || ''}
-                            </span>
+                            <div className={` ${toasterMessage ? "flex w-full items-center justify-center" : "hidden"} `}>
+                              <span className='text-red-500'>
+                                {toasterMessage || ''}
+                              </span>
                             </div>
-                            <div className="position-relative form-group mb-0">
-                              <button className=" bg-black text-white py-[6.5px] border d-block w-100 mt-2 rounded-full" type="submit">
+                            <div className="position-relative form-group mb-0 mt-[-5px]">
+                              <button className=" bg-black text-white py-[6.5px] border d-block w-100 mt-0 rounded-full" type="submit">
                                 Sign up
                               </button>
                             </div>
-                            <P className='text-center mb-0 text-[16px] pt-1 mt-1 '>
+                            <P className='text-center mb-0 text-[16px] pt-0 mt-0 '>
                               Already have an account ?
                               <Link className='ms-2 text-black hover:text-black' to={`${process.env.PUBLIC_URL}/login`}>
                                 Sign in

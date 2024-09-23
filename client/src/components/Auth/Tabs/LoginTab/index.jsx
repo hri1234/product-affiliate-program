@@ -102,10 +102,10 @@ const LoginTab = (props) => {
                 <H4 className="text-center font-semibold text-2xl"> Sign In</H4>
               </div>
               {/* <P className="text-center">{"Enter your email & password to SignIn"}</P> */}
-              <FormGroup className=" flex flex-col gap-5 mt-3">
-                <InputComponent label={"Email"} placeholder={"Enter your Email"} value={loginProps.values.email} name={"email"} type="text" onChange={loginProps.handleChange} />
+              <FormGroup className=" flex flex-col gap-4 mt-3">
+                <InputComponent label={"Email"} placeholder={"Enter your email"} value={loginProps.values.email} name={"email"} type="text" onChange={loginProps.handleChange} />
                 <div className=" relative flex gap-1 justify-between">
-                  <InputComponent label={"Password"} placeholder={"Enter your Password"} value={loginProps.values.password} name={"password"} type={showPassword == "password" ? "password" : "text"} onChange={loginProps.handleChange} />
+                  <InputComponent label={"Password"} placeholder={"Enter your password"} value={loginProps.values.password} name={"password"} type={showPassword == "password" ? "password" : "text"} onChange={loginProps.handleChange} />
                   <span onClick={() => showPassword == 'password' ? setShowPassword('text') : setShowPassword('password')} className=" cursor-pointer absolute right-3 bottom-3">
                     {
                       showPassword == "password" ?
@@ -137,11 +137,11 @@ const LoginTab = (props) => {
                     "Sign In"
                 }
               </button>
-              <div className=" pt-4 w-full flex items-center justify-center">
+              <div className=" pt-1 w-full flex items-center justify-center">
                 <hr />
                 Don't have account?
                 <Link className='ms-2 text-black hover:text-black' to={`${process.env.PUBLIC_URL}/register`}>
-                  Sign Up
+                  Sign up
                 </Link>
               </div>
             </div >

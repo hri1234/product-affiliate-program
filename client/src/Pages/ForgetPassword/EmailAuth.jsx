@@ -71,7 +71,6 @@ function EmailAuth() {
                 setLoading(false);
             })
 
-
     };
 
 
@@ -103,9 +102,9 @@ function EmailAuth() {
                                                                 className="img-fluid for-light mx-auto h-[65px] w-[65px]"
                                                                 src={require("../../Assets/logo/itg_logo.webp")}
                                                             /> */}
-                                                            <H4 className="text-center font-semibold text-2xl">Forgot password</H4>
+                                                            <H4 className="text-center font-semibold text-2xl">Reset password</H4>
                                                         </div>
-                                                        <P className="text-center">{"Enter your email to get reset link"}</P>
+                                                        <P className="text-center">{" Enter the email address linked to your account, and we will send you a code to reset your password"}</P>
                                                         {/* <Input type="text" placeholder='Enter your email' value={signupProps.values.email} name='email' onChange={signupProps.handleChange} /> */}
                                                         <div className=' w-full flex flex-col gap-6 pb-4'>
                                                             <InputComponent label={"Email"} type={"text"} value={signupProps.values.email} name='email' onChange={signupProps.handleChange} placeholder={"Enter your email"} />
@@ -121,7 +120,7 @@ function EmailAuth() {
                                                                         "Submit"
                                                                 }
                                                             </Btn> */}
-                                                            <button className=" bg-black text-white py-[6.5px] border d-block w-100 mt-2 rounded-full" type="submit">
+                                                            <button className=" bg-black text-white py-[6.5px] border d-block w-100 mt-1 rounded-full" type="submit">
                                                                 {
                                                                     loading ?
                                                                         <span className=' w-full flex py-1 items-center justify-center m-auto self-center animate-spin'>
@@ -132,12 +131,21 @@ function EmailAuth() {
                                                                 }
                                                             </button>
                                                         </div>
-                                                        <P className='text-center mb-0 text-[16px] pt-1 mt-1 '>
-                                                            Remember your password ?
-                                                            <Link className='ms-2 text-black hover:text-black' to={`${process.env.PUBLIC_URL}/login`}>
-                                                                Sign in
-                                                            </Link>
-                                                        </P>
+                                                        <div className='flex flex-col gap-[3px] pt-1'>
+
+                                                            <P className='text-center mb-0 text-[16px] pt-0 mt-0 '>
+                                                                Remember your password ?
+                                                                <Link className='ms-2 text-black hover:text-black' to={`${process.env.PUBLIC_URL}/login`}>
+                                                                    Sign in
+                                                                </Link>
+                                                            </P>
+                                                            <P className='text-center mb-0 text-[16px] pt-0 mt-0 '>
+                                                                Want to Sign up ?
+                                                                <Link className='ms-2 text-black hover:text-black' to={`${process.env.PUBLIC_URL}/register`}>
+                                                                    Sign up
+                                                                </Link>
+                                                            </P>
+                                                        </div>
                                                         {
                                                             showMessage &&
                                                             <P className='text-center mb-0 text-[16px] pt-1 mt-1 '>
