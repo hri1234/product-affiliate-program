@@ -22,20 +22,20 @@ module.exports = (sequelize, Sequelize) => {
         },
         storeId: {
             type: Sequelize.INTEGER,
-            references: {
-                model: 'stores',
-                key: 'id',
-            },
+            // references: {
+            //     model: 'stores',
+            //     key: 'id',
+            // },
         },
         status: {
             type: Sequelize.STRING,
         },
         createdBy: {
             type: Sequelize.INTEGER,
-            references: {
-                model: 'users',
-                key: 'id',
-            },
+            // references: {
+            //     model: 'users',
+            //     key: 'id',
+            // },
         }
     });
 

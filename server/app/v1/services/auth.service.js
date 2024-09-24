@@ -13,13 +13,14 @@ const ShortUniqueId = require('short-unique-id');
 
 const db = require("../models");
 const Users = db.users;
-
+const Affiliate = db.affiliate;
+const AssignAffiliate = db.affiliateAssign
 
 
 // login service 
 exports.login = async (details) => {
     // check email password for Npo
-    
+
     // check email exist or not for admin 
     const user = await Users.findOne({ where: { email: details.email } });
     // log(user)
@@ -40,71 +41,94 @@ exports.login = async (details) => {
     return { status: true, message: { accessToken: token } };
 }
 
-//  register service
+//register service
 exports.register = async (details, userId) => {
 
-    const exist=await this.ifIdAlreadyExist(userId)
-    
-    if(exist.status==false){
-        const data = { ...details, userId:exist.userId }
+    const exist = await this.ifIdAlreadyExist(userId)
+
+    if (exist.status == false) {
+        const data = { ...details, userId: exist.userId }
         const userDetails = await Users.create(data);
         // remove password
         delete userDetails.dataValues.password;
+
+        const assignAffiliate = await bulkAssign(userDetails.id)
         return userDetails;
     }
-   
+
+}
+
+//bulk assign 
+const bulkAssign = async function (id) {
+    const affiliates = await Affiliate.findAll()
+    // Prepare data for bulkCreate
+    const bulkData = [];
+    for (const affiliate of affiliates) {
+        bulkData.push({
+            affiliateId: affiliate.id,
+            userId: id
+        });
+    }
+    // Perform bulkCreate once with all data
+    const createdAssign = await AssignAffiliate.bulkCreate(bulkData);
+    if (createdAssign) {
+        return true;
+    }
+    return false
 }
 
 exports.generateId = async () => {
     const uid = new ShortUniqueId({ length: 10 })
     return uid.rnd()
 }
-exports.ifIdAlreadyExist=async (userId)=>{
-    const isExist=await Users.findOne({where:{userId}})
-    if(isExist){
-        userId=await  this.generateId()
-       
-       this.ifIdAlreadyExist(userId)
-      
+exports.ifIdAlreadyExist = async (userId) => {
+    const isExist = await Users.findOne({ where: { userId } })
+    if (isExist) {
+        userId = await this.generateId()
+
+        this.ifIdAlreadyExist(userId)
+
     }
-   
-        return {status:false,userId:userId}
-    
+
+    return { status: false, userId: userId }
+
 
 }
 
 
-exports.updatePassword=async (id,oldPassword,newPassword)=>{
+exports.updatePassword = async (id, oldPassword, newPassword) => {
 
-     const user = await Users.findOne({ where: { id:id } });
-    if(!user){
+    const user = await Users.findOne({ where: { id: id } });
+    if (!user) {
         return { status: false, message: `User ${ErrorMessage.NOT_FOUND}` };
     }
 
-    const isPasswordValid = await bcrypt.compare(oldPassword,user.password)
+    const isPasswordValid = await bcrypt.compare(oldPassword, user.password)
 
-    if(!isPasswordValid){
+    if (!isPasswordValid) {
         return { status: false, message: `User ${ErrorMessage.INVALID_CREDENTIAL}` };
     }
     console.log("user:", isPasswordValid);
-    const newHashPass=await  this.genHashPassword(newPassword)
-    const result=await Users.update({
-        password:newHashPass
-     },{where:{
-        id:id
-     }})
+    const newHashPass = await this.genHashPassword(newPassword)
+    const result = await Users.update({
+        password: newHashPass
+    }, {
+        where: {
+            id: id
+        }
+    })
 
-     return {
-        status:true,message:`password ${SuccessMessage.UPDATE}`
-     }
+    return {
+        status: true, message: `password ${SuccessMessage.UPDATE}`
+    }
 
 }
 
 
-exports.genHashPassword=async (password)=>{
+exports.genHashPassword = async (password) => {
     if (password) {
         const salt = await bcrypt.genSalt(10);
-      return   password = await bcrypt.hash(password, salt);
+        return password = await bcrypt.hash(password, salt);
     }
 }
 
@@ -115,7 +139,7 @@ exports.getUserProfile = async (req, res) => {
         const id = jwt.decode(token).id
         const user = await Users.findOne({ where: { id: id } })
         if (user) {
-           
+
             delete user.dataValues.password
             return {
                 status: true,

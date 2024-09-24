@@ -17,7 +17,7 @@ router.put('/updateAffiliate/:id',controllers.updateAffiliate)
 router.post('/getAffiliateById/:id',controllers.getAffiliateById)
 router.post("/upload", uploads.single("file"), controllers.fileUpload);
 router.post('/list', authenticate, controllers.getAffiliate)
-router.get('/:id', controllers.redirectShortLink);
+// router.get('/:id', controllers.redirectShortLink);
 router.post('/assign-affiliate/add/:id',controllers.addAssignAffiliate)
 // router.get('/assigned-affiliate/get',controllers) //get affiliate customer
 

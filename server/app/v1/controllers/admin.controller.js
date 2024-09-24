@@ -123,3 +123,21 @@ exports.userDetails = async (req, res) => {
 
     }
 }
+
+//delete affilaite assign
+exports.deleteAffiliateAssign = async (req, res) => {
+    try {
+        const affiliateId = req.params.id
+
+        const result = await service.deleteAffiliateAssign(affiliateId)
+        if (result) {
+            return sendResponse(res, statusCode.OK, true, `Assigne  ${SuccessMessage.DELETE}`)
+        }
+        return sendResponse(res, statusCode.BAD_REQUEST, false, ErrorMessage.BAD_REQUEST)
+
+    } catch (error) {
+        console.error(error);
+        return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
+
+    }
+}

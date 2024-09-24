@@ -1,8 +1,11 @@
 const shortid = require('shortid');
+const { Sequelize } = require('sequelize');
+
 const db = require("../models");
 const Affiliate = db.affiliate;
 const Users = db.users
 const AffiliateAssign = db.affiliateAssign
+const ClickAndPurchases = db.ClickAndPurchases
 // const Users
 const jwt = require('jsonwebtoken');
 const fs = require('fs')
@@ -260,8 +263,29 @@ exports.deleteAffiliate = async (affiliateId, req) => {
 exports.userDetails = async (userId) => {
     const result = await Users.findOne(
         {
-             where: { id: userId },
-             attributes:{exclude:["password"]}
-            })
+            where: { id: userId },
+            attributes: { exclude: ["password"] }
+        })
     return result
+}
+
+
+exports.deleteAffiliateAssign = async (assignedAffilaiteId) => {
+
+    
+    const deletedClickAndPurchases = await ClickAndPurchases.destroy({
+        where: { assignAffiliateId: assignedAffilaiteId }
+    })
+
+    const deletedAssigned = await AffiliateAssign.destroy({
+        where: { id: assignedAffilaiteId }
+    })
+
+    if (deletedAssigned) {
+        return true
+    }
+
+    return false
+
+
 }
