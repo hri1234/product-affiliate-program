@@ -107,7 +107,7 @@ function EmailAuth() {
                                                         <P className="text-center">{" Enter the email address linked to your account, and we will send you a code to reset your password"}</P>
                                                         {/* <Input type="text" placeholder='Enter your email' value={signupProps.values.email} name='email' onChange={signupProps.handleChange} /> */}
                                                         <div className=' w-full flex flex-col gap-6 pb-4'>
-                                                            <InputComponent label={"Email"} type={"text"} value={signupProps.values.email} name='email' onChange={signupProps.handleChange} placeholder={"Enter your email"} />
+                                                            <InputComponent label={"Email"} type={"text"} value={signupProps.values.email} name='email' onChange={signupProps.handleChange} placeholder={"Enter email address"} />
                                                         </div>
                                                         <div className="position-relative form-group mb-0">
                                                             {/* <Btn color="primary" type="submit" className="d-block w-100 mt-2 rounded-full">

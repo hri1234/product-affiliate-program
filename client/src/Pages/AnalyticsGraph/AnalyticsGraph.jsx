@@ -104,11 +104,20 @@ function AnalyticsGraph({ selectedYear, setSelectedYear, YearList, loading, Mont
                     ...baseStyles,
                     borderRadius: '8px', // Add border-radius
                     border: '1px solid rgb(222, 226, 230)', // Default border color
-                    boxShadow: state.isFocused ? '0 0 0 1px rgba(222, 226, 230, 1)' : 'none', // Remove default blue focus shadow
-                    borderColor: state.isFocused || state.isHovered ? 'rgb(222, 226, 230)' : baseStyles.borderColor, // Gray border on focus/hover
+                    fontSize: '14px',
+                    letterSpacing: '.8px',
+                    boxShadow: 'none', // Remove box-shadow entirely
+                    borderColor: 'rgb(222, 226, 230)', // Keep border consistent on focus/hover
                     '&:hover': {
                       borderColor: 'rgb(222, 226, 230)', // Gray border on hover
                     },
+                  }),
+                  indicatorSeparator: () => ({
+                    display: 'none', // Hide the line near the arrow button
+                  }),
+                  menu: (baseStyles) => ({
+                    ...baseStyles,
+                    zIndex: 9999, // Set a higher z-index
                   }),
                 }}
               />
@@ -123,11 +132,20 @@ function AnalyticsGraph({ selectedYear, setSelectedYear, YearList, loading, Mont
                     ...baseStyles,
                     borderRadius: '8px', // Add border-radius
                     border: '1px solid rgb(222, 226, 230)', // Default border color
-                    boxShadow: state.isFocused ? '0 0 0 1px rgba(222, 226, 230, 1)' : 'none', // Remove default blue focus shadow
-                    borderColor: state.isFocused || state.isHovered ? 'rgb(222, 226, 230)' : baseStyles.borderColor, // Gray border on focus/hover
+                    fontSize: '14px',
+                    letterSpacing: '.8px',
+                    boxShadow: 'none', // Remove box-shadow entirely
+                    borderColor: 'rgb(222, 226, 230)', // Keep border consistent on focus/hover
                     '&:hover': {
                       borderColor: 'rgb(222, 226, 230)', // Gray border on hover
                     },
+                  }),
+                  indicatorSeparator: () => ({
+                    display: 'none', // Hide the line near the arrow button
+                  }),
+                  menu: (baseStyles) => ({
+                    ...baseStyles,
+                    zIndex: 9999, // Set a higher z-index
                   }),
                 }}
               />

@@ -103,9 +103,9 @@ const LoginTab = (props) => {
               </div>
               {/* <P className="text-center">{"Enter your email & password to SignIn"}</P> */}
               <FormGroup className=" flex flex-col gap-4 mt-3">
-                <InputComponent label={"Email"} placeholder={"Enter your email"} value={loginProps.values.email} name={"email"} type="text" onChange={loginProps.handleChange} />
+                <InputComponent label={"Email"} placeholder={"Enter email address"} value={loginProps.values.email} name={"email"} type="text" onChange={loginProps.handleChange} />
                 <div className=" relative flex gap-1 justify-between">
-                  <InputComponent label={"Password"} placeholder={"Enter your password"} value={loginProps.values.password} name={"password"} type={showPassword == "password" ? "password" : "text"} onChange={loginProps.handleChange} />
+                  <InputComponent label={"Password"} placeholder={"Enter password"} value={loginProps.values.password} name={"password"} type={showPassword == "password" ? "password" : "text"} onChange={loginProps.handleChange} />
                   <span onClick={() => showPassword == 'password' ? setShowPassword('text') : setShowPassword('password')} className=" cursor-pointer absolute right-3 bottom-3">
                     {
                       showPassword == "password" ?

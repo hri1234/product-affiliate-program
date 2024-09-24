@@ -65,7 +65,7 @@ const Sidebar = () => {
           {/* <Image className='img-fluid h-[50px] w-[50px] ml-[12px] ' src={itgLogo} alt='logo' /> */}
           {/* <Image className='img-fluid' src={logoSmall} alt='logo' /> */}
 
-          <span className=' m-auto h-[50px] w-[50px] bg-orange my-3 mb-4 flex items-center justify-center text-[20px] font-semibold mt-3 pt-3 ml-[12px]'>Hi !</span>
+          <span className=' m-auto h-[55px] w-[65px] bg-orange my-3 mb-4 flex items-center justify-center text-[19.6px] font-semibold mt-3 pt-3 ml-[12px]'>Hello !</span>
           {/* </Link> */}
 
           <hr className='w-4/5 m-auto mt-2 ' />

@@ -17,7 +17,7 @@ function Dashboard({ loading, listData, overviewLoading, overviewData, setCurren
 
   return (
     <>
-      <p className='text-[20px] font-semibold'>Overview Details</p>
+      <p className='text-[20px] font-semibold'>Overview</p>
 
       {
         loading || overviewLoading ?
@@ -40,7 +40,7 @@ function Dashboard({ loading, listData, overviewLoading, overviewData, setCurren
                 <div className=' w-full grid md:grid-cols-3 gap-6 grid-cols-1'>
                   <div className='w-full flex-col hover:shadow-md  duration-200 flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
                     <div className='font-semibold'>
-                      Current Month Paid
+                      Paid for Current Month
                     </div>
                     {overviewData?.paid} $
                   </div>
@@ -60,7 +60,7 @@ function Dashboard({ loading, listData, overviewLoading, overviewData, setCurren
               </div>
               <hr />
               <br />
-              <p className='text-[20px] font-semibold'>Invoice Details</p>
+              <p className='text-[20px] font-semibold'>Invoice History</p>
 
               <div className='w-full h-full invoices-page'>
                 <div className='table-container '>
@@ -68,7 +68,7 @@ function Dashboard({ loading, listData, overviewLoading, overviewData, setCurren
                     <thead className=' py-2'>
                       <tr className='py-2'>
                         <th>Transaction Id</th>
-                        <th>Theme name</th>
+                        <th>Product Name</th>
                         <th>Domain</th>
                         <th>Commission</th>
                         <th>Status</th>
@@ -83,7 +83,9 @@ function Dashboard({ loading, listData, overviewLoading, overviewData, setCurren
                           <td>{invoice?.domain}</td>
                           <td style={{ paddingLeft: '40px' }}>{invoice?.commission} $ </td>
                           <td>{invoice?.status}</td>
-                          <td>{invoice?.createdAt?.split('T')[0]}</td>
+                          <td>{invoice?.createdAt
+                            ? new Date(invoice?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+                            : 'N/A'}</td>
                         </tr>
                       ))}
                       <tr className="spacer-row">

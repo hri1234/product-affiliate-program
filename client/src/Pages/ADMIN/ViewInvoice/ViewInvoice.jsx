@@ -8,7 +8,7 @@ import toast from 'react-hot-toast';
 import { IoArrowBack } from "react-icons/io5";
 
 
-function ViewInvoice({ loading, listData, OverViewData ,email }) {
+function ViewInvoice({ loading, listData, OverViewData, email }) {
 
 
   console.log(listData, 'ListDataaa')
@@ -77,19 +77,19 @@ function ViewInvoice({ loading, listData, OverViewData ,email }) {
               <div className='flex flex-col gap-3 mt-4'>
                 <div className=' w-full grid md:grid-cols-3 gap-6 grid-cols-1'>
 
-                  <div className='w-full flex-col flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
+                  <div className='w-full hover:shadow-lg duration-200 flex-col flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
                     <div className='font-semibold'>
                       Pending
                     </div>
                     {OverViewData?.pending} $
                   </div>
-                  <div className='w-full flex-col flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
+                  <div className='w-full hover:shadow-lg duration-200 flex-col flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
                     <div className='font-semibold'>
                       Paid
                     </div>
                     {OverViewData?.total} $
                   </div>
-                  <div className='w-full flex-col flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
+                  <div className='w-full hover:shadow-lg duration-200 flex-col flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
                     <div className='font-semibold'>
                       Total
                     </div>
@@ -105,7 +105,7 @@ function ViewInvoice({ loading, listData, OverViewData ,email }) {
                   <thead>
                     <tr>
                       <th>Transaction Id</th>
-                      <th>Theme name</th>
+                      <th>Product name</th>
                       <th>Commission</th>
                       <th>Status</th>
                       <th>Date</th>
@@ -126,7 +126,9 @@ function ViewInvoice({ loading, listData, OverViewData ,email }) {
 
                           <Select onChange={(e) => { e?.label == itm?.status ? console.log("") : handleSelect(e, itm?.id) }} placeholder={itm?.status} value={itm?.status} className='w-[75%] max-w-[75%] m-0 h-[12px] pt-2  px-0' options={[{ label: "Pending", value: "pending" }, { label: "Paid", value: "paid" }]} />
                           {/* <td>{itm.companyName}</td> */}
-                          <td>{itm?.createdAt?.split('T')[0]}</td>
+                          <td> {itm?.createdAt
+                            ? new Date(itm?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+                            : 'N/A'}</td>
                         </tr>
                       ))
                     }

@@ -81,7 +81,7 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
                               <span className=' flex gap-2 items-center text-[14.5px] border p-2 text-ellipsis rounded w-full justify-center  cursor-pointer'>
                                 <FaLink />
 
-                                <a href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank'>
+                                <a className='hover:text-black' href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank'>
                                   {`${itm?.affiliate?.shortUrl}`}
                                 </a>
                               </span>
@@ -90,7 +90,7 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
                                   Copy link
                                 </span>
                                 <span className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
-                                  <a href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank'>
+                                  <a className='hover:text-black' href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank'>
                                     Visit link
                                   </a>
                                 </span>

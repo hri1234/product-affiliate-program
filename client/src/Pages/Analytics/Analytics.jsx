@@ -14,16 +14,21 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
   const [purchasesData, setPurchasesData] = useState([]);
   const [ClicksData, setClicksData] = useState([]);
   const [purchaseCount, setPurchaseCount] = useState(0);
+  const [selectedMonthLable,setSelectedMonthLable] = useState(new Date().getMonth() + 1)
 
   const handleMonthChange = (selectedOption) => {
     setSelectedMonth(selectedOption.value);
+    setSelectedMonthLable(selectedOption?.label)
   };
 
   const handleYearChange = (selectedOp) => {
     setSelectedYear(selectedOp.value)
   }
 
-
+  const monthNames = [
+    "","January", "February", "March", "April", "May", "June", 
+    "July", "August", "September", "October", "November", "December"
+  ];
 
   const [chartState, setChartState] = useState({
     options: {
@@ -161,7 +166,7 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
       </div> : <>
         <div className=' flex justify-between w-full'>
 
-          <p className='text-[20px] font-semibold'>Analytics Details</p>
+          <p className='text-[20px] font-semibold'>Analytics</p>
 
           <div className='w-1/2 justify-end'>
             <div className='flex w-full gap-4'>
@@ -176,11 +181,20 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
                     ...baseStyles,
                     borderRadius: '8px', // Add border-radius
                     border: '1px solid rgb(222, 226, 230)', // Default border color
-                    boxShadow: state.isFocused ? '0 0 0 1px rgba(222, 226, 230, 1)' : 'none', // Remove default blue focus shadow
-                    borderColor: state.isFocused || state.isHovered ? 'rgb(222, 226, 230)' : baseStyles.borderColor, // Gray border on focus/hover
+                    fontSize: '14px',
+                    letterSpacing: '.8px',
+                    boxShadow: 'none', // Remove box-shadow entirely
+                    borderColor: 'rgb(222, 226, 230)', // Keep border consistent on focus/hover
                     '&:hover': {
                       borderColor: 'rgb(222, 226, 230)', // Gray border on hover
                     },
+                  }),
+                  indicatorSeparator: () => ({
+                    display: 'none', // Hide the line near the arrow button
+                  }),
+                  menu: (baseStyles) => ({
+                    ...baseStyles,
+                    zIndex: 9999, // Set a higher z-index
                   }),
                 }}
               />
@@ -195,11 +209,20 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
                     ...baseStyles,
                     borderRadius: '8px', // Add border-radius
                     border: '1px solid rgb(222, 226, 230)', // Default border color
-                    boxShadow: state.isFocused ? '0 0 0 1px rgba(222, 226, 230, 1)' : 'none', // Remove default blue focus shadow
-                    borderColor: state.isFocused || state.isHovered ? 'rgb(222, 226, 230)' : baseStyles.borderColor, // Gray border on focus/hover
+                    fontSize: '14px',
+                    letterSpacing: '.8px',
+                    boxShadow: 'none', // Remove box-shadow entirely
+                    borderColor: 'rgb(222, 226, 230)', // Keep border consistent on focus/hover
                     '&:hover': {
                       borderColor: 'rgb(222, 226, 230)', // Gray border on hover
                     },
+                  }),
+                  indicatorSeparator: () => ({
+                    display: 'none', // Hide the line near the arrow button
+                  }),
+                  menu: (baseStyles) => ({
+                    ...baseStyles,
+                    zIndex: 9999, // Set a higher z-index
                   }),
                 }}
               />
@@ -212,9 +235,9 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
 
             <div className='w-full px-5 py-4 rounded border bg-white'>
               <div className='w-full flex justify-between'>
-                <span className='font-semibold text-[17.5px]'>Purchases</span>
+                <span className='font-semibold text-[17.5px]'>{purchaseCount} Purchases on {monthNames[selectedMonth]}</span>
                 {/* <span>TOtal</span> */}
-                <h3 className='text-[16.5px] font-semibold py-1'>Total : {purchaseCount}</h3>
+                {/* <h3 className='text-[16.5px] font-semibold py-1'>Total : {purchaseCount}</h3> */}
 
               </div>
 
@@ -239,7 +262,7 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
             <hr />
             <div className='grid grid-cols-1 w-full gap-2'>
               {/* <div className=' w-1/2 py-4 px-4 border bg-white rounded' > */}
-              <p className='text-[20px] font-semibold'>CLICKS</p>
+              <p className='text-[20px] font-semibold'> Total Clicks</p>
               {
                 loading ?
                   <div className=' w-full flex items-center justify-center'>
@@ -261,7 +284,7 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
                         <table className='shadow'>
                           <thead className=' py-2'>
                             <tr className='py-2'>
-                              <th>Theme name</th>
+                              <th>Product name</th>
                               <th>Total Clicks</th>
                               <th>Date</th>
                               <th>View Graph</th>
@@ -272,7 +295,9 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
                               <tr key={affiliate?.id}>
                                 <td>{affiliate.affiliate?.name}</td>
                                 <td className='pl-[30px]'>{affiliate?.clicks}</td>
-                                <td>{affiliate?.createdAt?.split('T')[0]}</td>
+                                <td>{affiliate?.createdAt
+                                  ? new Date(affiliate?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+                                  : 'N/A'}</td>
                                 <td style={{ width: '40px' }} className='pl-[30px] w-fit '><MdRemoveRedEye onClick={() => viewGraphHandle(affiliate?.id, affiliate.affiliate?.name)} className='w-fit cursor-pointer hover:opacity-90' size={20} /></td>
                               </tr>
                             ))}

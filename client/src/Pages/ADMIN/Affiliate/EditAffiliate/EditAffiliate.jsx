@@ -160,7 +160,7 @@ function EditAffiliate({ listData, loading }) {
                             {
                                 loading ?
                                     <div className=' w-full flex items-center justify-center'>
-                                        <span className=' w-full flex py-1 items-center justify-center m-auto self-center animate-spin'>
+                                        <span className=' w-fit flex py-1 items-center justify-center m-auto self-center animate-spin'>
                                             <AiOutlineLoading3Quarters />
                                         </span>
                                     </div>
@@ -176,7 +176,7 @@ function EditAffiliate({ listData, loading }) {
 
                                                 <div className='pb-0 pt-4 px-4 flex w-full justify-between'>
                                                     <span className='text-[20px]'>
-                                                        Edit Affiliate Link
+                                                        Edit Affiliate
                                                     </span>
                                                     <span>{ }</span>
                                                 </div>
@@ -184,7 +184,7 @@ function EditAffiliate({ listData, loading }) {
                                                     <Row className='g-3 pb-1'>
                                                         <Col md='6'>
                                                             {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, in! */}
-                                                            <InputComponent label={"Name"} type="text" name='name' value={profileProps.values.name} placeholder='Enter affiliate name' onChange={profileProps.handleChange} />
+                                                            <InputComponent label={"Product Name"} type="text" name='name' value={profileProps.values.name} placeholder='Enter affiliate name' onChange={profileProps.handleChange} />
                                                         </Col>
                                                         <br />
                                                         <br />
@@ -199,7 +199,14 @@ function EditAffiliate({ listData, loading }) {
                                                                 <span className=' font-semibold text-[13px]'>Thumbnail Image</span>
                                                                 <span className=' w-full flex gap-2 items-center '>
                                                                     <div className='relative flex justify-between'>
-                                                                        <img className='w-fit max-w-[450px] min-h-[300px] min-w-[400px] max-h-[350px]' src={ImageUrl} alt="" />
+                                                                        {
+                                                                            ImageUrl?.includes("image")?
+                                                                            <img className='w-fit max-w-[450px] min-h-[300px] min-w-[400px] max-h-[350px]' src={ImageUrl} alt="" />
+                                                                            :
+                                                                            <span>
+                                                                                No image found
+                                                                            </span>
+                                                                        }
                                                                         <span className='absolute right-[-8px] top-[-8px]'>
                                                                             <span className=' w-0 h-0'>
                                                                                     

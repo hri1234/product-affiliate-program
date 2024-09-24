@@ -178,8 +178,8 @@ function SignUp() {
                             {/* <span className='m-auto'>Join our affiliate program now and <br /> turn your referrals into rewards</span> */}
                             <div className=' w-full flex flex-col gap-6 pb-4'>
 
-                              <InputComponent label={"Email"} type={"text"} value={signupProps.values.email} name='email' onChange={signupProps.handleChange} placeholder={"Enter your email"} />
-                              <InputComponent label={"PayPal address"} type="text" name='payPalAddress' value={signupProps.values.payPalAddress} placeholder='Enter your paypal address' onChange={signupProps.handleChange} />
+                              <InputComponent label={"Email"} type={"text"} value={signupProps.values.email} name='email' onChange={signupProps.handleChange} placeholder={"Enter email address"} />
+                              <InputComponent label={"PayPal Address"} type="text" name='payPalAddress' value={signupProps.values.payPalAddress} placeholder='Enter paypal address' onChange={signupProps.handleChange} />
                               {/* <Select options={options} name='country' value={value} onChange={changeHandler} /> */}
                               {/* <div className=' relative'>
                                 <span className=' pl-[3px] font-semibold text-[13px]'>{"Country"}</span>
@@ -244,14 +244,14 @@ function SignUp() {
 
                               {/* <InputComponent type={"text"} value={signupProps.values.country} name='country' onChange={signupProps.handleChange} placeholder={"Enter country name"} /> */}
                               <InputComponent label={"City"} type={"text"} value={signupProps.values.city} name='city' onChange={signupProps.handleChange} placeholder={"Enter city name"} />
-                              <InputComponent label={"Address"} type={"text"} value={signupProps.values.address} name='address' onChange={signupProps.handleChange} placeholder={"Enter your address"} />
-                              <InputComponent label={"Company name"} type={"text"} value={signupProps.values.companyName} name='companyName' onChange={signupProps.handleChange} placeholder={"Enter company name"} />
+                              <InputComponent label={"Address"} type={"text"} value={signupProps.values.address} name='address' onChange={signupProps.handleChange} placeholder={"Enter address"} />
+                              <InputComponent label={"Company Name"} type={"text"} value={signupProps.values.companyName} name='companyName' onChange={signupProps.handleChange} placeholder={"Enter company name"} />
                               {/* <InputComponent label={"Company number"} type={"text"} value={signupProps.values.companyNumber} name='companyNumber' onChange={signupProps.handleChange} placeholder={"Enter company number"} /> */}
                               <InputComponent label={"Website URL"} type={"text"} value={signupProps.values.companyUrl} name='companyUrl' onChange={signupProps.handleChange} placeholder={"Enter website URL"} />
                               <div className='mt-4 flex flex-col gap-5'>
 
                                 <div className='relative w-full flex gap-1'>
-                                  <InputComponent label={"Password"} type={showPassword == "password" ? "password" : "text"} value={signupProps.values.password} name='password' onChange={signupProps.handleChange} placeholder={"Enter your password"} />
+                                  <InputComponent label={"Password"} type={showPassword == "password" ? "password" : "text"} value={signupProps.values.password} name='password' onChange={signupProps.handleChange} placeholder={"Enter password"} />
                                   <span onClick={() => showPassword == "password" ? setShowPassword("text") : setShowPassword("password")} className=' absolute cursor-pointer right-3 bottom-3'>
                                     {
                                       showPassword == "password" ?

@@ -61,7 +61,7 @@ function ViewInvoiceWrapper() {
 
 
   return (
-    <div className='page-body px-4'>
+    <div className='page-body px-4 pb-4'>
         <ViewInvoice listData={ListData?.result} loading={loading} OverViewData={OverViewData} email={email} />
     </div>
   )

@@ -11,7 +11,7 @@ function Invoices({ listData, loading, count, setCurrentPage, currentPage }) {
 
   return (
     <>
-      <p className='text-[20px] font-semibold'>Invoice Details</p>
+      <p className='text-[20px] font-semibold'>Invoices</p>
       {
         loading ?
           <div className=' w-full flex items-center justify-center'>
@@ -34,7 +34,7 @@ function Invoices({ listData, loading, count, setCurrentPage, currentPage }) {
                   <thead className=' py-2'>
                     <tr className='py-2'>
                       <th>Transaction Id</th>
-                      <th>Theme name</th>
+                      <th>Product name</th>
                       <th>Commission</th>
                       <th>Status</th>
                       <th>Date</th>
@@ -47,7 +47,9 @@ function Invoices({ listData, loading, count, setCurrentPage, currentPage }) {
                         <td>{invoice?.themeName}</td>
                         <td style={{ paddingLeft: '40px' }}>{invoice?.commission} $ </td>
                         <td>{invoice?.status}</td>
-                        <td>{invoice?.createdAt?.split('T')[0]}</td>
+                        <td>{invoice?.createdAt
+                            ? new Date(invoice?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+                            : 'N/A'}</td>
                       </tr>
                     ))}
                     <tr className="spacer-row">

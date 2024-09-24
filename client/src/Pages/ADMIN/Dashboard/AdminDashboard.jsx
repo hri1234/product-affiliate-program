@@ -54,7 +54,7 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
             :
             <div>
               <span className='font-semibold text-[20px]'>
-                Users List
+                Partners List
               </span>
 
               <div className='invoices-page'>
@@ -62,10 +62,10 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
                   <table className=''>
                     <thead>
                       <tr>
-                        <th>Utm Id</th>
-                        <th>Email</th>
-                        <th>Company name</th>
-                        <th>Themes</th>
+                        <th>UTM Id</th>
+                        <th>Email Address</th>
+                        <th>Name</th>
+                        <th>Products</th>
                         <th>Invoices</th>
                       </tr>
                     </thead>

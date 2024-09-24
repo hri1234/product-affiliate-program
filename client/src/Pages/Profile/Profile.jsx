@@ -126,12 +126,12 @@ function Profile({ listData, loading }) {
                           <Col md='6'>
                             {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter First Name *' register={{ ...register('first_name', { required: 'is Required.' }) }} /> */}
                             {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, in! */}
-                            <InputComponent label={"Email"} type="text" name='email' value={profileProps.values.email} placeholder='email' disabled="true" />
+                            <InputComponent label={"Email Address"} type="text" name='email' value={profileProps.values.email} placeholder='Enter email address' disabled="true" />
                           </Col>
                           <Col md='6'>
                             {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter First Name *' register={{ ...register('first_name', { required: 'is Required.' }) }} /> */}
                             {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, in! */}
-                            <InputComponent label={"PayPal address"} type="text" name='payPalAddress' value={profileProps.values.payPalAddress} placeholder='Name, email, address' onChange={profileProps.handleChange} />
+                            <InputComponent label={"PayPal Address"} type="text" name='payPalAddress' value={profileProps.values.payPalAddress} placeholder='Enter paypal address' onChange={profileProps.handleChange} />
                           </Col>
 
                           {/* <Col md='4 mb-3'>
@@ -157,7 +157,7 @@ function Profile({ listData, loading }) {
                         </Row>
                         <Row className='g-3'>
                           <Col md='6 mb-3'>
-                            <InputComponent label={"Address"} type={"text"} value={profileProps.values.address} name='address' onChange={profileProps.handleChange} placeholder={"Enter your address"} />
+                            <InputComponent label={"Address"} type={"text"} value={profileProps.values.address} name='address' onChange={profileProps.handleChange} placeholder={"Enter address"} />
                           </Col>
                           <Col md='6'>
                             {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter First Name *' register={{ ...register('first_name', { required: 'is Required.' }) }} /> */}
@@ -196,7 +196,7 @@ function Profile({ listData, loading }) {
                         </Row>
                         <Row className='g-3'>
                           <Col md='6'>
-                            <InputComponent label={"Company Url"} type={"text"} value={profileProps.values.companyUrl} name='companyUrl' onChange={profileProps.handleChange} placeholder={"Enter company Url"} />
+                            <InputComponent label={"Company URL"} type={"text"} value={profileProps.values.companyUrl} name='companyUrl' onChange={profileProps.handleChange} placeholder={"Enter company URL"} />
                           </Col>
                         </Row>
 

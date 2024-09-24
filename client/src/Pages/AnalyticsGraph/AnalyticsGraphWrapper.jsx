@@ -81,7 +81,7 @@ function AnalyticsGraphWrapper() {
 
     return (
         <>
-            <div className='page-body px-4'>
+            <div className='page-body px-4 pb-5'>
                 <AnalyticsGraph selectedYear={selectedYear} setSelectedYear={setSelectedYear} YearList={YearList} MonthList={MonthList} selectedMonth={selectedMonth} setSelectedMonth={setSelectedMonth} themeName={paramData?.name} loading={loading} analyticsData={analyticsData} />
             </div>
         </>

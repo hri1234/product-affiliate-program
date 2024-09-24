@@ -61,9 +61,9 @@ function AddInvoice({ id, email }) {
     const validationSchema = yup.object().shape({
         // themeName: yup.string().trim("Enter valid theme name").required("theme name is required").strict(),
         themeName: yup.object().shape({
-            label: yup.string().required("ThemeName is required"),
-            value: yup.string().required("ThemeName is required")
-        }).nullable().required("ThemeName is required"),
+            label: yup.string().required("Product name is required"),
+            value: yup.string().required("Product name is required")
+        }).nullable().required("Product name is required"),
         domain: yup.string().trim("Enter valid domain").required("Domain is required").strict(),
         commission: yup.string().matches(/^\d+$/, "Click count must be a number").trim("Enter valid commission").required("Commission is required").strict(),
         paymentMethod: yup.object().shape({
@@ -143,9 +143,9 @@ function AddInvoice({ id, email }) {
 
                                                     {/* <Col md="12"> */}
                                                     <div className=' relative'>
-                                                        <span className=' pl-[3px] font-semibold text-[13px]'>{"Theme name"}</span>
+                                                        <span className=' pl-[3px] font-semibold text-[13px]'>{"Product Name"}</span>
                                                         <Select
-                                                            placeholder="Select Theme"
+                                                            placeholder="Select product"
                                                             options={listData}
                                                             name="themeName"
                                                             value={profileProps.values.themeName}
@@ -156,11 +156,16 @@ function AddInvoice({ id, email }) {
                                                                     ...baseStyles,
                                                                     borderRadius: '8px', // Add border-radius
                                                                     border: '1px solid rgb(222, 226, 230)', // Default border color
-                                                                    boxShadow: state.isFocused ? '0 0 0 1px rgba(222, 226, 230, 1)' : 'none', // Remove default blue focus shadow
-                                                                    borderColor: state.isFocused || state.isHovered ? 'rgb(222, 226, 230)' : baseStyles.borderColor, // Gray border on focus/hover
+                                                                    fontSize: '14px',
+                                                                    letterSpacing: '.8px',
+                                                                    boxShadow: 'none', // Remove box-shadow entirely
+                                                                    borderColor: 'rgb(222, 226, 230)', // Keep border consistent on focus/hover
                                                                     '&:hover': {
                                                                         borderColor: 'rgb(222, 226, 230)', // Gray border on hover
                                                                     },
+                                                                }),
+                                                                indicatorSeparator: () => ({
+                                                                    display: 'none', // Hide the line near the arrow button
                                                                 }),
                                                             }}
                                                         />
@@ -194,7 +199,7 @@ function AddInvoice({ id, email }) {
                                                     <div className=' relative'>
                                                         <span className=' pl-[3px] font-semibold text-[13px]'>{"Payment Method"}</span>
                                                         <Select
-                                                            placeholder="Select Payment"
+                                                            placeholder="Select payment method"
                                                             options={paymentMethodsDetails}
                                                             name="paymentMethod"
                                                             value={profileProps.values.paymentMethod}
@@ -226,7 +231,7 @@ function AddInvoice({ id, email }) {
                                                 <Col md='6'>
                                                     {/* <InputControl pereFix='@' controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('user_name', { required: 'is Required.' }) }} /> */}
                                                     {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias quo accusantium incidunt eum distinctio atque! */}
-                                                    <InputComponent label={"Transaction Id"} type={"text"} value={profileProps.values.transactionId} name='transactionId' onChange={profileProps.handleChange} placeholder={"Enter Transaction Id"} />
+                                                    <InputComponent label={"Transaction Id"} type={"text"} value={profileProps.values.transactionId} name='transactionId' onChange={profileProps.handleChange} placeholder={"Enter transaction Id"} />
                                                     <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"transactionId"} component='div' />
                                                 </Col>
                                             </Row>
