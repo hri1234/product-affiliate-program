@@ -9,6 +9,7 @@ const { SuccessMessage, ErrorMessage } = require("../constants/messages.js");
 const statusCode = require("../constants/statusCodes.js");
 const useragent = require('useragent');
 const requestIp = require('request-ip');
+const crypto = require('crypto')
 //db
 const db = require("../models");
 const Affiliate = db.affiliate;
@@ -54,6 +55,29 @@ exports.addAffiliate = async (req, res) => {
 // redirect short link 
 exports.redirectShortLink = async (req, res) => {
     try {
+        console.log(req.ip, "------------------req.ip")
+        // console.log(req.cookies.deviceId,"---------------------->cookie")
+        console.log(req.headers['user-agent'], "------------------>req.header user agent")
+        const userAgentString = req.headers['user-agent'];
+        const userAgent = useragent.parse(userAgentString);
+
+        // Get the client's IP address
+        const clientIp = req.clientIp;
+        console.log(clientIp, "-------------------client ipsssssssssssssssss")
+        const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+        console.log('Client IP:', ip);
+        const userInfo = {
+            device: userAgent.device.toString(),
+            os: userAgent.os.toString(),
+            browser: userAgent.toString(),
+            ip: clientIp,
+            // location: geoData.city || 'Unknown',
+            // country: geoData.country_name || 'Unknown'
+        };
+        console.log(userInfo, "user info")
+        const data = `${ip}-${userAgent}`;
+        const hashed_ip = crypto.createHash('sha256').update(data).digest('hex');
+        console.log(hashed_ip, "hashed Ip")
         const token = req.headers['authorization']
         const decoded = jwtDecode(token)
         const assignAffiliateId = req.body.id
