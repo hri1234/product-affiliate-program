@@ -34,7 +34,7 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
   const HandleRedirectClick = async (item) => {
     try {
       const token = Cookies.get('isLogged'); // Assuming you store a token in cookies
-      const apiUrl = `https://f876-49-249-2-6.ngrok-free.app/${item}`; // Replace with your API URL
+      const apiUrl = `https://product-affiliate-program-jz6xc.ondigitalocean.app/${item}`; // Replace with your API URL
 
       // Make the API call
       const response = await axios.post(apiUrl, {},

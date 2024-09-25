@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.dc3e7be7.css",
-    "main.js": "/static/js/main.c6e93560.js",
+    "main.css": "/static/css/main.7994fabc.css",
+    "main.js": "/static/js/main.729643a7.js",
     "static/media/loginBanner.png": "/static/media/loginBanner.e936c0bdca72e31543a9.png",
     "static/media/InterVariable-Italic.woff2": "/static/media/InterVariable-Italic.e295f70fe3e2df296c7b.woff2",
     "static/media/InterVariable.woff2": "/static/media/InterVariable.a0e477f2f1f9d2376fde.woff2",
@@ -14,11 +14,11 @@
     "static/media/loading-7528_512.gif": "/static/media/loading-7528_512.77926b8d27137c1189c9.gif",
     "static/media/cropped-ITGeeks-Technologies-Pvt.-Ltd.-Logo.png": "/static/media/cropped-ITGeeks-Technologies-Pvt.-Ltd.-Logo.d25a6bf544ebe55950e6.png",
     "index.html": "/index.html",
-    "main.dc3e7be7.css.map": "/static/css/main.dc3e7be7.css.map",
-    "main.c6e93560.js.map": "/static/js/main.c6e93560.js.map"
+    "main.7994fabc.css.map": "/static/css/main.7994fabc.css.map",
+    "main.729643a7.js.map": "/static/js/main.729643a7.js.map"
   },
   "entrypoints": [
-    "static/css/main.dc3e7be7.css",
-    "static/js/main.c6e93560.js"
+    "static/css/main.7994fabc.css",
+    "static/js/main.729643a7.js"
   ]
 }
