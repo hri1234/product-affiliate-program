@@ -32,6 +32,7 @@ import AnalyticsGraphWrapper from './Pages/AnalyticsGraph/AnalyticsGraphWrapper'
 import EditAffiliateWrapper from './Pages/ADMIN/Affiliate/EditAffiliate/EditAffiliateWrapper';
 import CustomerProfileWrapper from './Pages/ADMIN/CustomerProfile/CustomerProfileWrapper';
 import NoPageFound from './Pages/NoPageFound';
+import TermAndConditions from './Pages/Terms&Condition';
 
 function Routing() {
     const [authenticateLogin, setAthenticateLogin] = useState(false);
@@ -74,6 +75,7 @@ function Routing() {
                 <Route path="/register" element={<SignUp auth={setAthenticateLogin} />} />
                 <Route path="/forgot-password/:role" element={<EmailAuth />} />
                 <Route path="/reset-password/:role/:id" element={<ForgetPassword />} />
+                <Route path="/terms-condition" element={<TermAndConditions />} />
                 {
                     authenticateLogin && role != 'admin' ?
                         <Route path='/dashboard/' element={<Layout />} >

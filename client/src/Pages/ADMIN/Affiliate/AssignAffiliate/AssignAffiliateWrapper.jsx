@@ -16,6 +16,12 @@ function AssignAffiliateWrapper() {
 
     const dataPerPage = 6;
 
+
+    
+    const [AssignedcurrentPage, setAssignedCurrentPage] = useState(1);
+    const [Assignedcount, setAssignedCount] = useState(1);
+    
+
     const { data, isLoading: listLoading, isFetching: listFetching } = useGetAffiliateAvailableUsersQuery({
         Id: AffiliateId?.id,
         data:
@@ -40,7 +46,11 @@ function AssignAffiliateWrapper() {
 
     ////////////////////  assigned customer list   ////////////////////
 
-    const { data: AssignedData, isLoading: AssignedlistLoading, isFetching: AssignedlistFetching } = useGetAssignedCustomerListQuery({ Id: AffiliateId?.id })
+    const { data: AssignedData, isLoading: AssignedlistLoading, isFetching: AssignedlistFetching } = useGetAssignedCustomerListQuery({
+         Id: AffiliateId?.id,
+         data:
+         { limit: dataPerPage, page: AssignedcurrentPage }
+        })
 
     const [AssignedListData, setAssignedListData] = useState([]);
     const [Assignedlistloading, setAssignedListLoading] = useState(false);
@@ -51,13 +61,15 @@ function AssignAffiliateWrapper() {
         }
         else {
             setAssignedListLoading(false);
-            setAssignedListData(AssignedData?.result)
+            setAssignedListData(AssignedData?.result);
+            setAssignedCount(Math.ceil(data?.result?.result?.count / dataPerPage))
+            console.log(Math.ceil(data?.result?.result?.count / dataPerPage),'CCCCCCCCCCC')
         }
     }, [AssignedlistFetching, AssignedData, AssignedlistLoading])
 
     return (
         <div className='page-body pb-5 px-4'>
-            <AssignAffiliate AssignedListData={AssignedListData} Assignedlistloading={Assignedlistloading} NotAssignedlistData={NotAssignedlistData} notAssignedlistloading={notAssignedlistloading} setCurrentPage={setCurrentPage} currentPage={currentPage} count={count} />
+            <AssignAffiliate AssignedListData={AssignedListData} Assignedlistloading={Assignedlistloading} NotAssignedlistData={NotAssignedlistData} notAssignedlistloading={notAssignedlistloading} setCurrentPage={setCurrentPage} setAssignedCurrentPage={setAssignedCurrentPage} currentPage={currentPage} AssignedcurrentPage={AssignedcurrentPage} count={count} Assignedcount={Assignedcount}  />
         </div>
     )
 }

@@ -31,7 +31,8 @@ function SignUp() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState("password");
   const [showConfirmPassword, setShowConfirmPassword] = useState("password");
-  const [toasterMessage, setToasterMessage] = useState('')
+  const [toasterMessage, setToasterMessage] = useState('');
+  const [isChecked, setIsChecked] = useState(false);
 
 
 
@@ -81,40 +82,49 @@ function SignUp() {
   });
 
   const handleSubmit = (data, { resetForm }) => {
-    setLoading(true);
-    console.log(data, 'register data');
-    let registerData = {
-      "email": data?.email,
-      "paypalAddress": data?.payPalAddress,
-      "country": data?.country.label,
-      "city": data?.city,
-      "address": data?.address,
-      "companyName": data?.companyName,
-      // "companyNumber": data?.companyNumber,
-      "companyUrl": data?.companyUrl,
-      "password": data?.password,
-      // "role":"admin"
+    if (!isChecked) {
+      console.log('Unchecked');
+      setToasterMessage('Please accept terms & conditon')
     }
-    setToasterMessage('')
-    Register({ data: registerData })
-      .then((res) => {
-        if (res.error) {
-          console.log(res.error, 'register err')
-          setToasterMessage(res?.error?.data?.error || res.error?.data?.message)
-          // toast.error(res.error?.data?.message);
-        }
-        else {
-          resetForm();
-          toast.success("User Registered Successfully");
-          navigate('/login');
-          console.log(res.data?.result, 'register res');
-          setToasterMessage('')
-        }
-      })
-      .catch((err) => {
-        console.log(err, 'catch err');
-        setToasterMessage("Something went Wrong")
-      })
+    else {
+      console.log('checked')
+      setToasterMessage('')
+      console.log(data, 'register data');
+      let registerData = {
+        "email": data?.email,
+        "paypalAddress": data?.payPalAddress,
+        "country": data?.country.label,
+        "city": data?.city,
+        "address": data?.address,
+        "companyName": data?.companyName,
+        // "companyNumber": data?.companyNumber,
+        "companyUrl": data?.companyUrl,
+        "password": data?.password,
+        // "role":"admin"
+      }
+      setToasterMessage('')
+      Register({ data: registerData })
+        .then((res) => {
+          if (res.error) {
+            console.log(res.error, 'register err')
+            setToasterMessage(res?.error?.data?.error || res.error?.data?.message)
+            // toast.error(res.error?.data?.message);
+          }
+          else {
+            resetForm();
+            toast.success("User Registered Successfully");
+            navigate('/login');
+            console.log(res.data?.result, 'register res');
+            setToasterMessage('')
+          }
+        })
+        .catch((err) => {
+          console.log(err, 'catch err');
+          setToasterMessage("Something went Wrong")
+        })
+    }
+    setLoading(true);
+
 
 
     // LoginUser({ data: loginData })
@@ -274,7 +284,7 @@ function SignUp() {
                                 </div>
                               </div>
                               <div className=' flex gap-1 mt-[-9.0px] items-center'>
-                                <input className=' cursor-pointer p-0 m-0' type="checkbox" id='checkboxx' name='checkboxx' />
+                                <input onChange={(e) => { e.target.checked ? setIsChecked(true) : setIsChecked(false) }} className=' cursor-pointer p-0 m-0' type="checkbox" id='checkboxx' name='checkboxx' />
                                 <label className=' p-0 m-0 cursor-pointer hover:underline ' htmlFor="checkboxx"> <a target='_blank' className=' text-[14px] text-black hover:text-black' href="https://partners.krownthemes.com/terms-and-conditions">Accept terms and condition</a></label>
                               </div>
                             </div>

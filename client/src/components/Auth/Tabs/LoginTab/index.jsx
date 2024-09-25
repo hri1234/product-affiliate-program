@@ -124,7 +124,7 @@ const LoginTab = (props) => {
               <div className="flex w-full items-center justify-center">
                 <span className="text-red-500">
 
-                  {toastMessage || ''}
+                  {toastMessage =='"email" must be a valid email'?"Enter valid email address" : toastMessage== 'Invalid Credential'?"Enter the correct password":toastMessage || ''}
                 </span>
               </div>
               <button className=" bg-black text-white py-[6.5px] border d-block w-100 mt-2 rounded-full" type="submit">

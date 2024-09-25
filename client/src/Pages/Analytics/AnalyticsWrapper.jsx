@@ -36,7 +36,7 @@ function AnalyticsWrapper() {
         }
     })
 
-    const { data: affiliateData, isLoading: listLoading, isFetching: listFetching } = useGetIndividualAffiliateListQuery({
+    const { data: affiliateData, isLoading: listLoading, isFetching: listFetching ,refetch} = useGetIndividualAffiliateListQuery({
         Id: UserId,
         data: {
             limit: dataPerPage,
@@ -86,6 +86,11 @@ function AnalyticsWrapper() {
     ];
 
 
+    useEffect(()=>
+    {   
+        setLoading(true)
+        refetch()
+    },[UserId])
 
     return (
         <>

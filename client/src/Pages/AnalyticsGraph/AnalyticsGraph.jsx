@@ -77,6 +77,10 @@ function AnalyticsGraph({ selectedYear, setSelectedYear, YearList, loading, Mont
     setSelectedYear(selectedOp.value)
   }
 
+  const monthNames = [
+    "", "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
 
 
   return (
@@ -90,9 +94,14 @@ function AnalyticsGraph({ selectedYear, setSelectedYear, YearList, loading, Mont
       ) : (
         <div className='w-full'>
           <div className='flex w-full justify-between items-center px-4 py-2 mb-2'>
-            <span onClick={() => { navigate('/dashboard/analytics') }} className='w-[30px] font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
-              <IoArrowBack size={20} />
-            </span>
+            <div className='flex gap-4 items-center'>
+              <span onClick={() => { navigate('/dashboard/analytics') }} className='w-[30px] font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
+                <IoArrowBack size={20} />
+              </span>
+              <span className=' font-semibold'>
+                {themeName}
+              </span>
+            </div>
             <span className='w-1/2 flex gap-4'>
               <Select
                 className='rounded w-full'
@@ -155,7 +164,7 @@ function AnalyticsGraph({ selectedYear, setSelectedYear, YearList, loading, Mont
           <div className='w-full flex flex-col gap-12 pt-6'>
             <div className='w-full px-5 py-4 rounded border bg-white'>
               <div className='w-full flex justify-between py-2'>
-                <span className='font-semibold text-[17.5px] capitalize'>{themeName}</span>
+                <span className='font-semibold text-[17.5px] capitalize'> {totalCount} Purchases on  {monthNames[selectedMonth]}</span>
                 <span className='font-semibold text-[17px]'>
                   Total: {totalCount}
                 </span>

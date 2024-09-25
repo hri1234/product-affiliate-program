@@ -193,8 +193,10 @@ function Home() {
               <div className=' flex flex-col gap-2 pt-2  '>
                 {
                   listData?.length <= 0 || !listData ?
-                    <div className=' py-3 flex items-center justify-center'>
-                      <span className=' w-full border py-[7px]  justify-center flex gap-3 items-center'>No Data Found <IoWarningOutline size={19} /></span>
+                    <div className=' w-full flex items-center justify-center'>
+                      <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
+                        No data found
+                      </span>
                     </div>
                     :
                     listData?.map((itm, indx) => {
@@ -245,8 +247,10 @@ function Home() {
               <div className=' flex flex-col  items-start gap-1  '>
                 {
                   listData?.length <= 0 || !listData ?
-                    <div className=' w-full py-3 flex items-center justify-center'>
-                      <span className=' w-full border py-[7px]  justify-center flex gap-3 items-center'>No Data Found <IoWarningOutline size={19} /></span>
+                    <div className=' w-full flex items-center justify-center'>
+                      <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
+                        No data found
+                      </span>
                     </div>
                     :
 

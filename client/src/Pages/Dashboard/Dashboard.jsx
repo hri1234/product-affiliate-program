@@ -61,52 +61,60 @@ function Dashboard({ loading, listData, overviewLoading, overviewData, setCurren
               <hr />
               <br />
               <p className='text-[20px] font-semibold'>Invoice History</p>
+              {
+                listData?.rows?.length <= 0 || listData?.rows==undefined ?
+                  <div className=' w-full flex items-center justify-center'>
+                    <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
+                      No data found
+                    </span>
+                  </div>
+                  :
+                  <div className='w-full h-full invoices-page'>
+                    <div className='table-container '>
+                      <table className='shadow'>
+                        <thead className=' py-2'>
+                          <tr className='py-2'>
+                            <th>Transaction Id</th>
+                            <th>Product</th>
+                            <th>Domain</th>
+                            <th>Commission</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {listData?.rows?.map(invoice => (
+                            <tr key={invoice?.id}>
+                              <td>{invoice?.transactionId || 'N/A'}</td>
+                              <td>{invoice?.themeName}</td>
+                              <td>{invoice?.domain}</td>
+                              <td style={{ paddingLeft: '40px' }}>{invoice?.commission} $ </td>
+                              <td>{invoice?.status}</td>
+                              <td>{invoice?.createdAt
+                                ? new Date(invoice?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+                                : 'N/A'}</td>
+                            </tr>
+                          ))}
+                          <tr className="spacer-row">
+                            <td colSpan="5"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
 
-              <div className='w-full h-full invoices-page'>
-                <div className='table-container '>
-                  <table className='shadow'>
-                    <thead className=' py-2'>
-                      <tr className='py-2'>
-                        <th>Transaction Id</th>
-                        <th>Product Name</th>
-                        <th>Domain</th>
-                        <th>Commission</th>
-                        <th>Status</th>
-                        <th>Date</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {listData?.rows?.map(invoice => (
-                        <tr key={invoice?.id}>
-                          <td>{invoice?.transactionId || 'N/A'}</td>
-                          <td>{invoice?.themeName}</td>
-                          <td>{invoice?.domain}</td>
-                          <td style={{ paddingLeft: '40px' }}>{invoice?.commission} $ </td>
-                          <td>{invoice?.status}</td>
-                          <td>{invoice?.createdAt
-                            ? new Date(invoice?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
-                            : 'N/A'}</td>
-                        </tr>
-                      ))}
-                      <tr className="spacer-row">
-                        <td colSpan="5"></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                    <div className='w-full flex justify-end mt-3'>
+                      <Pagination
+                        shape="rounded"
+                        variant="outlined"
+                        color="standard"
+                        page={currentPage}
+                        count={count}
+                        onChange={handlePageChange}
+                      />
+                    </div>
 
-                <div className='w-full flex justify-end mt-3'>
-                  <Pagination
-                    shape="rounded"
-                    variant="outlined"
-                    color="standard"
-                    page={currentPage}
-                    count={count}
-                    onChange={handlePageChange}
-                  />
-                </div>
-
-              </div>
+                  </div>
+              }
             </div>
       }
     </>

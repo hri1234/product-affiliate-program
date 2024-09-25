@@ -75,7 +75,7 @@ const Sidebar = () => {
           <div className='left-arrow' id='left-arrow' onClick={scrollToLeft}>
             <FiArrowLeft />
           </div>
-          <div id='sidebar-menu' style={horizontalSidebar ? { marginLeft: margin + 'px' } : { margin: '0px' }}>
+          <div id='sidebar-menu' style={horizontalSidebar ? { marginLeft: margin + 'px' } : { margin: '6px' }}>
             <SideBarNav />
           </div>
           <div className='right-arrow' id='right-arrow' onClick={scrollToRight}>

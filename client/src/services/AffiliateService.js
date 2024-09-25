@@ -6,7 +6,7 @@ const AffiliateService = CreateApi.injectEndpoints(
             {
                 GetAffiliateList: builder.query(
                     {
-                        providesTags: ["links","adminAffiliate"],
+                        providesTags: ["links", "adminAffiliate"],
                         query: ({ Id, data }) => (
                             {
                                 url: `/affiliate/list`,
@@ -40,11 +40,23 @@ const AffiliateService = CreateApi.injectEndpoints(
                         )
                     }
                 ),
-                
+                LinkRedirect: builder.mutation(
+                    {
+                        invalidatesTags: ["redirect"],
+                        query: ({ Id, data }) => (
+                            {
+                                url: `/affiliate/redirect`,
+                                method: "POST",
+                                body: data
+                            }
+                        )
+                    }
+                ),
+
 
             }
         )
     }
 );
 
-export const { useGetAffiliateListQuery, useAddAffiliateLinkMutation, useGetIndividualAffiliateListQuery } = AffiliateService; 
+export const { useGetAffiliateListQuery, useAddAffiliateLinkMutation, useGetIndividualAffiliateListQuery, useLinkRedirectMutation } = AffiliateService; 

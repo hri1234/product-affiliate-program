@@ -44,77 +44,79 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
           </div>
 
           :
-          ListData?.rows?.length <= 0 ?
-            <div className=' w-full flex items-center justify-center'>
-              <span className=' w-fit flex  items-center justify-center'>
-                {/* <AiOutlineLoading3Quarters /> */}
-                No data found
-              </span>
-            </div>
-            :
-            <div>
-              <span className='font-semibold text-[20px]'>
-                Partners List
-              </span>
 
-              <div className='invoices-page'>
-                <div className='table-container'>
-                  <table className=''>
-                    <thead>
-                      <tr>
-                        <th>UTM Id</th>
-                        <th>Email Address</th>
-                        <th>Name</th>
-                        <th>Products</th>
-                        <th>Invoices</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-
-                      {
-
-                        ListData?.rows?.map((itm, indx) => (
-                          <tr key={indx}>
-                            {console.log(itm, 'User list item')}
-                            <td>{itm?.userId}</td>
-                            <td><span className='hover:underline cursor-pointer' onClick={() => { handleEmailClick(itm?.id) }}>{itm?.email}</span></td>
-                            <td>{itm?.companyName}</td>
-                            <td>{itm?.affiliateCount}</td>
-                            <td className=' flex gap-2'>
-                              <span onClick={() => { handleViewInvoice(itm) }} className=' hover:opacity-85 flex items-center justify-center cursor-pointer  rounded px-1'>
-                                {/* View */}
-                                {/* <IoEyeOutline/> */}
-                                <MdRemoveRedEye size={22} />
-                              </span>
-                              <span onClick={() => { handleAddInvoice(itm) }} className=' hover:opacity-85 rounded cursor-pointer px-1'>
-                                {/* Add */}
-                                <FaSquarePlus size={20} />
-                              </span>
-
-                            </td>
-
-                          </tr>
-                        ))
-                      }
-                      <tr className="spacer-row">
-                        <td colSpan="5"></td>
-                      </tr>
-                    </tbody>
-                  </table>
+          <div>
+            <span className='font-semibold text-[20px]'>
+              Partners List
+            </span>
+            {
+              ListData?.rows?.length <= 0 || ListData?.rows == undefined ?
+                <div className=' w-full flex mt-2 items-center justify-center'>
+                  <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
+                    No data found
+                  </span>
                 </div>
-                <div className='w-full flex justify-end py-4'>
+                :
 
-                  <Pagination
-                    shape="rounded"
-                    variant="outlined"
-                    color="standard"
-                    page={currentPage}
-                    count={count}
-                    onChange={handlePageChange}
-                  />
+                <div className='invoices-page'>
+                  <div className='table-container'>
+                    <table className=''>
+                      <thead>
+                        <tr>
+                          <th>UTM Id</th>
+                          <th>Email Address</th>
+                          <th>Name</th>
+                          <th>Products</th>
+                          <th>Invoices</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                        {
+
+                          ListData?.rows?.map((itm, indx) => (
+                            <tr key={indx}>
+                              {console.log(itm, 'User list item')}
+                              <td>{itm?.userId}</td>
+                              <td><span className='hover:underline cursor-pointer' onClick={() => { handleEmailClick(itm?.id) }}>{itm?.email}</span></td>
+                              <td>{itm?.companyName}</td>
+                              <td>{itm?.affiliateCount}</td>
+                              <td className=' flex gap-2'>
+                                <span onClick={() => { handleViewInvoice(itm) }} className=' hover:opacity-85 flex items-center justify-center cursor-pointer  rounded px-1'>
+                                  {/* View */}
+                                  {/* <IoEyeOutline/> */}
+                                  <MdRemoveRedEye size={22} />
+                                </span>
+                                <span onClick={() => { handleAddInvoice(itm) }} className=' hover:opacity-85 rounded cursor-pointer px-1'>
+                                  {/* Add */}
+                                  <FaSquarePlus size={20} />
+                                </span>
+
+                              </td>
+
+                            </tr>
+                          ))
+                        }
+                        <tr className="spacer-row">
+                          <td colSpan="5"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div className='w-full flex justify-end py-4'>
+
+                    <Pagination
+                      shape="rounded"
+                      variant="outlined"
+                      color="standard"
+                      page={currentPage}
+                      count={count}
+                      onChange={handlePageChange}
+                    />
+                  </div>
                 </div>
-              </div>
-            </div>
+            }
+          </div>
 
       }
     </>

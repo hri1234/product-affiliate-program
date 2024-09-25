@@ -11,7 +11,7 @@ import { Pagination } from '@mui/material';
 import AlertComponent from '../../../../components/AlertComponent.jsx';
 
 
-function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlistloading, NotAssignedlistData, setCurrentPage, currentPage, count }) {
+function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assignedcount, AssignedListData, Assignedlistloading, notAssignedlistloading, NotAssignedlistData, setCurrentPage, currentPage, count }) {
     const invoices = [
         {
             id: 1,
@@ -189,6 +189,10 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
         setCurrentPage(page)
     }
 
+    const handleAssignedPageChange = (e, page) => {
+        setAssignedCurrentPage(page)
+    }
+
     const handleDeleteYes = (id) => {
         DeAssign({ Id: id })
             .then((res) => {
@@ -246,8 +250,7 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
                             {
                                 AssignedListData?.result?.rows?.length <= 0 ?
                                     <div className=' w-full flex items-center justify-center'>
-                                        <span className=' w-fit flex  items-center justify-center'>
-                                            {/* <AiOutlineLoading3Quarters /> */}
+                                        <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
                                             No data found
                                         </span>
                                     </div>
@@ -273,7 +276,7 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
                                                                 <td className=' flex gap-2 items-center mt-1 pl-[30px]'>
 
                                                                     {/* <input value={itm?.id} checked={DeSelectedUsers?.includes(itm?.id)} onChange={handleDeSelectCheckboxChange} type="checkbox" /> */}
-                                                                    <span className='cursor-pointer' onClick={() => { handleDeAssignCLick(itm?.id) }}><MdDelete size={20}/></span>
+                                                                    <span className='cursor-pointer' onClick={() => { handleDeAssignCLick(itm?.id) }}><MdDelete size={20} /></span>
 
                                                                 </td>
                                                                 <td>{itm?.user?.email || "N/A"}</td>
@@ -289,9 +292,20 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <button onClick={() => handleDeAssignSubmit()} className=' w-[120px] bg-black text-white rounded py-2 mt-3'>
-                                            Submit
-                                        </button>
+                                        <div className=' w-full flex justify-between items-center mt-3'>
+
+                                            <button onClick={() => handleDeAssignSubmit()} className=' w-[120px] bg-black text-white rounded py-2 '>
+                                                Submit
+                                            </button>
+                                            <Pagination
+                                                shape="rounded"
+                                                variant="outlined"
+                                                color="standard"
+                                                page={AssignedcurrentPage}
+                                                count={Assignedcount}
+                                                onChange={handleAssignedPageChange}
+                                            />
+                                        </div>
                                     </div>
                             }
                         </div>
@@ -307,8 +321,7 @@ function AssignAffiliate({ AssignedListData, Assignedlistloading, notAssignedlis
                             {
                                 NotAssignedlistData?.result?.rows?.length <= 0 ?
                                     <div className=' w-full flex items-center justify-center'>
-                                        <span className=' w-fit flex  items-center justify-center'>
-                                            {/* <AiOutlineLoading3Quarters /> */}
+                                        <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
                                             No data found
                                         </span>
                                     </div>
