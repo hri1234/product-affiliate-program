@@ -2,9 +2,36 @@ const service = require("../services/auth.service");
 const { sendResponse } = require("../utils/sendResponse.js");
 const { SuccessMessage, ErrorMessage } = require("../constants/messages.js");
 const statusCode = require("../constants/statusCodes.js");
+const useragent = require('useragent');
+const requestIp = require('request-ip');
+const crypto  = require('crypto')
+
 
 // login controller
 exports.login = async (req, res) => {
+    console.log(req.ip, "------------------req.ip")
+    // console.log(req.cookies.deviceId,"---------------------->cookie")
+    console.log(req.headers['user-agent'], "------------------>req.header user agent")
+    const userAgentString = req.headers['user-agent'];
+    const userAgent = useragent.parse(userAgentString);
+
+    // Get the client's IP address
+    const clientIp = req.clientIp;
+    console.log(clientIp, "-------------------client ipsssssssssssssssss")
+    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    console.log('Client IP:', ip);
+    const userInfo = {
+        device: userAgent.device.toString(),
+        os: userAgent.os.toString(),
+        browser: userAgent.toString(),
+        ip: clientIp,
+        // location: geoData.city || 'Unknown',
+        // country: geoData.country_name || 'Unknown'
+    };
+    console.log(userInfo, "user info")
+    const data = `${ip}-${userAgent}`;
+    const hashed_ip =  crypto.createHash('sha256').update(data).digest('hex');
+    console.log(hashed_ip,"hashed Ip")
     console.info('***************************************************Login Api************************************************');
     try {
         const details = req.body;
@@ -35,24 +62,24 @@ exports.register = async (req, res) => {
 };
 
 
-exports.updatePassword=async (req,res)=>{
+exports.updatePassword = async (req, res) => {
     console.info('********************************************************Update Password*********************************************')
     try {
-        const id=req.currUser.id
-        const oldPassword=req.body.oldPassword
-        const newPassword=req.body.newPassword
+        const id = req.currUser.id
+        const oldPassword = req.body.oldPassword
+        const newPassword = req.body.newPassword
         // console.log(id, oldPassword,newPassword);
-        const result=await service.updatePassword(id,oldPassword,newPassword)
-        if(!result.status){
-            return sendResponse(res,statusCode.BAD_REQUEST,false,result.message)
+        const result = await service.updatePassword(id, oldPassword, newPassword)
+        if (!result.status) {
+            return sendResponse(res, statusCode.BAD_REQUEST, false, result.message)
         }
 
-        return sendResponse(res,statusCode.OK,true,result.message,result)
+        return sendResponse(res, statusCode.OK, true, result.message, result)
 
 
     } catch (error) {
         console.error('Error in update Password api : ', error);
-        return sendResponse(res,statusCode.INTERNAL_SERVER_ERROR,false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors)
+        return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors)
     }
 }
 //forget password

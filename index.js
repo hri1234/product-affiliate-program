@@ -8,13 +8,16 @@ const { readFileSync } = require("fs");
 const { join } = require("path");
 const path = require("path");
 const { redirectShortLink } = require('./server/app/v1/controllers/affiliate.controller')
+const { authenticate } = require('./server/app/v1/middleware/authentication')
+const useragent = require('useragent');
+const requestIp = require('request-ip');
 const app = express();
 
 app.use(cors());
 
 // parse requests of content-type - application/json
 app.use(express.json());
-
+app.use(requestIp.mw());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
@@ -61,13 +64,10 @@ const parentDirectory = path.join(__dirname, "server/app/v1/utils")
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
-
 app.use('/', express.static(path.join(parentDirectory, 'images')));
 
 app.use(process.env.BASE_URL, routes);
-
-app.get('/:shortLinkId', redirectShortLink)
-
+app.post('/:shortLinkId', authenticate,redirectShortLink)
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;
@@ -75,3 +75,4 @@ console.log(PORT)
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
+ 

@@ -1,8 +1,10 @@
 const shortid = require('shortid');
 const db = require("../models");
 const { Op } = require('sequelize')
+const Sequelize = require('sequelize');
 const Affiliate = db.affiliate;
 const AssignAffiliate = db.affiliateAssign
+const ClickAndPurchases = db.ClickAndPurchases
 const jwt = require('jsonwebtoken');
 const fs = require('fs')
 const path = require('path')
@@ -67,29 +69,35 @@ exports.shortLink = async (req, res, link) => {
 }
 
 // redirect short url link
-exports.redirectShortLink = async (req, res) => {
+exports.redirectShortLink = async (req, res, userId) => {
     try {
-        const shortId = req.params.shortLinkId
-        const result = await Affiliate.findOne({ where: { shortId: shortId } });
-        const url = result?.link
-        if (result) {
-            return {
-                status: true,
-                result: url
-            }
-        } else {
-            return {
-                status: false
-            }
+        const { shortLinkId } = req.params;
+
+        // Fetch affiliate details and handle if not found
+        const affiliate = await Affiliate.findOne({ where: { shortId: shortLinkId } });
+        if (!affiliate) {
+            return { status: false, message: 'Affiliate not found' };
         }
+
+        // Fetch assign affiliate details and handle if not found
+        const assignAffiliate = await AssignAffiliate.findOne({ where: { userId, affiliateId: affiliate.id } });
+        if (!assignAffiliate) {
+            return { status: false, message: 'AssignAffiliate details not found' };
+        }
+
+        // Log the click and increment the 'click' count in one step
+        await Promise.all([
+            ClickAndPurchases.create({ type: 'clicks', userId, assignAffiliateId: assignAffiliate.id }),
+
+            AssignAffiliate.update({ clicks: Sequelize.literal('clicks + 1') }, { where: { id: assignAffiliate.id } })
+        ]);
+
+        return { status: true, result: affiliate.link };
     } catch (error) {
-        console.log(error)
-        return {
-            status: false,
-            result: error
-        }
+        console.error('Error in redirectShortLink:', error);
+        return { status: false, message: 'Server error', error: error.message };
     }
-}
+};
 
 //get affiliate services
 exports.getAffiliate = async (req, res) => {
