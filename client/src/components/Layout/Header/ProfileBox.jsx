@@ -48,7 +48,7 @@ const ProfileBox = () => {
     <div className=' flex gap-2 pl-4 items-center justify-center'>
       <span className=' bg-slate-200 w-[50px] h-[50px] rounded-full flex items-center font-semibold justify-center'>{userEmail?.toUpperCase()}</span>
       <div className=' flex flex-col gap-0 w-fit'>
-        <span className=' m-0 p-0 w-fit capitalize'>{cookieProfile?.split(' ')[0] || "Profile"}</span>
+        <span className=' m-0 p-0 w-fit capitalize'>{ role=='admin' ? "Admin" : cookieProfile?.split(' ')[0] || "Profile"}</span>
       </div>
     </div>
   );

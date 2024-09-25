@@ -56,12 +56,14 @@ exports.redirectShortLink = async (req, res) => {
     try {
         const token = req.headers['authorization']
         const decoded = jwtDecode(token)
-        const result = await service.redirectShortLink(req, res, decoded.id)
-        if (result.status && result) {
-            // res.redirect(result.result)
-            sendResponse(res, statusCode.OK, true, result)
+        const assignAffiliateId = req.body.id
+        const deviceId = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+        const result = await service.redirectShortLink(req, res, decoded.id, assignAffiliateId, deviceId)
+        if (result.isExistClickAndPurchase || result.result) {
+            return sendResponse(res, statusCode.OK, true, result)
 
         }
+
         else if (result.status == false && !result.result) {
             sendResponse(res, statusCode.NOT_FOUND, false, ErrorMessage.NOT_FOUND)
 
@@ -70,6 +72,7 @@ exports.redirectShortLink = async (req, res) => {
             return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR)
 
         }
+
     } catch (error) {
         console.log(error)
         return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR)

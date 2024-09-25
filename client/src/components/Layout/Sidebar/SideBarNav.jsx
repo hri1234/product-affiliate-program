@@ -131,19 +131,31 @@ const SideBarNav = () => {
       </ul>
       {/* Centered Lorem Ipsum */}
       <div
-        className='absolute w-full text-center logo-wrapper h-[12px]'
-        style={{
+        className='absolute w-full text-center logo-wrapper duration-300 h-[12px]'
+        style={togglSidebar ? {
           top: '30%',
-          right: '-7.7%',
+          right: '-28%',
           transform: 'translateY(-50%)',
           color: 'black',
           backgroundColor: 'transparent',
           height: '23px',
           zIndex: '100000',
           width: '23px'
-        }}
+        }
+          :
+          {
+            top: '30%',
+            right: '-7.7%',
+            transform: 'translateY(-50%)',
+            color: 'black',
+            backgroundColor: 'transparent',
+            height: '23px',
+            zIndex: '100000',
+            width: '23px'
+          }
+        }
       >
-        <div onClick={() => setTogglSidebar(!togglSidebar)} className=' text-[36px] bg-white toggle-sidebar  border hover:shadow duration-100 transition-all ease-linear text-black'>
+        <div onClick={() => setTogglSidebar(!togglSidebar)} className=' text-[36px] bg-transparent toggle-sidebar   hover:shadow duration-100 transition-all ease-linear text-black'>
           {
             togglSidebar ?
 

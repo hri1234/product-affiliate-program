@@ -69,12 +69,22 @@ exports.shortLink = async (req, res, link) => {
 }
 
 // redirect short url link
-exports.redirectShortLink = async (req, res, userId) => {
+exports.redirectShortLink = async (req, res, userId, assignAffiliateId, deviceId) => {
     try {
         const { shortLinkId } = req.params;
+        const isExistClickAndPurchase = await ClickAndPurchases.findOne({ where: { userId: userId, assignAffiliateId: assignAffiliateId, deviceId: deviceId } })
+
 
         // Fetch affiliate details and handle if not found
         const affiliate = await Affiliate.findOne({ where: { shortId: shortLinkId } });
+        if (isExistClickAndPurchase) {
+            return {
+                status: false,
+                isExistClickAndPurchase: true,
+                result: affiliate.link
+
+            }
+        }
         if (!affiliate) {
             return { status: false, message: 'Affiliate not found' };
         }
@@ -87,7 +97,7 @@ exports.redirectShortLink = async (req, res, userId) => {
 
         // Log the click and increment the 'click' count in one step
         await Promise.all([
-            ClickAndPurchases.create({ type: 'clicks', userId, assignAffiliateId: assignAffiliate.id }),
+            ClickAndPurchases.create({ type: 'clicks', userId, assignAffiliateId: assignAffiliate.id, deviceId: deviceId }),
 
             AssignAffiliate.update({ clicks: Sequelize.literal('clicks + 1') }, { where: { id: assignAffiliate.id } })
         ]);

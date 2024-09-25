@@ -37,6 +37,10 @@ module.exports = (sequelize, Sequelize) => {
             values: ['clicks', 'purchases'],
 
         },
+        deviceId:{
+            type:Sequelize.STRING,
+            
+        }
     });
 
 

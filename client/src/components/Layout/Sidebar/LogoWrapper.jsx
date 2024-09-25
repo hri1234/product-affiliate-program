@@ -17,16 +17,15 @@ import { jwtDecode } from 'jwt-decode';
 const LogoWrapper = () => {
   const { togglSidebar, setTogglSidebar } = useContext(CustomizerContext);
 
-  const [decodedData,setDecodedData] = useState('');
+  const [decodedData, setDecodedData] = useState('');
 
   const userToken = Cookies.get("isLogged");
 
-  useEffect(()=>
-  {
+  useEffect(() => {
     const decodedToken = jwtDecode(userToken);
     setDecodedData(decodedToken);
 
-  },[userToken])
+  }, [userToken])
 
   const { data, isLoading: listLoading, isFetching: listFetching } = useGetProfileQuery({});
   const [listData, setListData] = useState([]);
@@ -45,7 +44,7 @@ const LogoWrapper = () => {
     }
   }, [listLoading, data, listFetching])
 
-  console.log(decodedData?.role,'decodedData')
+  console.log(decodedData?.role, 'decodedData')
 
   return (
     <div className='logo-wrapper p-3'>
@@ -53,13 +52,22 @@ const LogoWrapper = () => {
 
         <Link style={{ border: 'none', textDecoration: 'none' }} to={`/dashboard`}>
           {/* <Image className='img-fluid for-light w-[140px] h-[50px] ml-[10px] mt-[10px]' src={logo} alt='logo' /> */}
-          <span className=' flex capitalize text-black hover:text-black items-center text-[22px] mt-2 font-semibold justify-center h-[50px] '>
-            Hello { decodedData?.role=='admin'?"Admin !": companyName?.split(' ')[0] +"!"}
-          </span>
+
+          {
+            togglSidebar ?
+              // <span className=' flex capitalize text-black hover:text-black items-center text-[20px] mt-1 font-semibold justify-center h-[47px] '>
+              //   Hello !
+              // </span>
+              <span className=' m-auto h-[53px] duration-600 ease-in-out w-[66px] bg-orange my-3 mb-4 flex items-center justify-center text-[19.5px] font-semibold mt-3 pt-2 ml-[11px]'>Hello !</span>
+              :
+              <span className=' flex whitespace-nowrap capitalize duration-600 ease-in-out text-black hover:text-black items-center text-[22px] mt-2 font-semibold justify-center h-[50px] '>
+                Hello {decodedData?.role == 'admin' ? "Admin !" : companyName?.split(' ')[0] + "!"}
+              </span>
+          }
         </Link>
+        {/* <hr className='w-full m-auto text-black' /> */}
       </div>
 
-      <hr className='w-4/5 m-auto text-black' />
 
     </div>
   );
