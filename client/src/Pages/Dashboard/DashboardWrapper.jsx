@@ -19,7 +19,7 @@ function DashboardWrapper() {
   const userToken = Cookies.get("isLogged");
   const [userId, setUserId] = useState('')
 
-  const dataPerPage = 6;
+  const dataPerPage = 10;
 
   const { data: profileData, isLoading: listLoading, isFetching: listFetching } = useGetProfileQuery({});
 

@@ -2,8 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   searchQuery: '',
-  linksData: '',
-  PreviewData: ''
+  dashboardQuery:''
 }
 
 const SearchSlice = createSlice({
@@ -13,9 +12,12 @@ const SearchSlice = createSlice({
     SetSearchInput: (state, action) => {
       state.searchQuery = action.payload
     },
+    SetDashboardSearchInput: (state, action) => {
+      state.dashboardQuery = action.payload
+    },
 
   },
 })
 
-export const {SetSearchInput} = SearchSlice.actions
+export const {SetSearchInput , SetDashboardSearchInput} = SearchSlice.actions
 export default SearchSlice.reducer; 

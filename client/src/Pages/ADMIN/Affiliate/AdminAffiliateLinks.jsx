@@ -38,7 +38,7 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage, c
                     toast.error(res?.error?.data?.message || "Internal server error");
                 }
                 else {
-                    toast.success("Data deleted successfully");
+                    toast.success("Affiliate deleted");
                 }
             })
             .catch((err) => {

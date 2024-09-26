@@ -1,19 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import AdminAffiliateLinks from './AdminAffiliateLinks';
 import { useGetAffiliateListQuery } from '../../../services/AffiliateService';
+import { useSelector } from 'react-redux';
 
 function AdminAffiliateLinksWrapper() {
 
   const [listData, setListData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1)
-  const [count, setCount] = useState(1)
+  const [count, setCount] = useState(1);
+  const [searchFilter, setSearchFilter] = useState('')
+  const ReduxData = useSelector((state) => state.SearchSlice);
+
+  useEffect(() => {
+    setSearchFilter(ReduxData?.searchQuery || '')
+  }, [ReduxData])
+
+  console.log(ReduxData?.searchQuery, 'reduxdatatttttttt')
 
   const dataPerPage = 10;
 
   const { data, isLoading: listLoading, isFetching: listFetching } = useGetAffiliateListQuery({
     data:
-      { limit: dataPerPage, page: currentPage }
+      { limit: dataPerPage, page: currentPage, search: searchFilter }
   })
 
   useEffect(() => {

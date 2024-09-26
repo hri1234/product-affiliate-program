@@ -79,7 +79,7 @@ function Profile({ listData, loading }) {
         }
         else {
           console.log(res, 'res');
-          toast.success("Data updated successfully");
+          toast.success("Profile updated ");
           setSubmitLoading(false)
         }
       })

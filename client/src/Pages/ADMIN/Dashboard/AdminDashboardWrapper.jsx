@@ -4,6 +4,7 @@ import { useGetUserListQuery } from '../../../services/AdminService';
 import { useGetProfileQuery } from '../../../services/ProfileService';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 function AdminDashboardWrapper() {
@@ -12,8 +13,17 @@ function AdminDashboardWrapper() {
   const [ListData, setListData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [count, setCount] = useState(1);
+  const [searchFilter, setSearchFilter] = useState('')
   const navigate = useNavigate()
   const userToken = Cookies.get("isLogged");
+
+  const ReduxData = useSelector((state) => state.SearchSlice);
+
+  useEffect(() => {
+    setSearchFilter(ReduxData?.dashboardQuery || '');
+    console.log(ReduxData?.dashboardQuery,'dashboardSearch')
+  }, [ReduxData])
+
   useEffect(() => {
     if (!userToken || userToken == null || userToken == '') {
       navigate('/');
@@ -27,7 +37,7 @@ function AdminDashboardWrapper() {
   const { data, isLoading, isFetching } = useGetUserListQuery(
     {
       data:
-        { limit: dataPerPage, page: currentPage }
+        { limit: dataPerPage, page: currentPage , search:searchFilter}
     }
   );
 

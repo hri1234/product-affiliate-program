@@ -6,8 +6,8 @@ import SearchSuggestionList from './SearchSuggestionList';
 import { IoSearch } from "react-icons/io5";
 import Cookies from 'js-cookie'
 import { jwtDecode } from 'jwt-decode';
-import { useDispatch } from 'react-redux';
-import { SetSearchInput } from '../../../Redux/SearchSlice/SearchSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { SetDashboardSearchInput, SetSearchInput } from '../../../Redux/SearchSlice/SearchSlice';
 
 const MobileSearch = () => {
   const [searchMobilOpen, setSearchMobilOpen] = useState(false);
@@ -15,7 +15,9 @@ const MobileSearch = () => {
   const [suggestion, setSuggestion] = useState([]);
   const tokenData = Cookies.get("isLogged");
   const [role, setRole] = useState('');
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const ReduxData = useSelector((state) => state.SearchSlice);
+
 
   // const handleSearch = (e) => {
   //   const searchKey = e.target.value.toLowerCase();
@@ -72,9 +74,24 @@ const MobileSearch = () => {
   }, [tokenData])
 
   const handleSearch = (input) => {
-    console.log(input?.target?.value, 'searchInput');
+    // const locationn= window.location.href?.split('/')[]
+
+    const pathSegments = window.location.pathname.split('/');
+    const lastSegment = pathSegments[pathSegments.length - 1];
     const query = input?.target?.value
-    dispatch(SetSearchInput(input))
+    console.log(lastSegment,'locationINput');
+
+    if(lastSegment=='affiliate-links')
+    {
+      dispatch(SetSearchInput(query));
+      dispatch(SetDashboardSearchInput(''))
+    }
+    else if(lastSegment == 'dashboard')
+    {
+      dispatch(SetDashboardSearchInput(query));
+      dispatch(SetSearchInput(''));
+    }
+
   }
 
 
