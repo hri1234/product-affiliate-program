@@ -14,7 +14,7 @@ function AssignAffiliateWrapper() {
     const [currentPage, setCurrentPage] = useState(1);
     const [count, setCount] = useState(1);
 
-    const dataPerPage = 6;
+    const dataPerPage = 10;
 
 
     

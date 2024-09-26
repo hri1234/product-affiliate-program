@@ -248,8 +248,8 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                 Assigned Users
                             </span>
                             {
-                                AssignedListData?.result?.rows?.length <= 0 ?
-                                    <div className=' w-full flex items-center justify-center'>
+                                AssignedListData?.rows?.length <= 0 || AssignedListData?.rows == undefined ?
+                                    <div className=' w-full flex items-center justify-center mt-2'>
                                         <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
                                             No data found
                                         </span>
@@ -319,7 +319,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                 Not Assigned Users
                             </span>
                             {
-                                NotAssignedlistData?.result?.rows?.length <= 0 ?
+                                NotAssignedlistData?.result?.rows?.length <= 0 || NotAssignedlistData?.result?.rows == undefined ?
                                     <div className=' w-full flex items-center justify-center'>
                                         <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
                                             No data found
@@ -363,7 +363,8 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                             </div>
                                         </div>
                                         <div className='w-full flex justify-between px-2'>
-                                            <button onClick={() => handleSubmit()} className=' w-[120px] bg-black text-white rounded py-2 mt-3'>
+
+                                            <button onClick={() => handleSubmit()} disabled={SelectedUsers?.length <= 0 ? true : false} className={` ${SelectedUsers?.length <= 0 ? "opacity-70" : ""} w-[120px] bg-black text-white rounded py-2 mt-3`}>
                                                 Submit
                                             </button>
                                             <div className='w-full flex justify-end mt-3'>

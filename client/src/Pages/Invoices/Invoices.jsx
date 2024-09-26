@@ -21,9 +21,25 @@ function Invoices({ listData, loading, count, setCurrentPage, currentPage }) {
           </div>
 
           :
-          listData?.result?.length <= 0 ?
-            <div className=' w-full flex items-center justify-center'>
-              <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
+          listData?.rows?.length <= 0 || listData?.rows == undefined ?
+            // <div className=' w-full flex items-center justify-center mt-2'>
+            //   <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
+            //     No data found
+            //   </span>
+            // </div>
+            <div className='invoices-page   w-full mt-1 flex items-center flex-col justify-center'>
+              <table className='bg-white border-t border-l border-r '>
+                <thead className=' py-0'>
+                  <tr className='py-0'>
+                    <th>Transaction Id</th>
+                    <th>Product</th>
+                    <th>Commission</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+              </table>
+              <span className=' border-b border-r border-l  bg-white py-3 rounded w-full flex items-center justify-center'>
                 No data found
               </span>
             </div>
@@ -34,7 +50,7 @@ function Invoices({ listData, loading, count, setCurrentPage, currentPage }) {
                   <thead className=' py-2'>
                     <tr className='py-2'>
                       <th>Transaction Id</th>
-                      <th>Product name</th>
+                      <th>Product</th>
                       <th>Commission</th>
                       <th>Status</th>
                       <th>Date</th>
@@ -48,8 +64,8 @@ function Invoices({ listData, loading, count, setCurrentPage, currentPage }) {
                         <td style={{ paddingLeft: '40px' }}>{invoice?.commission} $ </td>
                         <td>{invoice?.status}</td>
                         <td>{invoice?.createdAt
-                            ? new Date(invoice?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
-                            : 'N/A'}</td>
+                          ? new Date(invoice?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+                          : 'N/A'}</td>
                       </tr>
                     ))}
                     <tr className="spacer-row">
@@ -58,18 +74,18 @@ function Invoices({ listData, loading, count, setCurrentPage, currentPage }) {
                   </tbody>
                 </table>
 
-                  </div>
-                <div className='w-full flex justify-end py-4'>
+              </div>
+              <div className='w-full flex justify-end py-4'>
 
-                  <Pagination
-                    shape="rounded"
-                    variant="outlined"
-                    color="standard"
-                    page={currentPage}
-                    count={count}
-                    onChange={handlePageChange}
-                  />
-                </div>
+                <Pagination
+                  shape="rounded"
+                  variant="outlined"
+                  color="standard"
+                  page={currentPage}
+                  count={count}
+                  onChange={handlePageChange}
+                />
+              </div>
             </div>
       }
     </>

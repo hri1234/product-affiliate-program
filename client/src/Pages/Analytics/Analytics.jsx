@@ -235,29 +235,33 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
 
             <div className='w-full px-5 py-4 rounded border bg-white'>
               <div className='w-full flex justify-between'>
-                <span className='font-semibold text-[17.5px]'>{purchaseCount} Purchases on {monthNames[selectedMonth]}</span>
+                <span className='font-semibold text-[17.5px] pl-5'>Total Purchases on {monthNames[selectedMonth]} : {purchaseCount}</span>
                 {/* <span>TOtal</span> */}
                 {/* <h3 className='text-[16.5px] font-semibold py-1'>Total : {purchaseCount}</h3> */}
 
               </div>
 
+              <div className='relative w-full flex items-center '>
 
-              <ReactApexChart
-                options={chartState?.options}
-                // series={chartState?.series}
-                series={[
-                  {
-                    name: 'Counts',
-                    data: purchasesData,
-                  },
-                ]}
-                type="line"
-                height={350}
+                <ReactApexChart
+                  options={chartState?.options}
+                  // series={chartState?.series}
+                  series={[
+                    {
+                      name: 'Counts',
+                      data: purchasesData,
+                    },
+                  ]}
+                  type="line"
+                  height={350}
 
-                className="px-2 w-full max-w-full"
-              />
-
-              <span className=' pl-[40px] font-semibold m-auto'>Days</span>
+                  className="px-3 w-full max-w-full"
+                />
+                <span className='absolute left-[-38px] text-[14px] top-[150px]'>Purchases</span>
+              </div>
+              <div className='w-full flex justify-center'>
+                <span className=' pl-[0px] m-auto text-[14px]'>Days</span>
+              </div>
             </div>
             <hr />
             <div className='grid grid-cols-1 w-full gap-2'>
@@ -272,9 +276,24 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
                   </div>
 
                   :
-                  affiliatesData?.result?.length <= 0 || affiliatesData?.result == undefined ?
-                    <div className=' w-full flex items-center justify-center'>
-                      <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
+                  affiliatesData?.result?.rows?.length <= 0 || affiliatesData?.result?.rows == undefined ?
+                    // <div className=' w-full flex items-center justify-center'>
+                    //   <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
+                    //     No data found
+                    //   </span>
+                    // </div>
+                    <div className='invoices-page   w-full mt-1 flex items-center flex-col justify-center'>
+                      <table className='bg-white border-t border-l border-r '>
+                        <thead className=' py-0'>
+                          <tr className='py-0'>
+                            <th>Product</th>
+                            <th>Total Clicks</th>
+                            <th>Date</th>
+                            <th>View Graph</th>
+                          </tr>
+                        </thead>
+                      </table>
+                      <span className=' border-b border-r border-l  bg-white py-3 rounded w-full flex items-center justify-center'>
                         No data found
                       </span>
                     </div>
@@ -284,7 +303,7 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
                         <table className='shadow'>
                           <thead className=' py-2'>
                             <tr className='py-2'>
-                              <th>Product name</th>
+                              <th>Product</th>
                               <th>Total Clicks</th>
                               <th>Date</th>
                               <th>View Graph</th>
@@ -296,7 +315,7 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
                                 <td>{affiliate.affiliate?.name}</td>
                                 <td className='pl-[30px]'>{affiliate?.clicks}</td>
                                 <td>{affiliate?.createdAt
-                                  ? new Date(affiliate?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+                                  ? new Date(affiliate?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
                                   : 'N/A'}</td>
                                 <td style={{ width: '40px' }} className='pl-[30px] w-fit '><MdRemoveRedEye onClick={() => viewGraphHandle(affiliate?.id, affiliate.affiliate?.name)} className='w-fit cursor-pointer hover:opacity-90' size={20} /></td>
                               </tr>

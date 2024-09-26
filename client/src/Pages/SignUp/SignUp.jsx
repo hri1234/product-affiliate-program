@@ -112,7 +112,7 @@ function SignUp() {
           }
           else {
             resetForm();
-            toast.success("User Registered Successfully");
+            toast.success("User Signed Up Successfully");
             navigate('/login');
             console.log(res.data?.result, 'register res');
             setToasterMessage('')
@@ -285,7 +285,7 @@ function SignUp() {
                               </div>
                               <div className=' flex gap-1 mt-[-9.0px] items-center'>
                                 <input onChange={(e) => { e.target.checked ? setIsChecked(true) : setIsChecked(false) }} className=' cursor-pointer p-0 m-0' type="checkbox" id='checkboxx' name='checkboxx' />
-                                <label className=' p-0 m-0 cursor-pointer hover:underline ' htmlFor="checkboxx"> <a target='_blank' className=' text-[14px] text-black hover:text-black' href="https://partners.krownthemes.com/terms-and-conditions">Accept terms and condition</a></label>
+                                <label onClick={()=>navigate('/terms-condition')} className=' p-0 m-0 cursor-pointer hover:underline ' htmlFor="checkboxx"> <a target='_blank' className=' text-[14px] text-black hover:text-black'>Accept terms and condition</a></label>
                               </div>
                             </div>
                             <div className={` ${toasterMessage ? "flex w-full items-center justify-center" : "hidden"} `}>

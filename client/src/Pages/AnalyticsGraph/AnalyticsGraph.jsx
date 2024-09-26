@@ -164,23 +164,31 @@ function AnalyticsGraph({ selectedYear, setSelectedYear, YearList, loading, Mont
           <div className='w-full flex flex-col gap-12 pt-6'>
             <div className='w-full px-5 py-4 rounded border bg-white'>
               <div className='w-full flex justify-between py-2'>
-                <span className='font-semibold text-[17.5px] capitalize'> {totalCount} Purchases on  {monthNames[selectedMonth]}</span>
-                <span className='font-semibold text-[17px]'>
+                <span className='font-semibold text-[17.5px] capitalize pl-5'> Total Purchases on  {monthNames[selectedMonth]} : {totalCount}</span>
+                {/* <span className='font-semibold text-[17px]'>
                   Total: {totalCount}
-                </span>
+                </span> */}
               </div>
-              <ReactApexChart
-                options={chartState?.options}
-                series={[
-                  {
-                    name: 'Counts',
-                    data: clicksData,
-                  },
-                ]}
-                type="line"
-                height={350}
-                className="px-2 w-full max-w-full"
-              />
+              <div className=' flex w-full relative items-center'>
+
+                <ReactApexChart
+                  options={chartState?.options}
+                  series={[
+                    {
+                      name: 'Counts',
+                      data: clicksData,
+                    },
+                  ]}
+                  type="line"
+                  height={350}
+                  className="px-3 w-full max-w-full"
+                />
+                <span className='absolute left-[-25px] text-[14px] top-[150px]'>Clicks</span>
+
+              </div>
+              <div className='w-full flex justify-center'>
+                <span className=' pl-[0px] m-auto text-[14px]'>Days</span>
+              </div>
             </div>
           </div>
         </div>

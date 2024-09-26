@@ -42,19 +42,19 @@ function Dashboard({ loading, listData, overviewLoading, overviewData, setCurren
                     <div className='font-semibold'>
                       Paid for Current Month
                     </div>
-                    {overviewData?.paid} $
+                    {overviewData?.paid || 0} $
                   </div>
                   <div className='w-full flex-col hover:shadow-md  duration-200 flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
                     <div className='font-semibold'>
                       Total Pending
                     </div>
-                    {overviewData?.pending} $
+                    {overviewData?.pending || 0} $
                   </div>
                   <div className='w-full flex-col hover:shadow-md duration-200 flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
                     <div className='font-semibold'>
                       Total Paid
                     </div>
-                    {overviewData?.total} $
+                    {overviewData?.total || 0} $
                   </div>
                 </div>
               </div>
@@ -62,9 +62,21 @@ function Dashboard({ loading, listData, overviewLoading, overviewData, setCurren
               <br />
               <p className='text-[20px] font-semibold'>Invoice History</p>
               {
-                listData?.rows?.length <= 0 || listData?.rows==undefined ?
-                  <div className=' w-full flex items-center justify-center'>
-                    <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
+                listData?.rows?.length <= 0 || listData?.rows == undefined ?
+                  <div className='invoices-page   w-full mt-1 flex items-center flex-col justify-center'>
+                    <table className='bg-white border-t border-l border-r '>
+                      <thead className=' py-0'>
+                        <tr className='py-0'>
+                          <th>Transaction Id</th>
+                          <th>Product</th>
+                          <th>Domain</th>
+                          <th>Commission</th>
+                          <th>Status</th>
+                          <th>Date</th>
+                        </tr>
+                      </thead>
+                    </table>
+                    <span className=' border-b border-r border-l  bg-white py-3 rounded w-full flex items-center justify-center'>
                       No data found
                     </span>
                   </div>
@@ -91,7 +103,7 @@ function Dashboard({ loading, listData, overviewLoading, overviewData, setCurren
                               <td style={{ paddingLeft: '40px' }}>{invoice?.commission} $ </td>
                               <td>{invoice?.status}</td>
                               <td>{invoice?.createdAt
-                                ? new Date(invoice?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+                                ? new Date(invoice?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
                                 : 'N/A'}</td>
                             </tr>
                           ))}

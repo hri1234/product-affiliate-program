@@ -15,13 +15,14 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
   console.log(ListData?.rows, 'ListDataaa')
 
   const handleAddInvoice = (itm) => {
-    const data = { email: itm?.email }
+    const data = { email: itm?.email,companyName:itm?.companyName }
     navigate(`invoice/add/${itm?.id}`, { state: data })
   }
 
   const handleViewInvoice = (itm) => {
     // navigate(`invoice/view/${itm?.id}/${itm?.email}`);
-    const data = { email: itm?.email };
+    console.log(itm?.companyName, 'ITMMMMMMMMMMMMMMMMMMMMMMMMMMM')
+    const data = { email: itm?.email, companyName: itm?.companyName };
     navigate(`invoice/view/${itm?.id}`, { state: data });
   }
   const handlePageChange = (e, page) => {
@@ -45,14 +46,30 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
 
           :
 
-          <div>
-            <span className='font-semibold text-[20px]'>
+          <div className='mt-[5px]'>
+            <span className='font-semibold text-[20px] mb-2 pb-2'>
               Partners List
             </span>
             {
               ListData?.rows?.length <= 0 || ListData?.rows == undefined ?
-                <div className=' w-full flex mt-2 items-center justify-center'>
-                  <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
+                // <div className=' w-full flex mt-2 items-center justify-center'>
+                //   <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
+                //     No data found
+                //   </span>
+                // </div>
+                <div className='invoices-page   w-full mt-1 flex items-center flex-col justify-center'>
+                  <table className='bg-white border-t border-l border-r '>
+                    <thead className=' py-0'>
+                      <tr className='py-0'>
+                        <th>UTM Id</th>
+                        <th>Email Address</th>
+                        <th>Name</th>
+                        <th>Products</th>
+                        <th>Invoices</th>
+                      </tr>
+                    </thead>
+                  </table>
+                  <span className=' border-b border-r border-l  bg-white py-3 rounded w-full flex items-center justify-center'>
                     No data found
                   </span>
                 </div>

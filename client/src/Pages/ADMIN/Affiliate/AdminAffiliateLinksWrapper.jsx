@@ -9,7 +9,7 @@ function AdminAffiliateLinksWrapper() {
   const [currentPage, setCurrentPage] = useState(1)
   const [count, setCount] = useState(1)
 
-  const dataPerPage = 6;
+  const dataPerPage = 10;
 
   const { data, isLoading: listLoading, isFetching: listFetching } = useGetAffiliateListQuery({
     data:

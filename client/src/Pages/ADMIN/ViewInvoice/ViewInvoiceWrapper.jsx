@@ -11,7 +11,7 @@ function ViewInvoiceWrapper() {
     console.log('param id viewInvoice',id);
 
     const location = useLocation();
-    const { email } = location.state ;
+    const { email , companyName } = location.state ;
 
     const [loading,setLoading] = useState(false);
     const [ListData,setListData] = useState([]);
@@ -62,7 +62,7 @@ function ViewInvoiceWrapper() {
 
   return (
     <div className='page-body px-4 pb-4'>
-        <ViewInvoice listData={ListData?.result} loading={loading} OverViewData={OverViewData} email={email} />
+        <ViewInvoice listData={ListData?.result} loading={loading} OverViewData={OverViewData} email={email} companyName={companyName} />
     </div>
   )
 }

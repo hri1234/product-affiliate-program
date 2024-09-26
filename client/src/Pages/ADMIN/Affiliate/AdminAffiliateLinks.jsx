@@ -64,20 +64,23 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage, c
                     </>
                     :
 
-                    <div className=' w-full flex flex-col h-full items-center gap-8 '>
+                    <div className=' w-full flex flex-col h-full items-center gap-3 '>
                         <div className=' w-full flex items-center justify-between'>
                             <span>
                                 <span className='font-semibold text-[20px]'>
                                     Affiliate Links
                                 </span>
                             </span>
-                            <span onClick={() => navigate('add')} className=' hover:opacity-90 cursor-pointer p-2 bg-black text-white rounded'>
+                            <span onClick={() => navigate('add')} className=' w-[120px] justify-center flex items-center hover:opacity-90 cursor-pointer p-2 bg-black text-white rounded-full'>
+                                <span>
+
                                 Create Links
+                                </span>
                             </span>
                         </div>
                         {
                             listData?.rows?.length <= 0 || listData?.rows == undefined ?
-                                <div className=' w-full flex items-center justify-center'>
+                                <div className=' w-full flex items-center mt-3 justify-center'>
                                     <span className=' border bg-white py-2 rounded w-full flex items-center justify-center'>
                                         No data found
                                     </span>
@@ -126,7 +129,7 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage, c
                                                                     </a>
                                                                 </span>
                                                                 <div className=' w-full flex justify-between gap-4'>
-                                                                    <span onClick={() => { navigator.clipboard.writeText(itm?.shortUrl) }} className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
+                                                                    <span onClick={() => { navigator.clipboard.writeText(itm?.shortUrl); toast.success("Link copied") }} className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
                                                                         Copy link
                                                                     </span>
                                                                     <span className=' border hover:text-black p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>

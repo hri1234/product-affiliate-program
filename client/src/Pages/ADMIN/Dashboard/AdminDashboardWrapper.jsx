@@ -21,7 +21,7 @@ function AdminDashboardWrapper() {
     }
   }, [userToken])
 
-  const dataPerPage = 6;
+  const dataPerPage = 10;
 
 
   const { data, isLoading, isFetching } = useGetUserListQuery(

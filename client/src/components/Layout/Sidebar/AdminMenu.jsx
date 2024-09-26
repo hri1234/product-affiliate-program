@@ -5,7 +5,7 @@ export const AdminMenu = [
     title: '',
     menu: [
       {
-        title: 'Users',
+        title: 'Partners',
         icon: <FiHome />,
         url: `/dashboard`,
         bookmark: true

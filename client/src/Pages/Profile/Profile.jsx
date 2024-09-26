@@ -92,7 +92,7 @@ function Profile({ listData, loading }) {
 
 
   return (
-    <div className=' pt-6'>
+    <div className=' pt-[2px]'>
       <Formik
         enableReinitialize
         validationSchema={validationSchema}
@@ -111,110 +111,113 @@ function Profile({ listData, loading }) {
                     </span>
                   </div>
                   :
-                  <Fragment>
-                    <Card className=' w-full'>
-                      {/* <CardHeader className='pb-0'>
+                  <>
+                    <p className='text-[20px] font-semibold mb-3 pb-2'>Profile</p>
+                    <Fragment>
+                      <Card className=' w-full'>
+                        {/* <CardHeader className='pb-0'>
                         <H5>Profile Update</H5>
                       </CardHeader> */}
-                      <div className='pb-0 pt-4 px-[26px]'>
-                        <span className='text-[20px]'>
-                          Profile Update
-                        </span>
-                      </div>
-                      <CardBody>
-                        <Row className='g-3 pb-3'>
-                          <Col md='6'>
-                            {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter First Name *' register={{ ...register('first_name', { required: 'is Required.' }) }} /> */}
-                            {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, in! */}
-                            <InputComponent label={"Email Address"} type="text" name='email' value={profileProps.values.email} placeholder='Enter email address' disabled="true" />
-                          </Col>
-                          <Col md='6'>
-                            {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter First Name *' register={{ ...register('first_name', { required: 'is Required.' }) }} /> */}
-                            {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, in! */}
-                            <InputComponent label={"PayPal Address"} type="text" name='payPalAddress' value={profileProps.values.payPalAddress} placeholder='Enter paypal address' onChange={profileProps.handleChange} />
-                          </Col>
+                        <div className='pb-0 pt-4 px-[26px]'>
+                          <span className='text-[20px]'>
+                            Profile Update
+                          </span>
+                        </div>
+                        <CardBody>
+                          <Row className='g-3 pb-3'>
+                            <Col md='6'>
+                              {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter First Name *' register={{ ...register('first_name', { required: 'is Required.' }) }} /> */}
+                              {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, in! */}
+                              <InputComponent label={"Email Address"} type="text" name='email' value={profileProps.values.email} placeholder='Enter email address' disabled="true" />
+                            </Col>
+                            <Col md='6'>
+                              {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter First Name *' register={{ ...register('first_name', { required: 'is Required.' }) }} /> */}
+                              {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, in! */}
+                              <InputComponent label={"PayPal Address"} type="text" name='payPalAddress' value={profileProps.values.payPalAddress} placeholder='Enter paypal address' onChange={profileProps.handleChange} />
+                            </Col>
 
-                          {/* <Col md='4 mb-3'>
+                            {/* <Col md='4 mb-3'>
                             <InputComponent label={"Address"} type={"text"} value={profileProps.values.address} name='address' onChange={profileProps.handleChange} placeholder={"Enter your address"} />
                           </Col> */}
-                        </Row>
-                        <Row className='g-3 pb-3'>
-                          <Col md='6'>
-                            {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('last_name', { required: 'is Required.' }) }} /> */}
-                            {/* Inp control Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, dolorum. */}
-                            <InputComponent label={"City"} type={"text"} value={profileProps.values.city} name='city' onChange={profileProps.handleChange} placeholder={"Enter city name"} />
+                          </Row>
+                          <Row className='g-3 pb-3'>
+                            <Col md='6'>
+                              {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('last_name', { required: 'is Required.' }) }} /> */}
+                              {/* Inp control Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, dolorum. */}
+                              <InputComponent label={"City"} type={"text"} value={profileProps.values.city} name='city' onChange={profileProps.handleChange} placeholder={"Enter city name"} />
 
-                          </Col>
-                          <Col md='6'>
-                            {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter City Name *' register={{ ...register('city', { required: 'is Required.' }) }} /> */}
-                            {/* City */}
-                            <InputComponent label={"Company name"} type={"text"} value={profileProps.values.companyName} name='companyName' onChange={profileProps.handleChange} placeholder={"Enter company name"} />
+                            </Col>
+                            <Col md='6'>
+                              {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter City Name *' register={{ ...register('city', { required: 'is Required.' }) }} /> */}
+                              {/* City */}
+                              <InputComponent label={"Company Name"} type={"text"} value={profileProps.values.companyName} name='companyName' onChange={profileProps.handleChange} placeholder={"Enter company name"} />
 
-                          </Col>
+                            </Col>
 
 
 
-                        </Row>
-                        <Row className='g-3'>
-                          <Col md='6 mb-3'>
-                            <InputComponent label={"Address"} type={"text"} value={profileProps.values.address} name='address' onChange={profileProps.handleChange} placeholder={"Enter address"} />
-                          </Col>
-                          <Col md='6'>
-                            {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter First Name *' register={{ ...register('first_name', { required: 'is Required.' }) }} /> */}
-                            {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, in! */}
-                            {/* <InputComponent label={"PayPal address"} type="text" name='payPalAddress' value={profileProps.values.payPalAddress} placeholder='Enter your paypal address' onChange={profileProps.handleChange} /> */}
-                            <div className=' relative'>
-                              <span className=' pl-[3px] font-semibold text-[13px]'>{"Country"}</span>
-                              <Select
-                                placeholder="Select Country"
-                                options={options}
-                                name="country"
-                                value={profileProps.values.country}
-                                // value={[{value:"IN",label:'India'}]}
-                                onChange={value => profileProps.setFieldValue('country', value)}
-                                styles={{
-                                  control: (baseStyles, state) => ({
-                                    ...baseStyles,
-                                    borderRadius: '8px', // Add border-radius
-                                    border: '1px solid rgb(222, 226, 230)', // Default border color
-                                    fontSize: '14px',
-                                    letterSpacing: '.8px',
-                                    boxShadow: 'none', // Remove box-shadow entirely
-                                    borderColor: 'rgb(222, 226, 230)', // Keep border consistent on focus/hover
-                                    '&:hover': {
-                                      borderColor: 'rgb(222, 226, 230)', // Gray border on hover
-                                    },
-                                  }),
-                                  indicatorSeparator: () => ({
-                                    display: 'none', // Hide the line near the arrow button
-                                  }),
-                                }}
-                              />
-                              <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"country"} component='div' />
-                            </div>
-                          </Col>
-                        </Row>
-                        <Row className='g-3'>
-                          <Col md='6'>
-                            <InputComponent label={"Company URL"} type={"text"} value={profileProps.values.companyUrl} name='companyUrl' onChange={profileProps.handleChange} placeholder={"Enter company URL"} />
-                          </Col>
-                        </Row>
+                          </Row>
+                          <Row className='g-3'>
+                            <Col md='6 mb-3'>
+                              <InputComponent label={"Address"} type={"text"} value={profileProps.values.address} name='address' onChange={profileProps.handleChange} placeholder={"Enter address"} />
+                            </Col>
+                            <Col md='6'>
+                              {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter First Name *' register={{ ...register('first_name', { required: 'is Required.' }) }} /> */}
+                              {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, in! */}
+                              {/* <InputComponent label={"PayPal address"} type="text" name='payPalAddress' value={profileProps.values.payPalAddress} placeholder='Enter your paypal address' onChange={profileProps.handleChange} /> */}
+                              <div className=' relative'>
+                                <span className=' pl-[3px] font-semibold text-[13px]'>{"Country"}</span>
+                                <Select
+                                  placeholder="Select Country"
+                                  options={options}
+                                  name="country"
+                                  value={profileProps.values.country}
+                                  // value={[{value:"IN",label:'India'}]}
+                                  onChange={value => profileProps.setFieldValue('country', value)}
+                                  styles={{
+                                    control: (baseStyles, state) => ({
+                                      ...baseStyles,
+                                      borderRadius: '8px', // Add border-radius
+                                      border: '1px solid rgb(222, 226, 230)', // Default border color
+                                      fontSize: '14px',
+                                      letterSpacing: '.8px',
+                                      boxShadow: 'none', // Remove box-shadow entirely
+                                      borderColor: 'rgb(222, 226, 230)', // Keep border consistent on focus/hover
+                                      '&:hover': {
+                                        borderColor: 'rgb(222, 226, 230)', // Gray border on hover
+                                      },
+                                    }),
+                                    indicatorSeparator: () => ({
+                                      display: 'none', // Hide the line near the arrow button
+                                    }),
+                                  }}
+                                />
+                                <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"country"} component='div' />
+                              </div>
+                            </Col>
+                          </Row>
+                          <Row className='g-3'>
+                            <Col md='6'>
+                              <InputComponent label={"Company URL"} type={"text"} value={profileProps.values.companyUrl} name='companyUrl' onChange={profileProps.handleChange} placeholder={"Enter company URL"} />
+                            </Col>
+                          </Row>
 
-                        <div className="position-relative form-group mb-0 w-[120px]">
-                          <button className=" bg-black text-white w-[120px] py-[6.5px] border w-100 mt-4 rounded-full" type="submit">
-                            {
-                              submitLoading ?
-                                <span className=' w-full flex py-1  items-center justify-center m-auto self-center animate-spin'>
-                                  <AiOutlineLoading3Quarters />
-                                </span>
-                                :
-                                "Save"
-                            }
-                          </button>
-                        </div>
-                      </CardBody>
-                    </Card>
-                  </Fragment>
+                          <div className="position-relative form-group mb-0 w-[120px]">
+                            <button className=" bg-black text-white w-[120px] py-[6.5px] border w-100 mt-4 rounded-full" type="submit">
+                              {
+                                submitLoading ?
+                                  <span className=' w-full flex py-1  items-center justify-center m-auto self-center animate-spin'>
+                                    <AiOutlineLoading3Quarters />
+                                  </span>
+                                  :
+                                  "Update"
+                              }
+                            </button>
+                          </div>
+                        </CardBody>
+                      </Card>
+                    </Fragment>
+                  </>
 
               }
 

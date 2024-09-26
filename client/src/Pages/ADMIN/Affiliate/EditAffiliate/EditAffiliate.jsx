@@ -166,7 +166,8 @@ function EditAffiliate({ listData, loading }) {
                                     </div>
                                     :
                                     <div>
-                                        <div className='flex w-full justify-between px-1 py-2 mb-2'>
+                                        <p className='text-[20px] font-semibold'>Edit Affiliate</p>
+                                        <div className='flex w-full justify-between px-1 py-2 mb-3 mt-3'>
                                             <span onClick={() => { navigate('/dashboard/affiliate-links') }} className='font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
                                                 <IoArrowBack size={20} />
                                             </span>
@@ -200,26 +201,26 @@ function EditAffiliate({ listData, loading }) {
                                                                 <span className=' w-full flex gap-2 items-center '>
                                                                     <div className='relative flex justify-between'>
                                                                         {
-                                                                            ImageUrl?.includes("image")?
-                                                                            <img className='w-fit max-w-[450px] min-h-[300px] min-w-[400px] max-h-[350px]' src={ImageUrl} alt="" />
-                                                                            :
-                                                                            <span>
-                                                                                No image found
-                                                                            </span>
+                                                                            ImageUrl?.includes("image") ?
+                                                                                <img className='w-fit max-w-[450px] min-h-[300px] min-w-[400px] max-h-[350px]' src={ImageUrl} alt="" />
+                                                                                :
+                                                                                <span>
+                                                                                    No image found
+                                                                                </span>
                                                                         }
                                                                         <span className='absolute right-[-8px] top-[-8px]'>
                                                                             <span className=' w-0 h-0'>
-                                                                                    
+
                                                                                 <input className='hidden' type="file" id='thumbnail' onChange={(e) => handleThumbnail(e)} />
                                                                                 <label htmlFor="thumbnail">
-                                                                                    <FaEdit/>
+                                                                                    <FaEdit />
                                                                                 </label>
                                                                             </span>
                                                                         </span>
                                                                     </div>
                                                                     <span className=' pt-2'>
 
-                                                                        <span  className=' py-[8px] rounded px-4  mt-2'>
+                                                                        <span className=' py-[8px] rounded px-4  mt-2'>
                                                                             {
                                                                                 imageUploadLoading ?
                                                                                     <span className=' w-fit flex py-1 items-center justify-center m-auto self-center animate-spin'>
@@ -236,7 +237,7 @@ function EditAffiliate({ listData, loading }) {
                                                         </Col>
                                                     </Row>
 
-                                                    <button type='submit' className=' d-block mt-4 w-[120px] cursor-pointer p-2 bg-black text-white rounded'>
+                                                    <button type='submit' className=' d-block mt-4 w-[120px] cursor-pointer p-2 bg-black text-white rounded-full'>
                                                         {
                                                             submitLoading ?
                                                                 <span className=' w-full flex py-1 items-center justify-center m-auto self-center animate-spin'>

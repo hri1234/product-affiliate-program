@@ -11,7 +11,7 @@ function InvoicesWrapper() {
   const [userId, setUserId] = useState('')
   const [count, setCount] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-  const dataPerPage = 6;
+  const dataPerPage = 10;
 
   useEffect(() => {
     if (userToken) {

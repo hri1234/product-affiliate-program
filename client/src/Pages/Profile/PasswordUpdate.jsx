@@ -15,9 +15,9 @@ function PasswordUpdate({ loading }) {
     const [UpdatePassword] = useUpdatePasswordMutation();
     const [submitLoading, setSubmitLoading] = useState(false);
 
-    const [showOldPassword,setShowOldPassword] =useState('password');
-    const [showNewPassword,setShowNewPassword] =useState('password');
-    const [showConfirmPassword,setShowConfirmPassword] =useState('password');
+    const [showOldPassword, setShowOldPassword] = useState('password');
+    const [showNewPassword, setShowNewPassword] = useState('password');
+    const [showConfirmPassword, setShowConfirmPassword] = useState('password');
 
 
 
@@ -99,19 +99,19 @@ function PasswordUpdate({ loading }) {
                                                                 {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, in! */}
                                                                 <div className='relative flex justify-between'>
 
-                                                                <InputComponent label={"Old password"} type="text" name='oldPassword' value={profileProps.values.oldPassword} placeholder='Enter your old password ' onChange={profileProps.handleChange} />
+                                                                    <InputComponent label={"Old Password"} type="text" name='oldPassword' value={profileProps.values.oldPassword} placeholder='Enter old password ' onChange={profileProps.handleChange} />
                                                                 </div>
                                                             </Col>
                                                             <Col md='4'>
                                                                 {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('last_name', { required: 'is Required.' }) }} /> */}
                                                                 {/* Inp control Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, dolorum. */}
-                                                                <InputComponent label={"New password"} type={"text"} value={profileProps.values.password} name='password' onChange={profileProps.handleChange} placeholder={"Enter city name"} />
+                                                                <InputComponent label={"New Password"} type={"text"} value={profileProps.values.password} name='password' onChange={profileProps.handleChange} placeholder={"Enter city name"} />
 
                                                             </Col>
                                                             <Col md='4 mb-3'>
                                                                 {/* <InputControl pereFix='@' controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('user_name', { required: 'is Required.' }) }} /> */}
                                                                 {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias quo accusantium incidunt eum distinctio atque! */}
-                                                                <InputComponent label={"Confirm password"} type={"text"} value={profileProps.values.confirmPassword} name='confirmPassword' onChange={profileProps.handleChange} placeholder={"Enter your address"} />
+                                                                <InputComponent label={"Confirm Password"} type={"text"} value={profileProps.values.confirmPassword} name='confirmPassword' onChange={profileProps.handleChange} placeholder={"Enter address"} />
                                                             </Col>
                                                         </Row>
 

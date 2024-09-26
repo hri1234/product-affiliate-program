@@ -14,7 +14,7 @@ function AnalyticsWrapper() {
     const [selectedYear, setSelectedYear] = useState(new Date().getFullYear())
     const [count, setCount] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
-    const dataPerPage = 5
+    const dataPerPage = 10
 
     console.log(selectedYear, 'seleyear')
 
