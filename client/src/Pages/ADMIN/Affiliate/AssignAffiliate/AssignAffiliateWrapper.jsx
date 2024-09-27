@@ -62,8 +62,7 @@ function AssignAffiliateWrapper() {
         else {
             setAssignedListLoading(false);
             setAssignedListData(AssignedData?.result);
-            setAssignedCount(Math.ceil(data?.result?.result?.count / dataPerPage))
-            console.log(Math.ceil(data?.result?.result?.count / dataPerPage),'CCCCCCCCCCC')
+            setAssignedCount(Math.ceil(AssignedData?.result?.count / dataPerPage ))
         }
     }, [AssignedlistFetching, AssignedData, AssignedlistLoading])
 

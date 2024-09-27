@@ -278,7 +278,7 @@ function AddInvoice({ id, email, companyName }) {
                                                     <div className=' relative'>
                                                         <span className=' pl-[3px] font-semibold text-[13px]'>{"Payment Status"}</span>
                                                         <Select
-                                                            placeholder="Payment Status"
+                                                            placeholder="Payment status"
                                                             options={paymentStatusDetails}
                                                             name="paymentStatus"
                                                             value={profileProps.values.paymentStatus}
