@@ -11,7 +11,7 @@ function AdminAffiliateLinksWrapper() {
   const [count, setCount] = useState(1);
   const [searchFilter, setSearchFilter] = useState('')
   const ReduxData = useSelector((state) => state.SearchSlice);
-
+  
   useEffect(() => {
     setSearchFilter(ReduxData?.searchQuery || '')
   }, [ReduxData])

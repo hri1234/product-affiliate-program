@@ -86,10 +86,14 @@ exports.notAssignedCustomers = async (affiliateId, req) => {
         const page = parseInt(req.body.page) || 1;  // Default to page 1
         const limit = parseInt(req.body.limit) || 10;  // Default to 10 items per page
         const offset = (page - 1) * limit;
+        const query = req.body.search || ""
 
         const affiliateDetails = await AffiliateAssign.findAll({
 
-            where: { affiliateId }, attributes: ['userId']
+            where: { 
+                affiliateId
+                
+            }, attributes: ['userId']
 
         });
         const assignedUserIds = affiliateDetails.map(detail => detail.userId);
@@ -101,6 +105,12 @@ exports.notAssignedCustomers = async (affiliateId, req) => {
                 id: {
                     [Op.notIn]: assignedUserIds.length > 0 ? assignedUserIds : [0]
                 },
+                [Op.or]: {
+                    email: {
+                        [Op.like]: `${query}%`,
+                    },
+                },
+
                 role: 'customer'
             },
             order: [['createdAt', 'DESC']],
@@ -131,6 +141,7 @@ exports.affiliateListAssign = async (id, req) => {
         const page = parseInt(req.body.page) || 1;  // Default to page 1
         const limit = parseInt(req.body.limit) || 10;  // Default to 10 items per page
         const offset = (page - 1) * limit;
+        const query = req.body.search || ""
 
         const allAdminAffiliates = await AffiliateAssign.findAndCountAll({
             limit: limit,
@@ -142,6 +153,14 @@ exports.affiliateListAssign = async (id, req) => {
             include: [
                 {
                     model: Users,
+                    where:{
+                        [Op.or]: {
+                            email: {
+                                [Op.like]: `${query}%`,
+                            },
+                        }
+        
+                    }
                 }
             ],
             distinct: true

@@ -44,7 +44,7 @@ function PasswordUpdate({ loading }) {
             .then((res) => {
                 if (res?.error) {
                     console.log(res?.error, 'resError');
-                    toast.error(res?.error?.data?.message || "Internal server error");
+                    toast.error(res?.error?.data?.message=="User Invalid Credential"?"Old password is wrong": "Internal server error");
                     setSubmitLoading(false);
                 }
                 else {

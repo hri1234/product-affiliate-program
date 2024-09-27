@@ -16,7 +16,7 @@ function InputComponent(
         auto,
         disabled,
         id,
-     
+
     }
 ) {
     return (
@@ -34,7 +34,9 @@ function InputComponent(
                             name={name}
                             onChange={onChange}
                             className='display-none hidden'
-                            type='file' />
+                            type='file'
+                            accept='.jpg,.jpeg,.png' />
+
 
                         <span className='overflow-hidden truncate .. text-ellipsis w-4/5'>{fileName}</span>
                     </div>

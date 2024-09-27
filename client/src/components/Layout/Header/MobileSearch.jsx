@@ -7,7 +7,7 @@ import { IoSearch } from "react-icons/io5";
 import Cookies from 'js-cookie'
 import { jwtDecode } from 'jwt-decode';
 import { useDispatch, useSelector } from 'react-redux';
-import { SetCustomerAffiliateInput, SetCustomerInvoiceSearchInput, SetDashboardSearchInput, SetDefaultSearchInput, SetInvoiceSearchInput, SetSearchInput, setUserAnalyticsSearchQuery, setUserPageInvoiceQuery } from '../../../Redux/SearchSlice/SearchSlice';
+import { setAdminAssignSearchQuery, SetCustomerAffiliateInput, SetCustomerInvoiceSearchInput, SetDashboardSearchInput, SetDefaultSearchInput, SetInvoiceSearchInput, SetSearchInput, setUserAnalyticsSearchQuery, setUserPageInvoiceQuery } from '../../../Redux/SearchSlice/SearchSlice';
 import { useLocation } from 'react-router-dom';
 
 const MobileSearch = () => {
@@ -134,6 +134,9 @@ const MobileSearch = () => {
     }
     else if (lastSegment == 'analytics') {
       dispatch(setUserAnalyticsSearchQuery(query))
+    }
+    else if (fullLocation?.includes('/dashboard/affiliate-links/assign')) {
+      dispatch(setAdminAssignSearchQuery(query));
     }
   }
 

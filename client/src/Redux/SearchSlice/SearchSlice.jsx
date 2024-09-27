@@ -8,7 +8,8 @@ const initialState = {
   invoiceQuery: '',
   customerInvoiceQuery: '',
   userPageInvoiceQuery: '',
-  userAnalyticsSearchQuery:''
+  userAnalyticsSearchQuery: '',
+  adminAssignSearchQuery: ''
 }
 
 const SearchSlice = createSlice({
@@ -40,8 +41,11 @@ const SearchSlice = createSlice({
     SetDefaultSearchInput: (state, action) => {
       state.defaultSearch = action.payload
     },
+    setAdminAssignSearchQuery: (state, action) => {
+      state.adminAssignSearchQuery = action.payload
+    },
   },
 })
 
-export const {setUserAnalyticsSearchQuery, setUserPageInvoiceQuery, SetSearchInput, SetDashboardSearchInput, SetInvoiceSearchInput, SetDefaultSearchInput, SetCustomerInvoiceSearchInput, SetCustomerAffiliateInput } = SearchSlice.actions
+export const {setAdminAssignSearchQuery, setUserAnalyticsSearchQuery, setUserPageInvoiceQuery, SetSearchInput, SetDashboardSearchInput, SetInvoiceSearchInput, SetDefaultSearchInput, SetCustomerInvoiceSearchInput, SetCustomerAffiliateInput } = SearchSlice.actions
 export default SearchSlice.reducer; 
