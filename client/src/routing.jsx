@@ -45,7 +45,7 @@ function Routing() {
     useEffect((e) => {
         if (!userToken || userToken === null) {
             setAthenticateLogin(false)
-            if (!window.location.pathname.includes('forgot-password')) {
+            if (!window.location.pathname.includes('reset-password')) {
                 navigate('/');
             }
         }
