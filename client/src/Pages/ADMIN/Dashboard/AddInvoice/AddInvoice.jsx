@@ -262,7 +262,7 @@ function AddInvoice({ id, email, companyName }) {
                                                 <Col md='6'>
                                                     {/* <InputControl pereFix='@' controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('user_name', { required: 'is Required.' }) }} /> */}
                                                     {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias quo accusantium incidunt eum distinctio atque! */}
-                                                    <InputComponent label={"Invoice Id"} type={"text"} value={profileProps.values.invoiceId} name='invoiceId' onChange={profileProps.handleChange} placeholder={"Enter invoice id"} />
+                                                    <InputComponent  label={"Invoice Id"} type={"text"} value={profileProps.values.invoiceId} name='invoiceId' onChange={profileProps.handleChange} placeholder={"Enter invoice id"} />
                                                     <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"invoiceId"} component='div' />
                                                 </Col >
                                             </Row>

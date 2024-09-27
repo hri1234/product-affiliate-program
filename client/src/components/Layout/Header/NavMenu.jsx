@@ -18,7 +18,7 @@ const NavMenu = () => {
         </LI> */}
         <LI className='border-0 flex flex-col items-center justify-center gap-0 mr-[6.5px]  profile-nav onhover-dropdown p-0 me-0'>
           <ProfileBox />
-            <ProfileBoxDropdown />
+          <ProfileBoxDropdown />
         </LI>
       </div>
     </UL>

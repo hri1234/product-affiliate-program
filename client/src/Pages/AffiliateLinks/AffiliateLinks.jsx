@@ -127,22 +127,22 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
                                 </a> */}
                                 <span className='hover:text-black hover:underline'>
                                   {/* onClick={() => { HandleRedirectClick(itm?.affiliate?.shortId, itm?.id) }} */}
-                                  <a href={itm?.affiliate?.link} target='_blank' className='hover:text-black hover:underline'>{`${itm?.affiliate?.shortUrl}`}</a>
+                                  <a href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank' className='hover:text-black hover:underline'>{`${itm?.affiliate?.shortUrl}`}</a>
                                 </span>
                               </span>
                               <div className=' w-full flex justify-between gap-4'>
                                 <span onClick={() => { navigator.clipboard.writeText(`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`); toast.success("Link copied") }} className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
                                   Copy link
                                 </span>
-                                <span className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
+                                <a href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank' className=' hover:text-black border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
                                   {/* <a className='hover:text-black' href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank'>
                                     Visit link
                                   </a> */}
-                                  <a href={itm?.affiliate?.link} target='_blank' className='hover:text-black hover:underline' >
+                                  <span className='hover:text-black hover:underline' >
                                     {/* onClick={() => { HandleRedirectClick(itm?.affiliate?.shortId) }} */}
                                     Visit link
-                                  </a>
-                                </span>
+                                  </span>
+                                </a>
                               </div>
                             </div>
                           </div>

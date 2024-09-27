@@ -12,6 +12,7 @@ const ShortUniqueId = require('short-unique-id');
 
 
 const db = require("../models");
+const { jwtDecode } = require("jwt-decode");
 const Users = db.users;
 const Affiliate = db.affiliate;
 const AssignAffiliate = db.affiliateAssign
@@ -28,13 +29,14 @@ exports.login = async (details) => {
     if (!user) {
         return { status: false, message: `User ${ErrorMessage.NOT_FOUND}` };
     }
-    if (!user.isActive) {
-        return { status: false, message: `${ErrorMessage.IN_ACTIVE}` };
-    }
+
     // Compare password
     const isPasswordValid = await bcrypt.compare(details.password, user.password);
     if (!isPasswordValid) {
         return { status: false, message: `${ErrorMessage.INVALID_CREDENTIAL}` };
+    }
+    if (!user.isActive) {
+        return { status: false, message: `${ErrorMessage.IN_ACTIVE}` };
     }
     // create jwt token for admin
     const token = jwt.sign(
@@ -48,12 +50,12 @@ exports.login = async (details) => {
 //register service
 exports.register = async (details, userId) => {
 
-    const exist = await this.ifIdAlreadyExist(userId)
-    if (exist.status == false && exist.userId) {
-        return { status: false, result: exist.userId };
+    const isExist = await Users.findOne({ where: { email: details.email } })
+    if (isExist) {
+        return { status: false, result: userId };
     }
-    if (exist.status == false) {
-        const data = { ...details, userId: exist.userId }
+    if (!isExist) {
+        const data = { ...details, userId: userId }
         const userDetails = await Users.create(data);
         // remove password
         delete userDetails.dataValues.password;
@@ -208,7 +210,12 @@ exports.forgetPassword = async (req, res) => {
         const isExisted = await Users.findOne({ where: { email: email } })
         if (isExisted) {
             const transporter = nodemailer.createTransport(emailConfig);
-            const mailOptions = emailTemplates.resetLink(email, `${process.env.RESET_PASSWORD_LINK}/${isExisted.id}`);
+            const token = jwt.sign(
+                { id: isExisted.id, email: isExisted.email, role: isExisted.role },
+                process.env.JWT_SECRET_KEY,
+                { expiresIn: "24h" }
+            );
+            const mailOptions = emailTemplates.resetLink(email, `${process.env.RESET_PASSWORD_LINK}/${token}`);
             const sendMailPromise = () => {
                 return new Promise((resolve, reject) => {
                     transporter.sendMail(mailOptions, (error, info) => {
@@ -256,12 +263,14 @@ exports.forgetPassword = async (req, res) => {
 
 
 //reset password
-exports.resetPassword = async (id, password, role) => {
+exports.resetPassword = async (token, password, role) => {
     try {
         const hashPassword = await bcrypt.hash(password, parseInt(process.env.SALT_ROUND));
-        const isExist = await Users.update({ password: hashPassword }, { where: { id } });
+        const decoded = jwtDecode(token)
+        const isExist = await Users.update({ password: hashPassword }, { where: { id:decoded.id } });
         if (!isExist[0]) {
             return {
+
                 status: false
             }
         }

@@ -41,7 +41,7 @@ function ForgetPassword() {
     };
 
     const validationSchema = yup.object().shape({
-        password: yup.string().trim("Enter valid password").required("password is required").strict(),
+        password: yup.string().trim("Enter valid password").min(6, "Minimum 6 characters required").required("Password is required").strict(),
         confirmPassword: yup.string().oneOf([yup.ref('password')], 'Passwords must match').trim("Enter valid confirm password").required("confirm password is required").strict(),
     });
 
@@ -56,7 +56,6 @@ function ForgetPassword() {
                 if (res.error) {
                     console.log(res.error, 'reset error')
                     toast.error(res.error.data.message || "Something went wrong");
-
                 }
                 else {
                     navigate('/login');
@@ -67,12 +66,8 @@ function ForgetPassword() {
             .catch((err) => {
                 console.log(err, 'reset catch err');
                 toast.error(err.data.message || "Something went wrong");
-
             })
-
     };
-
-
     return (
         <>
             <Formik

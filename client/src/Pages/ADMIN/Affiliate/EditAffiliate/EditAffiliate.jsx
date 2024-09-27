@@ -112,37 +112,38 @@ function EditAffiliate({ listData, loading }) {
     const handleThumbnail = async (event) => {
         const File = event.target.files[0];
         if (File) {
-
-            const formData = new FormData()
+            // Validate file type
+            const validTypes = ['image/jpeg', 'image/png'];
+            if (!validTypes.includes(File.type)) {
+                toast.error("Please upload a valid image file (JPG, JPEG, or PNG).");
+                return; // Stop the function if the file type is invalid
+            }
+    
+            const formData = new FormData();
             formData.append('file', File);
-            setImageUploadLoading(true)
-
+            setImageUploadLoading(true);
+    
             UploadImage({ data: formData })
                 .then((res) => {
                     if (res?.error) {
-                        toast.error(res?.error?.data?.message || "Internal server error")
-                        setImageUploadLoading(false)
-                    }
-                    else {
-
-                        setImageUrl(res?.data?.result?.url)
+                        toast.error(res?.error?.data?.message || "Internal server error");
+                        setImageUploadLoading(false);
+                    } else {
+                        setImageUrl(res?.data?.result?.url);
                         setFileName(File.name);
-                        setImageUploadLoading(false)
-
+                        setImageUploadLoading(false);
                     }
                 })
                 .catch((err) => {
-                    console.log(err?.data?.error || "Internal server errors", 'err')
-                    setImageUploadLoading(false)
-
-                })
-        }
-        else {
-            setFileName('No file choosen');
+                    console.log(err?.data?.error || "Internal server errors", 'err');
+                    setImageUploadLoading(false);
+                });
+        } else {
+            setFileName('No file chosen');
             setImageData(null);
         }
-
-    }
+    };
+    
 
 
     return (
@@ -167,7 +168,7 @@ function EditAffiliate({ listData, loading }) {
                                     :
                                     <div>
                                         
-                                        <div className='flex w-full justify-start gap-2 px-1 py-2 mb-3 mt-3'>
+                                        <div className='flex w-full justify-start gap-2 px-1 py-2 mb-3 mt-0'>
                                             <span onClick={() => { navigate('/dashboard/affiliate-links') }} className='font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
                                                 <IoArrowBack size={20} />
                                             </span>
@@ -203,9 +204,8 @@ function EditAffiliate({ listData, loading }) {
                                                                                     No image found
                                                                                 </span>
                                                                         }
-                                                                        <span className='absolute right-[-8px] top-[-8px]'>
+                                                                        <span className='absolute right-[-18px] top-[-16px]'>
                                                                             <span className=' w-0 h-0'>
-
                                                                                 <input className='hidden' type="file" id='thumbnail' onChange={(e) => handleThumbnail(e)} />
                                                                                 <label htmlFor="thumbnail">
                                                                                     <FaEdit />

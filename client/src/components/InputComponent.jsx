@@ -15,14 +15,15 @@ function InputComponent(
         fileName,
         auto,
         disabled,
-        id
+        id,
+     
     }
 ) {
     return (
 
         <div className=' w-full relative'>
             {
-                label && <span className=' pl-[3px] font-semibold text-[13px]'>{label} {required && <span className='text-red-400'>*</span>} </span>
+                label && <span className=' pl-[3px] font-semibold text-[13px]'>{label}  {required && <span className='text-red-400'>*</span>} </span>
             }
             {
                 type == "file" ?

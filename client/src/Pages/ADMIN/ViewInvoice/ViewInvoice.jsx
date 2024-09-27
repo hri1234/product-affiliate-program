@@ -6,9 +6,10 @@ import Select from 'react-select';
 import { useUpdateInvoiceStatusMutation } from '../../../services/AdminService';
 import toast from 'react-hot-toast';
 import { IoArrowBack } from "react-icons/io5";
+import { Pagination } from '@mui/material';
 
 
-function ViewInvoice({ loading, listData, OverViewData, email, companyName }) {
+function ViewInvoice({ loading, listData, OverViewData, email, companyName, count, currentPage, setCurrentPage }) {
 
 
   console.log(listData, 'ListDataaa')
@@ -46,6 +47,11 @@ function ViewInvoice({ loading, listData, OverViewData, email, companyName }) {
         console.log(err, 'catchErr')
       })
 
+  }
+
+  // handle pagination
+  const handlePageChange = (e, page) => {
+    setCurrentPage(page);
   }
 
   return (
@@ -185,8 +191,19 @@ function ViewInvoice({ loading, listData, OverViewData, email, companyName }) {
 
                     </table>
                   </div>
+
               }
             </div>
+                    <div className='w-full flex justify-end py-4'>
+                      <Pagination
+                        shape="rounded"
+                        variant="outlined"
+                        color="standard"
+                        page={currentPage}
+                        count={count}
+                        onChange={handlePageChange}
+                      />
+                    </div>
 
           </>
 

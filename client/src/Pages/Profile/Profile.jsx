@@ -42,7 +42,13 @@ function Profile({ listData, loading }) {
   };
 
   const validationSchema = yup.object().shape({
-    payPalAddress: yup.string().trim("Enter valid address").required("Address is required").strict(),
+    payPalAddress: yup.string().trim("Enter valid PayPal address").required("PayPal address is required").email("PayPal address must be valid")
+      .test('is-valid-email', 'PayPal address must be valid', value => {
+        if (!value) return false; // Ensure it's not empty
+        // Use a regex to validate email format more strictly if needed
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]{2,}\.[a-zA-Z]{2,}$/;
+        return emailRegex.test(value);
+      }),
     country: yup.object().shape({
       label: yup.string().required("Country is required"),
       value: yup.string().required("Country is required")
@@ -50,7 +56,7 @@ function Profile({ listData, loading }) {
     city: yup.string().trim("Enter valid city").required("City is required").strict(),
     address: yup.string().trim("Enter valid address").required("Address is required").strict(),
     companyName: yup.string().trim("Enter valid companyName").required("Company name is required").strict(),
-    companyUrl: yup.string().trim("Enter valid company url").required("Company url is required").strict(),
+    companyUrl: yup.string().url("Enter a valid company url").trim("Enter valid company url").required("Company url is required").strict(),
     // companyNumber: yup.string().trim("Enter valid number").min(10, "Enter valid number").max(10, "Enter valid number").required("number is required"),
   });
 
@@ -198,7 +204,7 @@ function Profile({ listData, loading }) {
                           </Row>
                           <Row className='g-3'>
                             <Col md='6'>
-                              <InputComponent label={"Company URL"} type={"url"} value={profileProps.values.companyUrl} name='companyUrl' onChange={profileProps.handleChange} placeholder={"Enter company URL"} />
+                              <InputComponent label={"Company URL"} type={"text"} value={profileProps.values.companyUrl} name='companyUrl' onChange={profileProps.handleChange} placeholder={"Enter company URL"} />
                             </Col>
                           </Row>
 

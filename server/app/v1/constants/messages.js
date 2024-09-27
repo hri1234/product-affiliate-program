@@ -30,6 +30,6 @@ module.exports.ErrorMessage = {
   TOKEN_EXPIRE: "Token Expired",
   NOT_UPDATED: "Not Updted",
   UNAUTHORIZED_USER: "Unauthorized User",
-  IN_ACTIVE:"Your account is inactive",
+  IN_ACTIVE:"Your account is deactivated",
 
 };

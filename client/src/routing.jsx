@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Routes, Route, } from "react-router-dom";
+import { Routes, Route, useNavigate, } from "react-router-dom";
 // import NoPageFound from './Pages/NoPageFound';
 // import ForgetPassword from './Pages/ForgetPassword/ForgetPassword';
 import EmailAuth from './Pages/ForgetPassword/EmailAuth';
@@ -35,8 +35,9 @@ import NoPageFound from './Pages/NoPageFound';
 import TermAndConditions from './Pages/Terms&Condition';
 
 function Routing() {
-    const [authenticateLogin, setAthenticateLogin] = useState(false);
+    const navigate = useNavigate()
     const [decodedToken, setDecodedToken] = useState();
+    const [authenticateLogin, setAthenticateLogin] = useState(false);
     const [role, setRole] = useState('');
 
     const userToken = Cookies.get("isLogged");
@@ -44,6 +45,7 @@ function Routing() {
     useEffect((e) => {
         if (!userToken || userToken === null) {
             setAthenticateLogin(false)
+            navigate('/')
         }
         else {
             setAthenticateLogin(true)

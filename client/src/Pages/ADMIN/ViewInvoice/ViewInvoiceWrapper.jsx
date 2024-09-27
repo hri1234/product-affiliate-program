@@ -19,23 +19,28 @@ function ViewInvoiceWrapper() {
 
   const [loading, setLoading] = useState(false);
   const [ListData, setListData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [count, setCount] = useState(1);
+
 
   const [OverViewData, setOverViewData] = useState([]);
   const [overviewLoading, setOverViewLoading] = useState(false);
-  const [searchFilter,setSearchFilter] = useState('')
+  const [searchFilter, setSearchFilter] = useState('')
+  const dataPerPage = 10;
 
 
-  useEffect(()=>
-    {
-      setSearchFilter(ReduxData?.invoiceQuery)
-  
-    },[ReduxData || ReduxData?.invoiceQuery])
+  useEffect(() => {
+    setSearchFilter(ReduxData?.invoiceQuery)
+
+  }, [ReduxData || ReduxData?.invoiceQuery])
 
 
   const { data, isLoading, isFetching } = useGetIndividualInvoiceListQuery({
     Id: id,
     data: {
-      search: searchFilter
+      search: searchFilter,
+      limit: dataPerPage,
+      page: currentPage,
     }
 
   });
@@ -46,10 +51,11 @@ function ViewInvoiceWrapper() {
     }
     else {
       setLoading(false);
-      setListData(data?.result)
+      setListData(data?.result);
+      setCount(Math.ceil(data?.result?.result?.count / dataPerPage));
+      console.log(data?.result?.result?.count)
     }
-  }, [isLoading, isFetching ,data])
-
+  }, [isLoading, isFetching, data])
   console.log(ListData, 'Invoice view listData');
 
 
@@ -76,8 +82,8 @@ function ViewInvoiceWrapper() {
 
 
   return (
-    <div className='page-body px-4 pb-4'>
-      <ViewInvoice listData={ListData?.result} loading={loading} OverViewData={OverViewData} email={email} companyName={companyName} />
+    <div className='page-body px-4 pb-5'>
+      <ViewInvoice count={count} currentPage={currentPage} setCurrentPage={setCurrentPage} listData={ListData?.result} loading={loading} OverViewData={OverViewData} email={email} companyName={companyName} />
     </div>
   )
 }
