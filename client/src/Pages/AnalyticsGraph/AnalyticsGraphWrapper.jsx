@@ -72,9 +72,6 @@ function AnalyticsGraphWrapper() {
         { label: (currentYear - 2).toString(), value: currentYear - 2 },
         { label: (currentYear - 1).toString(), value: currentYear - 1 },
         { label: currentYear.toString(), value: currentYear },
-        { label: (currentYear + 1).toString(), value: currentYear + 1 },
-        { label: (currentYear + 2).toString(), value: currentYear + 2 },
-        { label: (currentYear + 3).toString(), value: currentYear + 3 }
     ];
 
 

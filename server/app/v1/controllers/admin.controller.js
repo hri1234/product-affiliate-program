@@ -141,3 +141,22 @@ exports.deleteAffiliateAssign = async (req, res) => {
 
     }
 }
+
+//update user status 
+
+exports.updateUserStatus = async (req, res) => {
+    try {
+        const userId = req.params.id
+        const status = req.body.status
+        const result = await service.updateUserStatus(userId,status)
+        if (result.status) {
+            return sendResponse(res, statusCode.OK, true, `User${SuccessMessage.UPDATE}`)
+        }
+        return sendResponse(res, statusCode.BAD_REQUEST, false, ErrorMessage.BAD_REQUEST)
+
+    } catch (error) {
+        console.error(error);
+        return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
+
+    }
+}

@@ -42,19 +42,19 @@ function Dashboard({ loading, listData, overviewLoading, overviewData, setCurren
                     <div className='font-semibold'>
                       Paid for Current Month
                     </div>
-                    {overviewData?.paid || 0} $
+                    ${overviewData?.paid || 0}
                   </div>
                   <div className='w-full flex-col hover:shadow-md  duration-200 flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
                     <div className='font-semibold'>
                       Total Pending
                     </div>
-                    {overviewData?.pending || 0} $
+                    ${overviewData?.pending || 0}
                   </div>
                   <div className='w-full flex-col hover:shadow-md duration-200 flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
                     <div className='font-semibold'>
                       Total Paid
                     </div>
-                    {overviewData?.total || 0} $
+                    ${overviewData?.total || 0}
                   </div>
                 </div>
               </div>
@@ -100,7 +100,7 @@ function Dashboard({ loading, listData, overviewLoading, overviewData, setCurren
                               <td>{invoice?.transactionId || 'N/A'}</td>
                               <td>{invoice?.themeName}</td>
                               <td>{invoice?.domain}</td>
-                              <td style={{ paddingLeft: '40px' }}>{invoice?.commission} $ </td>
+                              <td style={{ paddingLeft: '40px' }}>${invoice?.commission}</td>
                               <td>{invoice?.status}</td>
                               <td>{invoice?.createdAt
                                 ? new Date(invoice?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })

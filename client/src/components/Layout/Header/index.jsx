@@ -16,7 +16,7 @@ const Header = () => {
     <>
       <div className={`page-header w-full jub ${togglSidebar ? "close_icon" : ""}`}>
         <Row className=' row m-0 py-4 px-5 w-full justify-between'>
-          <div className='header-logo-wrapper p-0 w-3/4'>
+          <div className='header-logo-wrapper p-0 w-[70%]'>
             <SearchWrapper />
           </div>
           <div className='nav-right pull-right right-header p-0'>

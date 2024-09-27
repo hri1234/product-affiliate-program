@@ -3,6 +3,7 @@ import AffiliateLinks from './AffiliateLinks';
 import { useGetIndividualAffiliateListQuery } from '../../services/AffiliateService';
 import Cookies from 'js-cookie'
 import { jwtDecode } from 'jwt-decode';
+import { useSelector } from 'react-redux';
 
 function AffiliateLinksWrapper() {
 
@@ -11,7 +12,13 @@ function AffiliateLinksWrapper() {
   const [uniqueId, setUniqueId] = useState('')
   const [count, setCount] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-  const dataPerPage = 4
+  const dataPerPage = 4;
+  const ReduxData = useSelector((state) => state.SearchSlice);
+  const [searchFilter, setSearchFilter] = useState('')
+
+  useEffect(() => {
+    setSearchFilter(ReduxData?.customerAffiliateQuery)
+  }, [ReduxData])
 
   useEffect(() => {
     if (UserToken) {
@@ -24,15 +31,16 @@ function AffiliateLinksWrapper() {
   }, [UserToken])
 
 
-  const { data, isLoading: listLoading, isFetching: listFetching ,refetch} = useGetIndividualAffiliateListQuery({
+  const { data, isLoading: listLoading, isFetching: listFetching, refetch } = useGetIndividualAffiliateListQuery({
     Id: UserId,
     data: {
       limit: dataPerPage,
-      page: currentPage
+      page: currentPage,
+      search: searchFilter
     }
   })
 
-  
+
 
   const [listData, setListData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -48,10 +56,10 @@ function AffiliateLinksWrapper() {
     }
   }, [listLoading, data, listFetching])
 
-  useEffect(()=>{
+  useEffect(() => {
     setLoading(true)
     refetch();
-  },[UserId])
+  }, [UserId])
 
   return (
     <>

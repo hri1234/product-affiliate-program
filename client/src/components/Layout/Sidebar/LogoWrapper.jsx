@@ -60,8 +60,8 @@ const LogoWrapper = () => {
               // </span>
               <span className=' m-auto h-[53px] duration-600 ease-in-out w-[66px] bg-orange my-3 mb-4 flex items-center justify-center text-[19.5px] font-semibold mt-3 pt-2 ml-[11px]'>Hello !</span>
               :
-              <span className=' flex whitespace-nowrap capitalize duration-600 ease-in-out text-black hover:text-black items-center text-[22px] mt-2 font-semibold justify-center h-[50px] '>
-                Hello {decodedData?.role == 'admin' ? "Admin !" : companyName?.split(' ')[0] + "!"}
+              <span className=' flex break-all w-[245px] capitalize duration-600 ease-in-out text-black hover:text-black items-center text-[22px] mt-2 font-semibold justify-center h-[50px] '>
+                Hello {decodedData?.role == 'admin' ? "Admin !" : companyName?.slice(0,25) + "!"}
               </span>
           }
         </Link>

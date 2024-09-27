@@ -66,7 +66,7 @@ function EditAffiliate({ listData, loading }) {
     };
 
     const validationSchema = yup.object().shape({
-        name: yup.string().trim("Enter valid name").required("name is required").strict(),
+        name: yup.string().trim("Enter valid name").required("Name is required").strict(),
         // link: yup.string().trim("Enter valid link").required("link is required").strict(),
         // dropboxLink: yup.string().trim("Enter valid dropbox link").required("dropbox link is required").strict(),
         // clickCount: yup.string().matches(/^\d+$/, "Click count must be a number").required("Click count is required").strict(),
@@ -166,21 +166,16 @@ function EditAffiliate({ listData, loading }) {
                                     </div>
                                     :
                                     <div>
-                                        <p className='text-[20px] font-semibold'>Edit Affiliate</p>
-                                        <div className='flex w-full justify-between px-1 py-2 mb-3 mt-3'>
+                                        
+                                        <div className='flex w-full justify-start gap-2 px-1 py-2 mb-3 mt-3'>
                                             <span onClick={() => { navigate('/dashboard/affiliate-links') }} className='font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
                                                 <IoArrowBack size={20} />
                                             </span>
+                                            <p className='text-[20px] font-semibold'>Edit Affiliate</p>
                                         </div>
                                         <Fragment>
                                             <Card className=' w-full'>
-
-                                                <div className='pb-0 pt-4 px-4 flex w-full justify-between'>
-                                                    <span className='text-[20px]'>
-                                                        Edit Affiliate
-                                                    </span>
-                                                    <span>{ }</span>
-                                                </div>
+                                                
                                                 <CardBody>
                                                     <Row className='g-3 pb-1'>
                                                         <Col md='6'>

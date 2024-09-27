@@ -28,9 +28,9 @@ function PasswordUpdate({ loading }) {
     };
 
     const validationSchema = yup.object().shape({
-        oldPassword: yup.string().trim("Enter valid password").required("old password is required").strict(),
-        password: yup.string().trim("Enter valid password").min(6, "minimum 6 characters required").required("password is required").strict(),
-        confirmPassword: yup.string().oneOf([yup.ref('password')], 'Passwords must match').min(6, "minimum 6 characters required").trim("Enter valid confirm password").required("confirm password is required").strict(),
+        oldPassword: yup.string().trim("Enter valid password").required("Old password is required").strict(),
+        password: yup.string().trim("Enter valid password").min(6, "Minimum 6 characters required").required("Password is required").strict(),
+        confirmPassword: yup.string().oneOf([yup.ref('password')], 'Passwords must match').min(6, "Minimum 6 characters required").trim("Enter valid confirm password").required("Confirm password is required").strict(),
     });
 
     const handleSubmit = (data, { resetForm }) => {
@@ -105,13 +105,13 @@ function PasswordUpdate({ loading }) {
                                                             <Col md='4'>
                                                                 {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('last_name', { required: 'is Required.' }) }} /> */}
                                                                 {/* Inp control Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, dolorum. */}
-                                                                <InputComponent label={"New Password"} type={"text"} value={profileProps.values.password} name='password' onChange={profileProps.handleChange} placeholder={"Enter city name"} />
+                                                                <InputComponent label={"New Password"} type={"text"} value={profileProps.values.password} name='password' onChange={profileProps.handleChange} placeholder={"Enter new password"} />
 
                                                             </Col>
                                                             <Col md='4 mb-3'>
                                                                 {/* <InputControl pereFix='@' controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('user_name', { required: 'is Required.' }) }} /> */}
                                                                 {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias quo accusantium incidunt eum distinctio atque! */}
-                                                                <InputComponent label={"Confirm Password"} type={"text"} value={profileProps.values.confirmPassword} name='confirmPassword' onChange={profileProps.handleChange} placeholder={"Enter address"} />
+                                                                <InputComponent label={"Confirm Password"} type={"text"} value={profileProps.values.confirmPassword} name='confirmPassword' onChange={profileProps.handleChange} placeholder={"Confirm new Password"} />
                                                             </Col>
                                                         </Row>
 

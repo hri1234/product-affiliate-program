@@ -7,7 +7,8 @@ import { IoSearch } from "react-icons/io5";
 import Cookies from 'js-cookie'
 import { jwtDecode } from 'jwt-decode';
 import { useDispatch, useSelector } from 'react-redux';
-import { SetDashboardSearchInput, SetSearchInput } from '../../../Redux/SearchSlice/SearchSlice';
+import { SetCustomerAffiliateInput, SetCustomerInvoiceSearchInput, SetDashboardSearchInput, SetDefaultSearchInput, SetInvoiceSearchInput, SetSearchInput, setUserAnalyticsSearchQuery, setUserPageInvoiceQuery } from '../../../Redux/SearchSlice/SearchSlice';
+import { useLocation } from 'react-router-dom';
 
 const MobileSearch = () => {
   const [searchMobilOpen, setSearchMobilOpen] = useState(false);
@@ -18,6 +19,7 @@ const MobileSearch = () => {
   const dispatch = useDispatch();
   const ReduxData = useSelector((state) => state.SearchSlice);
 
+  const Location = useLocation()
 
   // const handleSearch = (e) => {
   //   const searchKey = e.target.value.toLowerCase();
@@ -73,25 +75,66 @@ const MobileSearch = () => {
     }
   }, [tokenData])
 
+
+  useEffect(() => {
+    // This code runs whenever the URL (location.pathname) changes
+    console.log('URL changed:', Location.pathname);
+    dispatch(SetDefaultSearchInput(''))
+    dispatch(SetSearchInput(''));
+    dispatch(SetDashboardSearchInput(''));
+    dispatch(SetInvoiceSearchInput(''));
+
+
+    // Do something with the last segment (e.g., trigger actions, etc.)
+  }, [Location.pathname]);
+
+
   const handleSearch = (input) => {
     // const locationn= window.location.href?.split('/')[]
-
+    const fullLocation = window.location.pathname
+    console.log(fullLocation?.split('/')[0], 'fullLocation');
+    const query = input?.target?.value;
     const pathSegments = window.location.pathname.split('/');
     const lastSegment = pathSegments[pathSegments.length - 1];
-    const query = input?.target?.value
-    console.log(lastSegment,'locationINput');
 
-    if(lastSegment=='affiliate-links')
-    {
-      dispatch(SetSearchInput(query));
-      dispatch(SetDashboardSearchInput(''))
-    }
-    else if(lastSegment == 'dashboard')
-    {
-      dispatch(SetDashboardSearchInput(query));
-      dispatch(SetSearchInput(''));
-    }
+    dispatch(SetDefaultSearchInput(query))
+    console.log(lastSegment, 'locationINput');
 
+    if (lastSegment == 'affiliate-links') {
+
+      if (role == 'customer') {
+        dispatch(SetCustomerAffiliateInput(query))
+      }
+      else {
+        dispatch(SetSearchInput(query));
+
+      }
+
+      // dispatch(SetDashboardSearchInput(''))
+    }
+    else if (lastSegment == 'dashboard') {
+      console.log('Last segment : dashboard')
+      console.log('Last segment : ' + role + 'role')
+
+      if (role == 'customer') {
+        dispatch(SetCustomerInvoiceSearchInput(query))
+      }
+      else {
+        dispatch(SetDashboardSearchInput(query));
+      }
+
+      // dispatch(SetSearchInput(''));
+    }
+    else if (fullLocation?.includes('/dashboard/invoice/view')) {
+      console.log('View Invoice');
+      dispatch(SetInvoiceSearchInput(query));
+    }
+    else if (lastSegment == 'invoices') {
+      dispatch(setUserPageInvoiceQuery(query))
+    }
+    else if (lastSegment == 'analytics') {
+      dispatch(setUserAnalyticsSearchQuery(query))
+    }
   }
 
 
@@ -103,7 +146,7 @@ const MobileSearch = () => {
             {/* <i className='fa fa-search' /> */}
             <IoSearch />
           </span>
-          <Input onChange={handleSearch} className={searchMobilOpen ? 'open w-full' : ' w-full'} type='text' placeholder='Search' />
+          <Input value={ReduxData?.defaultSearch} onChange={handleSearch} className={searchMobilOpen ? 'open w-full' : ' w-full'} type='text' placeholder='Search' />
         </div>
       </InputGroup>
       {/* {suggestionOpen && <SearchSuggestionList setSuggestionOpen={setSuggestionOpen} suggestion={suggestion} />} */}

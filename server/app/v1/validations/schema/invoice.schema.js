@@ -7,6 +7,7 @@ exports.createInvoiceSchema = Joi.object({
     paymentMethod: Joi.string().required().valid("payPal"),
     transactionId: Joi.string().required(),
     invoiceId: Joi.string().allow(null, "").optional(),
+    status:Joi.string().allow(null, "").optional(),
 })
 
 

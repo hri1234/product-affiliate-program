@@ -6,7 +6,7 @@ const AdminService = CreateApi.injectEndpoints(
             {
                 GetUserList: builder.query(
                     {
-                        providesTags: ['admin', 'assignCustomer'],
+                        providesTags: ['admin', 'assignCustomer',"userstatus"],
                         query: ({ Id, data }) => (
                             {
                                 url: `/admin/allUsers`,
@@ -147,6 +147,18 @@ const AdminService = CreateApi.injectEndpoints(
                             }
                         )
                     }
+                ),
+                UserStatus: builder.mutation(
+                    {
+                        invalidatesTags: ["adminAffiliate","userstatus"],
+                        query: ({ Id, data }) => (
+                            {
+                                url: `/admin/user-status/${Id}`,
+                                method: "PUT",
+                                body: data
+                            }
+                        )
+                    }
                 )
 
 
@@ -155,4 +167,4 @@ const AdminService = CreateApi.injectEndpoints(
     }
 );
 
-export const { useGetUserListQuery, useAddInvoiceMutation, useGetIndividualInvoiceListQuery, useUpdateInvoiceStatusMutation, useGetAffiliateAvailableUsersQuery, useAssignAffiliateMutation, useGetAssignedCustomerListQuery, useEditAffiliateMutation, useGetSingleAffiliateQuery, useUploadImageMutation, useDeleteAffiliateMutation, useDeAssignAffiliateMutation } = AdminService;
+export const { useGetUserListQuery, useAddInvoiceMutation, useGetIndividualInvoiceListQuery, useUpdateInvoiceStatusMutation, useGetAffiliateAvailableUsersQuery, useAssignAffiliateMutation, useGetAssignedCustomerListQuery, useEditAffiliateMutation, useGetSingleAffiliateQuery, useUploadImageMutation, useDeleteAffiliateMutation, useDeAssignAffiliateMutation, useUserStatusMutation } = AdminService;

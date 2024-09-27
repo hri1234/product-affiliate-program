@@ -61,7 +61,7 @@ function Invoices({ listData, loading, count, setCurrentPage, currentPage }) {
                       <tr key={invoice?.id}>
                         <td>{invoice?.transactionId}</td>
                         <td>{invoice?.themeName}</td>
-                        <td style={{ paddingLeft: '40px' }}>{invoice?.commission} $ </td>
+                        <td style={{ paddingLeft: '40px' }}>${invoice?.commission}</td>
                         <td>{invoice?.status}</td>
                         <td>{invoice?.createdAt
                           ? new Date(invoice?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })

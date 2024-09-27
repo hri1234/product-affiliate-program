@@ -116,10 +116,23 @@ exports.getAffiliate = async (req, res) => {
         const page = parseInt(req.body.page) || 1;  // Default to page 1
         const limit = parseInt(req.body.limit) || 10;  // Default to 10 items per page
         const offset = (page - 1) * limit;
-
+        const query = req.body.search || ""
+        
+        console.log(query,"query")
         const result = await Affiliate.findAndCountAll({
             limit: limit,
             offset: offset,
+            where:{
+                [Op.or]:{
+                name:{
+                    [Op.like]:`${query}%`,
+                    // [Op.like]: {shortId:`${query}%`}
+                },
+                shortId:{
+                    [Op.like]:`${query}%`
+                }
+            }
+            },
             order: [
                 ['createdAt', 'DESC'],
             ],

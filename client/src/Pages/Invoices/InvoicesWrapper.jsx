@@ -3,6 +3,7 @@ import Invoices from './Invoices';
 import Cookies from 'js-cookie'
 import { jwtDecode } from 'jwt-decode';
 import { useGetIndividualInvoiceListQuery } from '../../services/AdminService';
+import { useSelector } from 'react-redux';
 
 
 function InvoicesWrapper() {
@@ -12,7 +13,9 @@ function InvoicesWrapper() {
   const [count, setCount] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const dataPerPage = 10;
-
+  const [invoiceFiltered, setInvoiceFiltered] = useState();
+  const ReduxData = useSelector((state) => state.SearchSlice.userPageInvoiceQuery);
+  console.log(ReduxData);
   useEffect(() => {
     if (userToken) {
       const token = jwtDecode(userToken);
@@ -25,7 +28,8 @@ function InvoicesWrapper() {
     Id: userId || 0,
     data: {
       limit: dataPerPage,
-      page: currentPage
+      page: currentPage,
+      search: ReduxData
     }
   });
   const [listData, setListData] = useState([]);

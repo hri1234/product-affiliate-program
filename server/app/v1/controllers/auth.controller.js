@@ -28,9 +28,11 @@ exports.register = async (req, res) => {
     console.info('***************************************************Register Api************************************************');
     try {
         const details = req.body;
-        console.log(details);
         const uniqueId = await service.generateId()
         const result = await service.register(details, uniqueId);
+        if(result.status ==false && result.result){
+        return sendResponse(res, statusCode.BAD_REQUEST, false, `Email ${ErrorMessage.ALREADY_EXIST}`, result);
+        }
         return sendResponse(res, statusCode.OK, true, `User ${SuccessMessage.CREATED}`, result);
     } catch (error) {
         console.error('Error in register api : ', error);

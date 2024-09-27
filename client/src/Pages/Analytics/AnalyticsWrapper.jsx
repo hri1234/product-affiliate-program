@@ -4,6 +4,7 @@ import { useGetAnalyticsDetailsQuery } from '../../services/AnalyticsService';
 import Cookies from 'js-cookie'
 import { jwtDecode } from 'jwt-decode';
 import { useGetIndividualAffiliateListQuery } from '../../services/AffiliateService';
+import { useSelector } from 'react-redux';
 
 function AnalyticsWrapper() {
 
@@ -15,7 +16,7 @@ function AnalyticsWrapper() {
     const [count, setCount] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
     const dataPerPage = 10
-
+    const ReduxData = useSelector((state) => state.SearchSlice.userAnalyticsSearchQuery);
     console.log(selectedYear, 'seleyear')
 
     const UserToken = Cookies.get("isLogged");
@@ -36,11 +37,12 @@ function AnalyticsWrapper() {
         }
     })
 
-    const { data: affiliateData, isLoading: listLoading, isFetching: listFetching ,refetch} = useGetIndividualAffiliateListQuery({
+    const { data: affiliateData, isLoading: listLoading, isFetching: listFetching, refetch } = useGetIndividualAffiliateListQuery({
         Id: UserId,
         data: {
             limit: dataPerPage,
-            page: currentPage
+            page: currentPage,
+            search: ReduxData
         }
     })
 
@@ -80,17 +82,13 @@ function AnalyticsWrapper() {
         { label: (currentYear - 2).toString(), value: currentYear - 2 },
         { label: (currentYear - 1).toString(), value: currentYear - 1 },
         { label: currentYear.toString(), value: currentYear },
-        { label: (currentYear + 1).toString(), value: currentYear + 1 },
-        { label: (currentYear + 2).toString(), value: currentYear + 2 },
-        { label: (currentYear + 3).toString(), value: currentYear + 3 }
     ];
 
 
-    useEffect(()=>
-    {   
+    useEffect(() => {
         setLoading(true)
         refetch()
-    },[UserId])
+    }, [UserId])
 
     return (
         <>

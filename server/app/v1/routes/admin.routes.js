@@ -9,7 +9,8 @@ router.post('/affiliate/not-assigned-customers-list/:id', controllers.notAssigne
 router.post('/affiliate/user/:id', controllers.userAffiliates)
 router.post('/assigned-customers-list/:id', controllers.affiliateListAssign)
 router.delete('/affiliate/:id', authAdmin, controllers.deleteAffiliate)
-router.get('/user-details/:id', authAdmin, controllers.userDetails)
+router.post('/user-details/:id', authAdmin, controllers.userDetails)
 router.delete('/affiliate/assign-delete/:id',controllers.deleteAffiliateAssign)
+router.put('/user-status/:id',authAdmin,controllers.updateUserStatus)
 
 module.exports = router;

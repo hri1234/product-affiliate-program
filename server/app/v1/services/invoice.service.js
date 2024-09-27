@@ -1,6 +1,6 @@
 const db = require("../models");
 const Invoice = db.invoice;
-
+const { Op } = require('sequelize');
 exports.createInvoice = async (body) => {
     try {
 
@@ -27,12 +27,26 @@ exports.getInvoiceList = async (id, req) => {
         const page = parseInt(req.body.page) || 1;  // Default to page 1
         const limit = parseInt(req.body.limit) || 10;  // Default to 10 items per page
         const offset = (page - 1) * limit;
+        const query = req.body.search || ""
+
 
         const result = await Invoice.findAndCountAll({
             limit: limit,
             offset: offset,
             where: {
-                userId: id
+                userId: id,
+                [Op.or]: {
+                    themeName: {
+                        [Op.like]: `${query}%`,
+                        // [Op.like]: {shortId:`${query}%`}
+                    },
+                    domain:{
+                        [Op.like]:`${query}%`
+                    },
+                    transactionId:{
+                        [Op.like]:`${query}%`
+                    }
+                }
             },
             order: [
                 ['createdAt', 'DESC'],

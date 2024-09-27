@@ -6,6 +6,7 @@ import { jwtDecode } from 'jwt-decode';
 import { useGetIndividualInvoiceListQuery } from '../../services/AdminService';
 import { useGetProfileQuery } from '../../services/ProfileService';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function DashboardWrapper() {
 
@@ -17,7 +18,15 @@ function DashboardWrapper() {
   const [count, setCount] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const userToken = Cookies.get("isLogged");
-  const [userId, setUserId] = useState('')
+  const [userId, setUserId] = useState('');
+  const [searchFilter,setSearchFilter] = useState('');
+
+  const ReduxData = useSelector((state) => state.SearchSlice);
+
+  useEffect(()=>
+  {
+    setSearchFilter(ReduxData?.customerInvoiceQuery)
+  },[ReduxData])
 
   const dataPerPage = 10;
 
@@ -53,7 +62,8 @@ function DashboardWrapper() {
   const { data, isLoading, isFetching } = useGetIndividualInvoiceListQuery({
     Id: userId, data: {
       limit: dataPerPage,
-      page: currentPage
+      page: currentPage,
+      search:searchFilter
     }
   });
 

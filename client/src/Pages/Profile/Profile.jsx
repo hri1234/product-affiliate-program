@@ -42,15 +42,15 @@ function Profile({ listData, loading }) {
   };
 
   const validationSchema = yup.object().shape({
-    payPalAddress: yup.string().trim("Enter valid address").required("address is required").strict(),
+    payPalAddress: yup.string().trim("Enter valid address").required("Address is required").strict(),
     country: yup.object().shape({
       label: yup.string().required("Country is required"),
       value: yup.string().required("Country is required")
     }).nullable().required("Country is required"),
-    city: yup.string().trim("Enter valid city").required("city is required").strict(),
-    address: yup.string().trim("Enter valid address").required("address is required").strict(),
-    companyName: yup.string().trim("Enter valid companyName").required("company name is required").strict(),
-    companyUrl: yup.string().trim("Enter valid company url").required("company url is required").strict(),
+    city: yup.string().trim("Enter valid city").required("City is required").strict(),
+    address: yup.string().trim("Enter valid address").required("Address is required").strict(),
+    companyName: yup.string().trim("Enter valid companyName").required("Company name is required").strict(),
+    companyUrl: yup.string().trim("Enter valid company url").required("Company url is required").strict(),
     // companyNumber: yup.string().trim("Enter valid number").min(10, "Enter valid number").max(10, "Enter valid number").required("number is required"),
   });
 
@@ -198,7 +198,7 @@ function Profile({ listData, loading }) {
                           </Row>
                           <Row className='g-3'>
                             <Col md='6'>
-                              <InputComponent label={"Company URL"} type={"text"} value={profileProps.values.companyUrl} name='companyUrl' onChange={profileProps.handleChange} placeholder={"Enter company URL"} />
+                              <InputComponent label={"Company URL"} type={"url"} value={profileProps.values.companyUrl} name='companyUrl' onChange={profileProps.handleChange} placeholder={"Enter company URL"} />
                             </Col>
                           </Row>
 

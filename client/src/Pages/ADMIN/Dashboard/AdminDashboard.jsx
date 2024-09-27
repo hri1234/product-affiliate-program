@@ -6,16 +6,20 @@ import { IoEyeOutline } from "react-icons/io5";
 import { MdRemoveRedEye } from "react-icons/md";
 import { FaSquarePlus } from "react-icons/fa6";
 import { Pagination } from '@mui/material';
+import { useUserStatusMutation } from '../../../services/AdminService';
+import toast from 'react-hot-toast';
 
 function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count }) {
+  const [status, setStatus] = useState()
 
   const navigate = useNavigate();
 
+  const [UpdateUserStatus] = useUserStatusMutation()
 
   console.log(ListData?.rows, 'ListDataaa')
 
   const handleAddInvoice = (itm) => {
-    const data = { email: itm?.email,companyName:itm?.companyName }
+    const data = { email: itm?.email, companyName: itm?.companyName }
     navigate(`invoice/add/${itm?.id}`, { state: data })
   }
 
@@ -33,6 +37,24 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
     console.log('email click................', id);
     navigate(`customer/profile/${id}`)
   }
+  const selectHandleStatus = (isActive, user) => {
+    console.log(user, '------------------------');
+    console.log(isActive, '------------------------');
+
+    UpdateUserStatus({ Id: user?.id, data: { status: isActive } }) // Send boolean value directly
+      .then((res) => {
+        if (res.error) {
+          toast.error("Internal server error");
+        } else {
+          toast.success("Status Updated");
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        toast.error("Failed to update status");
+      });
+  };
+
 
   return (
     <>
@@ -48,7 +70,7 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
 
           <div className='mt-[5px]'>
             <span className='font-semibold text-[20px] mb-2 pb-2'>
-              Partners List
+              Partners
             </span>
             {
               ListData?.rows?.length <= 0 || ListData?.rows == undefined ?
@@ -83,6 +105,7 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
                           <th>UTM Id</th>
                           <th>Email Address</th>
                           <th>Name</th>
+                          <th>Status</th>
                           <th>Products</th>
                           <th>Invoices</th>
                         </tr>
@@ -93,10 +116,19 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
 
                           ListData?.rows?.map((itm, indx) => (
                             <tr key={indx}>
-                              {console.log(itm, 'User list item')}
                               <td>{itm?.userId}</td>
                               <td><span className='hover:underline cursor-pointer' onClick={() => { handleEmailClick(itm?.id) }}>{itm?.email}</span></td>
                               <td>{itm?.companyName}</td>
+                              <td>
+                                <select
+                                  name="status"
+                                  value={itm.isActive ? "true" : "false"}
+                                  onChange={(e) => selectHandleStatus(e.target.value === "true", itm)}
+                                >
+                                  <option value="true">Active</option>
+                                  <option value="false">Deactive</option>
+                                </select>
+                              </td>
                               <td>{itm?.affiliateCount}</td>
                               <td className=' flex gap-2'>
                                 <span onClick={() => { handleViewInvoice(itm) }} className=' hover:opacity-85 flex items-center justify-center cursor-pointer  rounded px-1'>

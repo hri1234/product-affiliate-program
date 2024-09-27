@@ -74,7 +74,7 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage, c
                             <span onClick={() => navigate('add')} className=' w-[120px] justify-center flex items-center hover:opacity-90 cursor-pointer p-2 bg-black text-white rounded-full'>
                                 <span>
 
-                                Create Links
+                                    Create Links
                                 </span>
                             </span>
                         </div>

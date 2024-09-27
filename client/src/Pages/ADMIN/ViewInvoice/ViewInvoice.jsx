@@ -90,19 +90,19 @@ function ViewInvoice({ loading, listData, OverViewData, email, companyName }) {
                     <div className='font-semibold'>
                       Pending
                     </div>
-                    {OverViewData?.pending || 0} $
+                    ${OverViewData?.pending || 0}
                   </div>
                   <div className='w-full hover:shadow-lg duration-200 flex-col flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
                     <div className='font-semibold'>
                       Paid
                     </div>
-                    {OverViewData?.total || 0} $
+                    ${OverViewData?.total || 0}
                   </div>
                   <div className='w-full hover:shadow-lg duration-200 flex-col flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
                     <div className='font-semibold'>
                       Total
                     </div>
-                    {(OverViewData?.pending + OverViewData?.total) || 0} $
+                    ${(OverViewData?.pending + OverViewData?.total) || 0}
                   </div>
                 </div>
               </div>
@@ -149,7 +149,7 @@ function ViewInvoice({ loading, listData, OverViewData, email, companyName }) {
                             <tr key={indx}>
                               <td>{itm?.transactionId || "N/A"}</td>
                               <td>{itm?.themeName}</td>
-                              <td style={{ paddingLeft: '30px' }}>{itm?.commission || '0'} $ </td>
+                              <td style={{ paddingLeft: '30px' }}>${itm?.commission || '0'} </td>
                               {/* <td>{itm.status}</td> */}
 
                               <Select

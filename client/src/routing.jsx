@@ -38,7 +38,6 @@ function Routing() {
     const [authenticateLogin, setAthenticateLogin] = useState(false);
     const [decodedToken, setDecodedToken] = useState();
     const [role, setRole] = useState('');
-    console.log("Hello from Routing")
 
     const userToken = Cookies.get("isLogged");
     //////// Checking if user is logged or not ////////////  
@@ -63,8 +62,6 @@ function Routing() {
     }, [userToken, authenticateLogin])
 
 
-    console.log(role, 'ROLEaaa');
-    console.log(authenticateLogin, 'AuthenticateLoginaaa')
 
     return (
         <div className=' w-full h-full'>
@@ -89,21 +86,21 @@ function Routing() {
                         </Route>
                         :
                         authenticateLogin ?
-                        <Route path='/dashboard/' element={<Layout />} >
-                            <Route path='' element={<AdminDashboardWrapper />} />
-                            <Route path='profile' element={<ProfileWrapper />} />
-                            <Route path='customer/profile/:id' element={<CustomerProfileWrapper />} />
-                            <Route path='invoice/add/:id' element={<AddInvoiceWrapper />} />
-                            <Route path='invoice/view/:id' element={<ViewInvoiceWrapper />} />
-                            <Route path='invoice/add/:id' element={<AddInvoiceWrapper />} />
-                            <Route path='invoice/view/:id' element={<ViewInvoiceWrapper />} />
-                            <Route path='affiliate-links' element={<AdminAffiliateLinksWrapper />} />
-                            <Route path='affiliate-links/add' element={<AdminAddAffiliateLinksWrapper />} />
-                            <Route path='affiliate-links/edit/:id' element={<EditAffiliateWrapper />} />
-                            <Route path='affiliate-links/assign/:id' element={<AssignAffiliateWrapper />} />
-                        </Route>
-                        :
-                        <Route path='*' element={<><NoPageFound/></>}/>
+                            <Route path='/dashboard/' element={<Layout />} >
+                                <Route path='' element={<AdminDashboardWrapper />} />
+                                <Route path='profile' element={<ProfileWrapper />} />
+                                <Route path='customer/profile/:id' element={<CustomerProfileWrapper />} />
+                                <Route path='invoice/add/:id' element={<AddInvoiceWrapper />} />
+                                <Route path='invoice/view/:id' element={<ViewInvoiceWrapper />} />
+                                <Route path='invoice/add/:id' element={<AddInvoiceWrapper />} />
+                                <Route path='invoice/view/:id' element={<ViewInvoiceWrapper />} />
+                                <Route path='affiliate-links' element={<AdminAffiliateLinksWrapper />} />
+                                <Route path='affiliate-links/add' element={<AdminAddAffiliateLinksWrapper />} />
+                                <Route path='affiliate-links/edit/:id' element={<EditAffiliateWrapper />} />
+                                <Route path='affiliate-links/assign/:id' element={<AssignAffiliateWrapper />} />
+                            </Route>
+                            :
+                            <Route path='*' element={<><NoPageFound /></>} />
                 }
             </Routes>
         </div>
