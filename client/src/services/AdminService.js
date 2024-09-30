@@ -6,7 +6,7 @@ const AdminService = CreateApi.injectEndpoints(
             {
                 GetUserList: builder.query(
                     {
-                        providesTags: ['admin', 'assignCustomer',"userstatus"],
+                        providesTags: ['admin', 'assignCustomer', "userstatus", "updatecommission"],
                         query: ({ Id, data }) => (
                             {
                                 url: `/admin/allUsers`,
@@ -54,7 +54,7 @@ const AdminService = CreateApi.injectEndpoints(
                 ),
                 GetAffiliateAvailableUsers: builder.query(
                     {
-                        providesTags: ["adminAffiliate"],
+                        providesTags: ["adminAffiliate", "updatecommission"],
                         query: ({ Id, data }) => (
                             {
                                 url: `/admin/affiliate/not-assigned-customers-list/${Id}`,
@@ -90,7 +90,7 @@ const AdminService = CreateApi.injectEndpoints(
                 ),
                 GetAssignedCustomerList: builder.query(
                     {
-                        providesTags: ["adminAffiliate"],
+                        providesTags: ["adminAffiliate", "updatecommission"],
                         query: ({ Id, data }) => (
                             {
                                 url: `/admin/assigned-customers-list/${Id}`,
@@ -150,7 +150,7 @@ const AdminService = CreateApi.injectEndpoints(
                 ),
                 UserStatus: builder.mutation(
                     {
-                        invalidatesTags: ["adminAffiliate","userstatus"],
+                        invalidatesTags: ["adminAffiliate", "userstatus"],
                         query: ({ Id, data }) => (
                             {
                                 url: `/admin/user-status/${Id}`,
@@ -159,12 +159,23 @@ const AdminService = CreateApi.injectEndpoints(
                             }
                         )
                     }
-                )
-
+                ),
+                UpdateCommission: builder.mutation(
+                    {
+                        invalidatesTags: ["adminAffiliate", "updatecommission"],
+                        query: ({ Id, data }) => (
+                            {
+                                url: `/admin/commission/${Id}`,
+                                method: "PUT",
+                                body: data
+                            }
+                        )
+                    }
+                ),
 
             }
         )
     }
 );
 
-export const { useGetUserListQuery, useAddInvoiceMutation, useGetIndividualInvoiceListQuery, useUpdateInvoiceStatusMutation, useGetAffiliateAvailableUsersQuery, useAssignAffiliateMutation, useGetAssignedCustomerListQuery, useEditAffiliateMutation, useGetSingleAffiliateQuery, useUploadImageMutation, useDeleteAffiliateMutation, useDeAssignAffiliateMutation, useUserStatusMutation } = AdminService;
+export const { useUpdateCommissionMutation, useGetUserListQuery, useAddInvoiceMutation, useGetIndividualInvoiceListQuery, useUpdateInvoiceStatusMutation, useGetAffiliateAvailableUsersQuery, useAssignAffiliateMutation, useGetAssignedCustomerListQuery, useEditAffiliateMutation, useGetSingleAffiliateQuery, useUploadImageMutation, useDeleteAffiliateMutation, useDeAssignAffiliateMutation, useUserStatusMutation } = AdminService;

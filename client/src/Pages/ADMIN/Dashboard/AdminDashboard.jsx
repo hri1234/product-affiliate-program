@@ -6,7 +6,7 @@ import { IoEyeOutline } from "react-icons/io5";
 import { MdRemoveRedEye } from "react-icons/md";
 import { FaSquarePlus } from "react-icons/fa6";
 import { Pagination } from '@mui/material';
-import { useUserStatusMutation } from '../../../services/AdminService';
+import { useUpdateCommissionMutation, useUserStatusMutation } from '../../../services/AdminService';
 import toast from 'react-hot-toast';
 
 function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count }) {
@@ -14,11 +14,14 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
   const [statusLoading, setStatusLoading] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState('')
 
+  const [commissionLoading, setCommissionLoading] = useState(false);
+  const [selectedCommissonIdx, setSelectedCommissonIdx] = useState();
   const navigate = useNavigate();
 
   const [UpdateUserStatus] = useUserStatusMutation()
+  const [UpdateCommitssion] = useUpdateCommissionMutation();
 
-  console.log(ListData?.rows, 'ListDataaa')
+
 
   const handleAddInvoice = (itm) => {
     const data = { email: itm?.email, companyName: itm?.companyName }
@@ -64,7 +67,31 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
       });
   };
 
+  const handleCommission = (value, id, idx) => {
+    setCommissionLoading(true)
+    setSelectedCommissonIdx(idx);
+    UpdateCommitssion({
+      Id: id, data: {
+        commission: Number(value)
+      }
+    }).then(res => {
+      if (res.error) {
+        console.log(res.error, 'res.error');
+        toast.error("Internal server error");
+        setCommissionLoading(false)
+      }
+      else {
+        console.log(res, 'res');
+        toast.success("Commission updated successfully");
+        setCommissionLoading(false)
+      }
+    }).catch((err) => {
+      console.log(err);
+      setCommissionLoading(false)
+    });
+  }
 
+  console.log(ListData)
   return (
     <>
       {
@@ -114,6 +141,7 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
                           <th>Company Name</th>
                           <th>UTM Id</th>
                           <th>Email Address</th>
+                          <th>Commission</th>
                           <th>Status</th>
                           <th>Products</th>
                           <th>Invoices</th>
@@ -125,6 +153,20 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
                             <td>{itm?.companyName}</td>
                             <td>{itm?.userId}</td>
                             <td><span className='hover:underline cursor-pointer' onClick={() => { handleEmailClick(itm?.id) }}>{itm?.email}</span></td>
+                            <td>
+                              {
+                                commissionLoading && selectedCommissonIdx == indx ? <span className=' w-fit flex py-1 items-center justify-center m-auto self-center animate-spin'>
+                                  <AiOutlineLoading3Quarters />
+                                </span> : <select defaultValue={itm?.commisionByPercentage} onChange={(e) => { handleCommission(e.target.value, itm?.id, indx) }} className="bg-white border border-black text-black text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5">
+                                  <option value="10">10</option>
+                                  <option value="20">20</option>
+                                  <option value="40">40</option>
+                                  <option value="80">80</option>
+                                  <option value="90">90</option>
+                                  <option value="100">100</option>
+                                </select>
+                              }
+                            </td>
                             <td>
                               {
                                 statusLoading && selectedStatus == indx ?
@@ -143,7 +185,7 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
                               }
                             </td>
                             <td>{itm?.affiliateCount}</td>
-                            <td className=' flex gap-2'>
+                            <td className='flex gap-2' style={{padding:'20px'}}>
                               <span onClick={() => { handleViewInvoice(itm) }} className=' hover:opacity-85 flex items-center justify-center cursor-pointer  rounded px-1'>
                                 {/* View */}
                                 {/* <IoEyeOutline/> */}

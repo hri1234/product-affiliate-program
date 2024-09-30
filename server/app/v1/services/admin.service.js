@@ -45,7 +45,7 @@ exports.allUsers = async (req) => {
             },
 
             order: [['createdAt', 'DESC']],
-            attributes: ["id", "email", "country", "city", "address", "userId", "companyName", 'isActive', 'createdAt'],
+            attributes: ["id", "email", "country", "city", "address", "userId", "companyName", 'isActive','commisionByPercentage', 'createdAt'],
             distinct: true
 
 
@@ -90,9 +90,9 @@ exports.notAssignedCustomers = async (affiliateId, req) => {
 
         const affiliateDetails = await AffiliateAssign.findAll({
 
-            where: { 
+            where: {
                 affiliateId
-                
+
             }, attributes: ['userId']
 
         });
@@ -135,7 +135,8 @@ exports.notAssignedCustomers = async (affiliateId, req) => {
 }
 
 
-exports.affiliateListAssign = async (id, req) => {
+exports.
+affiliateListAssign = async (id, req) => {
     try {
 
         const page = parseInt(req.body.page) || 1;  // Default to page 1
@@ -153,13 +154,13 @@ exports.affiliateListAssign = async (id, req) => {
             include: [
                 {
                     model: Users,
-                    where:{
+                    where: {
                         [Op.or]: {
                             email: {
                                 [Op.like]: `${query}%`,
                             },
                         }
-        
+
                     }
                 }
             ],
@@ -338,15 +339,41 @@ exports.deleteAffiliateAssign = async (assignedAffilaiteId) => {
 
 }
 
-
+//update user status 
 exports.updateUserStatus = async (userId, status) => {
-    const updatedUserStatus = await Users.update(
-        { isActive: status },
-        {
-            where: {
-                id: userId
-            }
-        })
+
+    let updatedUserStatus
+    if (status != undefined) {
+        updatedUserStatus = await Users.update(
+            { isActive: status },
+            {
+                where: {
+                    id: userId
+                }
+            })
+    }
+
+    if (updatedUserStatus) {
+        return {
+            status: true
+        }
+    }
+    return {
+        status: false
+    }
+}
+//update user status 
+exports.updateCommission = async (userId, commision) => {
+
+    let updatedUserStatus = await Users.update(
+            { commisionByPercentage: commision },
+            {
+                where: {
+                    id: userId
+                }
+            })
+    
+
     if (updatedUserStatus) {
         return {
             status: true

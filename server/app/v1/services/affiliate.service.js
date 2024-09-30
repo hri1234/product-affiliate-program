@@ -5,6 +5,7 @@ const Sequelize = require('sequelize');
 const Affiliate = db.affiliate;
 const AssignAffiliate = db.affiliateAssign
 const ClickAndPurchases = db.ClickAndPurchases
+const Users = db.users;
 const jwt = require('jsonwebtoken');
 const fs = require('fs')
 const path = require('path')
@@ -32,6 +33,16 @@ exports.addAffiliate = async (req, res, shortId) => {
         const host = await req.headers.host
         details.shortUrl = `${host}/${shortId}`
         const result = await Affiliate.create(details)
+        const users  = await Users.findAll()
+        const bulkData = [];
+        for (const user of users) {
+            bulkData.push({
+                affiliateId: result.id,
+                userId: user.id
+            });
+        }
+        // Perform bulkCreate once with all data
+        const createdAssign = await AssignAffiliate.bulkCreate(bulkData);
         if (result) {
             return {
                 status: true,

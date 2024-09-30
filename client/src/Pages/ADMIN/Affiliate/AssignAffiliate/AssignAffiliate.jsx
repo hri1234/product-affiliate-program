@@ -5,10 +5,12 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { IoArrowBack, IoEyeOutline } from "react-icons/io5";
 import { MdDelete, MdRemoveRedEye } from "react-icons/md";
 import { FaSquarePlus } from "react-icons/fa6";
-import { useAssignAffiliateMutation, useDeAssignAffiliateMutation } from '../../../../services/AdminService';
+import { useAssignAffiliateMutation, useDeAssignAffiliateMutation, useUpdateCommissionMutation } from '../../../../services/AdminService';
 import toast from 'react-hot-toast';
 import { Pagination } from '@mui/material';
 import AlertComponent from '../../../../components/AlertComponent.jsx';
+import { useDispatch } from 'react-redux';
+import { ClearAdminAssignSearchQuery } from '../../../../Redux/SearchSlice/SearchSlice.jsx';
 
 
 function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assignedcount, AssignedListData, Assignedlistloading, notAssignedlistloading, NotAssignedlistData, setCurrentPage, currentPage, count }) {
@@ -56,12 +58,17 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
     ];
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [SelectedUsers, setSelectedUsers] = useState([]);
     const [DeSelectedUsers, setDeSelectedUsers] = useState([])
     const [AssignAffiliate] = useAssignAffiliateMutation();
     const [submitLoading, setSubmitLoading] = useState(false);
     const [DeAssign] = useDeAssignAffiliateMutation()
+    const [UpdateCommitssion] = useUpdateCommissionMutation();
 
+    // loading states
+    const [AssignedlistloadingCommission, setAssignedlistloadingCommission] = useState(false);
+    const [NotAssignedlistloadingCommission, setNotAssignedlistloadingCommisson] = useState(false);
     const paramData = useParams();
     console.log(paramData, 'paramdta');
 
@@ -104,8 +111,6 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
     }
 
 
-    console.log(NotAssignedlistData, 'NotAssignedlistData');
-    console.log(AssignedListData, 'AssignedlistData');
 
     const handleSubmit = () => {
         if (SelectedUsers?.length <= 0) {
@@ -222,7 +227,32 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
 
     }
 
+    const handleCommison = (value, id) => {
+        console.log(value)
+        setAssignedlistloadingCommission(true)
+        UpdateCommitssion({
+            Id: id, data: {
+                commission: Number(value)
+            }
+        }).then(res => {
+            if (res.error) {
+                console.log(res.error, 'res.error');
+                toast.error("Internal server error");
+                setAssignedlistloadingCommission(false);
 
+            }
+            else {
+                console.log(res, 'res');
+                toast.success("Commission updated successfully");
+                setAssignedlistloadingCommission(false);
+
+            }
+        }).catch((err) => {
+            console.log(err);
+            setAssignedlistloadingCommission(false);
+        });
+    }
+    console.log(AssignedListData, NotAssignedlistData)
     return (
         <>
             {
@@ -245,7 +275,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                     Manage Assign
                                 </span>
                             </div>
-                            {/* <hr className='mb-1' /> */}
+                            <hr className='my-4' />
                             <span className=' font-semibold text-[20px]'>
                                 Assigned Users
                             </span>
@@ -258,6 +288,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                 <tr>
                                                     <th>Action</th>
                                                     <th>User Email</th>
+                                                    <th>Commission</th>
                                                     <th>Location</th>
                                                     <th>City</th>
                                                 </tr>
@@ -276,6 +307,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                     <tr>
                                                         <th>Action</th>
                                                         <th>User Email</th>
+                                                        <th>Commission</th>
                                                         <th>Location</th>
                                                         <th>City</th>
                                                     </tr>
@@ -293,6 +325,16 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
 
                                                                 </td>
                                                                 <td>{itm?.user?.email || "N/A"}</td>
+                                                                <td>
+                                                                    <select onChange={(e) => { handleCommison(e.target.value, itm?.user?.id) }} defaultValue={itm?.user?.commisionByPercentage} className="bg-white border border-black text-black text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5">
+                                                                        <option value="10">10</option>
+                                                                        <option value="20">20</option>
+                                                                        <option value="40">40</option>
+                                                                        <option value="80">80</option>
+                                                                        <option value="90">90</option>
+                                                                        <option value="100">100</option>
+                                                                    </select>
+                                                                </td>
                                                                 <td>{itm?.user?.country || "N/A"}</td>
                                                                 <td>{itm?.user?.city || "N/A"}</td>
 
@@ -338,6 +380,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                 <tr>
                                                     <th>Action</th>
                                                     <th>User Email</th>
+                                                    <th>Commission</th>
                                                     <th>Location</th>
                                                     <th>City</th>
                                                 </tr>
@@ -356,6 +399,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                         <tr>
                                                             <th>Action</th>
                                                             <th>User Email</th>
+                                                            <th>Commission</th>
                                                             <th>Location</th>
                                                             <th>City</th>
                                                         </tr>
@@ -365,13 +409,21 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                         {
 
                                                             NotAssignedlistData?.result?.rows?.map((itm, indx) => (
-                                                                <tr key={indx}>
-                                                                    <td className=' flex gap-2 items-center mt-1 pl-[30px]'>
-
+                                                                <tr key={indx} className=''>
+                                                                    <td className='  pl-[30px]'>
                                                                         <input value={itm?.id} checked={SelectedUsers?.includes(itm?.id)} onChange={handleCheckboxChange} type="checkbox" />
-
                                                                     </td>
-                                                                    <td>{itm?.email || "N/A"}</td>
+                                                                    <td className=''>{itm?.email || "N/A"}</td>
+                                                                    <td>
+                                                                        <select onChange={(e) => { handleCommison(e.target.value, itm?.id) }} defaultValue={itm?.commisionByPercentage} className="bg-white border border-black text-black text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5">
+                                                                            <option value="10">10</option>
+                                                                            <option value="20">20</option>
+                                                                            <option value="40">40</option>
+                                                                            <option value="80">80</option>
+                                                                            <option value="90">90</option>
+                                                                            <option value="100">100</option>
+                                                                        </select>
+                                                                    </td>
                                                                     <td>{itm?.country || "N/A"}</td>
                                                                     <td>{itm?.city || "N/A"}</td>
                                                                 </tr>
@@ -386,7 +438,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                         </div>
                                         <div className='w-full flex justify-between px-2'>
 
-                                            <button onClick={() => handleSubmit()} disabled={SelectedUsers?.length <= 0 ? true : false} className={` ${SelectedUsers?.length <= 0 ? "opacity-70" : ""} w-[120px] bg-black text-white rounded py-2 mt-3`}>
+                                            <button onClick={() => handleSubmit()} disabled={SelectedUsers?.length <= 0 ? true : false} className={` ${SelectedUsers?.length <= 0 ? "opacity-70" : ""} w-[120px] bg-black text-white rounded-full py-2 mt-3`}>
                                                 Submit
                                             </button>
                                             <div className='w-full flex justify-end mt-3'>

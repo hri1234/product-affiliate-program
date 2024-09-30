@@ -45,7 +45,7 @@ function Routing() {
     useEffect((e) => {
         if (!userToken || userToken === null) {
             setAthenticateLogin(false)
-            if (!window.location.pathname.includes('reset-password')) {
+            if (!window.location.pathname.includes('reset-password') && !window.location.pathname.includes('terms-condition') && !window.location.pathname.includes('forgot-password') && !window.location.pathname.includes('register')) {
                 navigate('/');
             }
         }
@@ -53,9 +53,6 @@ function Routing() {
             setAthenticateLogin(true)
         }
     }, [userToken])
-
-
-
     useEffect(() => {
         if (userToken?.length > 1) {
             const decodingToken = jwtDecode(userToken);
@@ -64,9 +61,6 @@ function Routing() {
         }
         console.log('')
     }, [userToken, authenticateLogin])
-
-
-
     return (
         <div className=' w-full h-full'>
             {/* <Header/> */}

@@ -42,9 +42,10 @@ module.exports = (sequelize, Sequelize) => {
         companyName: {
             type: Sequelize.STRING
         },
-        // companyNumber: {
-        //     type: Sequelize.STRING,
-        // },
+        commisionByPercentage: {
+            type: Sequelize.INTEGER,
+        },
+
         password: {
             type: Sequelize.STRING,
             allowNull: false
@@ -56,6 +57,10 @@ module.exports = (sequelize, Sequelize) => {
         isActive: {
             type: Sequelize.BOOLEAN,
             defaultValue:true
+        },
+        commisionByPercentage: {
+            type: Sequelize.INTEGER,
+            defaultValue:20
         }
     });
 

@@ -33,7 +33,8 @@ exports.registerSchema = Joi.object({
     companyUrl: Joi.string().optional(),
     phone: Joi.number().max(10).optional(),
     role: Joi.string().valid('admin', 'customer').optional(),
-    isActive: Joi.boolean().optional()
+    isActive: Joi.boolean().optional(),
+    commisionByPercentage:Joi.number().optional(),
 });
 
 exports.resetPasswordSchema = Joi.object({

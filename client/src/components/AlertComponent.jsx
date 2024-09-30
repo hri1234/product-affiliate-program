@@ -15,18 +15,18 @@ function AlertComponent(
                     <div className=' pt-3 pb-1 px-3  flex items-center justify-center gap-7 flex-col'>
 
                         <h1 className=' text-[20px] font-semibold'>{heading} </h1>
-                        <div className=' w-full flex justify-evenly'>
+                        <div className=' w-full flex justify-center gap-[40px]'>
                             <button
                                 onClick={() => {
                                     handleDeleteYes();
                                     onClose();
                                 }}
-                                className=' py-[3px] px-3 bg-slate-600 rounded hover:opacity-75 text-[14px] text-white'
+                                className=' py-[3px] px-3 bg-slate-600 rounded-full hover:opacity-75 text-[14px] text-white'
                             >
                                 Yes
                             </button>
 
-                            <button onClick={onClose} className=' py-[3px] px-3 bg-slate-600 text-[14px] rounded text-white hover:opacity-75'>No</button>
+                            <button onClick={onClose} className=' py-[3px] px-3 bg-slate-600 text-[14px] rounded-full text-white hover:opacity-75'>No</button>
                         </div>
                     </div>
                 </div>

@@ -47,7 +47,7 @@ const LogoWrapper = () => {
   console.log(decodedData?.role, 'decodedData')
 
   return (
-    <div className='logo-wrapper p-3'>
+    <div className='logo-wrapper overflow-hidden p-3'>
       <div className='ml-[0px] p-[4px]'>
 
         <Link style={{ border: 'none', textDecoration: 'none' }} to={`/dashboard`}>
@@ -58,9 +58,9 @@ const LogoWrapper = () => {
               // <span className=' flex capitalize text-black hover:text-black items-center text-[20px] mt-1 font-semibold justify-center h-[47px] '>
               //   Hello !
               // </span>
-              <span className=' m-auto h-[53px] duration-600 ease-in-out w-[66px] bg-orange my-3 mb-4 flex items-center justify-center text-[19.5px] font-semibold mt-3 pt-2 ml-[11px]'>Hello !</span>
+              <span className=' m-auto h-[53px] duration-600 ease-in-out w-[66px] bg-orange hover:text-black my-3 mb-4 flex items-center justify-center text-[19.5px] font-semibold mt-3 pt-2 ml-[11px]'>Hello !</span>
               :
-              <span className=' flex break-all w-[245px] capitalize duration-600 ease-in-out text-black hover:text-black items-center text-[22px] mt-2 font-semibold justify-center h-[50px] '>
+              <span className='overflow-hidden flex break-all w-[245px] capitalize duration-600 ease-in-out text-black hover:text-black items-center text-[22px] mt-2 font-semibold justify-center h-[50px] '>
                 Hello {decodedData?.role == 'admin' ? "Admin !" : companyName?.slice(0,25) + "!"}
               </span>
           }

@@ -19,14 +19,15 @@ function DashboardWrapper() {
   const [currentPage, setCurrentPage] = useState(1);
   const userToken = Cookies.get("isLogged");
   const [userId, setUserId] = useState('');
-  const [searchFilter,setSearchFilter] = useState('');
+  const [searchFilter, setSearchFilter] = useState('');
 
   const ReduxData = useSelector((state) => state.SearchSlice);
+  const { data: commision, isLoading: listLoadingCommission, isFetching: listFetchingCommission } = useGetProfileQuery({});
+  console.log(commision?.result?.result?.commisionByPercentage)
 
-  useEffect(()=>
-  {
+  useEffect(() => {
     setSearchFilter(ReduxData?.customerInvoiceQuery)
-  },[ReduxData])
+  }, [ReduxData])
 
   const dataPerPage = 10;
 
@@ -63,7 +64,7 @@ function DashboardWrapper() {
     Id: userId, data: {
       limit: dataPerPage,
       page: currentPage,
-      search:searchFilter
+      search: searchFilter
     }
   });
 
@@ -108,7 +109,7 @@ function DashboardWrapper() {
 
   return (
     <div className="page-body px-4 h-full pb-5">
-      <Dashboard loading={loading} listData={ListData?.result} overviewLoading={overviewLoading} overviewData={OverViewData} setCurrentPage={setCurrentPage} currentPage={currentPage} count={count} />
+      <Dashboard loading={loading} listData={ListData?.result} overviewLoading={overviewLoading} overviewData={OverViewData} setCurrentPage={setCurrentPage} currentPage={currentPage} count={count} commision={commision?.result?.result?.commisionByPercentage} />
     </div>
   )
 }

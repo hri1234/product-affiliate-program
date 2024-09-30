@@ -1,6 +1,5 @@
 import { FaAngleRight } from 'react-icons/fa';
 import { Link, useLocation } from 'react-router-dom';
-
 import { ActiveNavLinkUrl } from '../../../Utils/helper/ActioveNavUrl';
 import { useContext, useEffect } from 'react';
 import Cookies from 'js-cookie'
@@ -11,49 +10,35 @@ const SidebarSubMenu = ({ menu, className, setIsOpen, isOpen, level }) => {
   const testToken = Cookies.get("test");
   const { togglSidebar, setTogglSidebar } = useContext(CustomizerContext);
 
-  function shouldSetActive({ item }) {
-    var returnValue = false;
-    if (item?.url === pathname) {
-      returnValue = true;
+  const shouldSetActive = ({ item }) => {
+    if (item?.url === pathname) return true;
+    if (item?.menu) {
+      return item.menu.some((subItem) => shouldSetActive({ item: subItem }));
     }
-    if (!returnValue && item?.menu) {
-      item?.menu.every((subItem) => {
-        returnValue = shouldSetActive({ item: subItem });
-        return !returnValue;
-      });
-    }
-    return returnValue;
+    return false;
   }
+
   useEffect(() => {
     menu.forEach((item) => {
-      let gotValue = shouldSetActive({ item });
-      if (gotValue) {
-        let temp = isOpen;
-        temp[level] = item.title;
-        setIsOpen(temp);
+      if (shouldSetActive({ item })) {
+        setIsOpen({ ...isOpen, [level]: item.title });
       }
     });
-  }, [testToken]);
+  }, [testToken, menu, isOpen, level]);
 
   return (
-    <ul className={` ${className ? className : ''}`}>
+    <ul className={className}>
       {menu.map((item, i) => (
-        <li key={i} className={` ${className ? '' : 'sidebar-list'} ${(item.menu ? item.menu.map((innerItem) => ActiveNavLinkUrl(innerItem.url)).includes(true) : ActiveNavLinkUrl(item.url)) || isOpen[level] === item.title ? 'active' : ''} `}>
+        <li key={i} className={`sidebar-list ${shouldSetActive({ item }) || isOpen[level] === item.title ? 'active' : ''}`}>
           <Link
             style={{ textDecoration: 'none' }}
-            className={`${className ? '' : 'sidebar-link sidebar-title'}  ${(item.menu ? item.menu.map((innerItem) => ActiveNavLinkUrl(innerItem.url)).includes(true) : ActiveNavLinkUrl(item.url)) || isOpen[level] === item.title ? 'active' : ''}`}
-            to={item.url ? item.url : '#javascript'}
-            onClick={() => {
-              const temp = isOpen;
-              temp[level] = item.title !== temp[level] && item.title;
-              setIsOpen(temp);
-            }}>
-            <div className='d-flex align-items-center whitespace-nowrap justify-center' >
-              {item.icon && item.icon}
-              {
-                !togglSidebar &&
-                  <span style={{ color: 'black' }} className='sidebar-title-alignment border-none text-black'>{item.title}</span>
-              }
+            className={`sidebar-link sidebar-title ${shouldSetActive({ item }) || isOpen[level] === item.title ? 'active' : ''}`}
+            to={item.url || '#javascript'}
+            onClick={() => setIsOpen({ ...isOpen, [level]: item.title !== isOpen[level] ? item.title : '' })}
+          >
+            <div className='d-flex align-items-center whitespace-nowrap justify-center'>
+              {item.icon}
+              {!togglSidebar && <span className='sidebar-title-alignment'>{item.title}</span>}
             </div>
             {item.menu && (
               <span className='sub-arrow'>
@@ -61,7 +46,6 @@ const SidebarSubMenu = ({ menu, className, setIsOpen, isOpen, level }) => {
               </span>
             )}
           </Link>
-
           {item.menu && <SidebarSubMenu menu={item.menu} isOpen={isOpen} setIsOpen={setIsOpen} level={level + 1} className='sidebar-submenu' />}
         </li>
       ))}

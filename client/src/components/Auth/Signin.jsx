@@ -4,33 +4,39 @@ import LoginTab from "./Tabs/LoginTab";
 // import LoginBanner from '../../Assets/loginBanner.png'
 // import LoginBanner from '../../Assets/logo/banner1.jpg'
 import LoginBanner from '../../Assets/logo/image_2024_09_23T11_14_52_136Z.png'
+import { useState } from "react";
+import PageLoader from "../Layout/PageLoader";
 
 const Logins = (props) => {
+  const [pageLoading, setPageLoading] = useState(true);
+
 
   return (
-    <Container fluid={true} className="p-0 login-page bg-slate-50">
-      <Row>
-        <Col xs="12">
-          <div className="login-card flex-column">
-            {/* <div className="logo">
-              <Image
-                className="img-fluid for-light mx-auto h-[65px] w-[65px]"
-                src={require("../../Assets/logo/itg_logo.webp")}
-              />
-            </div> */}
-            <div className="  bg-white w-[78%] border shadow-md rounded-[10px] py-6 px-6 flex md:flex-row flex-col-reverse gap-10">
-              <div className=" w-full md:w-[50%]">
-                <LoginTab props={props} />
+    <>
+      {pageLoading ? <PageLoader set={setPageLoading} value={pageLoading} />
+        : <Container fluid={true} className="p-0 login-page bg-slate-50">
+          <Row>
+            <Col xs="12">
+              <div className="login-card flex-column">
+                {/* <div className="logo">
+            <Image
+              className="img-fluid for-light mx-auto h-[65px] w-[65px]"
+              src={require("../../Assets/logo/itg_logo.webp")}
+            />
+          </div> */}
+                <div className="  bg-white w-[78%] border shadow-md rounded-[10px] py-6 px-6 flex md:flex-row flex-col-reverse gap-10">
+                  <div className=" w-full md:w-[50%]">
+                    <LoginTab props={props} />
+                  </div>
+                  <div className=" w-full md:w-[520px] object-center object-contain md:object-cover h-[220px] bg-red  md:h-[460px]">
+                    <img src={LoginBanner} className=" shadow-xl border object-fit object-center w-full h-full bg-red rounded-[16px]" alt="" />
+                  </div>
+                </div>
               </div>
-              <div className=" w-full md:w-[520px] object-center object-contain md:object-cover h-[220px] bg-red  md:h-[460px]">
-                <img src={LoginBanner} className=" shadow-xl border object-fit object-center w-full h-full bg-red rounded-[16px]" alt="" />
-              </div>
-            </div>
-          </div>
-        </Col>
-
-      </Row>
-    </Container>
+            </Col>
+          </Row>
+        </Container>}
+    </>
   );
 };
 

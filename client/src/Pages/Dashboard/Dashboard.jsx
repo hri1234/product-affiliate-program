@@ -5,7 +5,7 @@ import ReactApexChart from 'react-apexcharts';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { Pagination } from '@mui/material';
 
-function Dashboard({ loading, listData, overviewLoading, overviewData, setCurrentPage, currentPage, count }) {
+function Dashboard({ loading, listData, overviewLoading, overviewData, setCurrentPage, currentPage, count, commision }) {
 
   const navigate = useNavigate();
 
@@ -18,6 +18,7 @@ function Dashboard({ loading, listData, overviewLoading, overviewData, setCurren
   return (
     <>
       <p className='text-[20px] font-semibold'>Overview</p>
+      <p className='font-semibold'>As a registered partner, you earn {commision} % for every purchase made by your recommendation.</p>
 
       {
         loading || overviewLoading ?

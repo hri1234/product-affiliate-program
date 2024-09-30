@@ -32,7 +32,7 @@ function CustomerProfile({ loading, profileData }) {
                 </div>
                 <div className="space-y-3 flex flex-col">
                   <span className='flex gap-3'><span className="font-semibold">Email:</span> {profileData?.email}</span>
-                  <span className='flex gap-3'  ><span className="font-semibold">Company Url:</span> {profileData?.companyUrl?.slice(0,40)}</span>
+                  <span className='flex gap-3'  ><span className="font-semibold">Company Url:</span> {profileData?.companyUrl?.slice(0, 40)}</span>
                 </div>
                 <div className="space-y-3 flex flex-col">
                   <span className='flex gap-3'><span className="font-semibold">Country:</span> {profileData?.country}</span>
@@ -40,7 +40,7 @@ function CustomerProfile({ loading, profileData }) {
                 </div>
                 <div className="space-y-3 flex flex-col">
                   <span className='flex gap-3'><span className="font-semibold">City:</span> {profileData?.city}</span>
-                  <span className='flex gap-3'><span className="font-semibold">Created Date:</span> {profileData?.createdAt}</span>
+                  <span className='flex gap-3'><span className="font-semibold">Created Date:</span> {profileData?.createdAt?.split('T')[0]}</span>
                 </div>
               </div>
             </div>

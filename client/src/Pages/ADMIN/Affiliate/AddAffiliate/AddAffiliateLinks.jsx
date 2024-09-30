@@ -229,7 +229,7 @@ function AdminAddAffiliateLinks({ listData, loading }) {
                                                             "Submit"
                                                     }
                                                 </Btn> */}
-                                                <button type='submit' className=' d-block mt-5 w-[120px] cursor-pointer p-2 bg-black text-white rounded'>
+                                                <button type='submit' className=' d-block mt-5 w-[120px] cursor-pointer p-2 bg-black text-white rounded-full'>
                                                     {
                                                         submitLoading ?
                                                             <span className=' w-full flex py-1 items-center justify-center m-auto self-center animate-spin'>
