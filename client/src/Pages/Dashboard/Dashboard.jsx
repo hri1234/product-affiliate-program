@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import ReactApexChart from 'react-apexcharts';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { Pagination } from '@mui/material';
+import { BsExclamationCircle } from "react-icons/bs";
 
 function Dashboard({ loading, listData, overviewLoading, overviewData, setCurrentPage, currentPage, count, commision }) {
 
@@ -18,7 +19,7 @@ function Dashboard({ loading, listData, overviewLoading, overviewData, setCurren
   return (
     <>
       <p className='text-[20px] font-semibold'>Overview</p>
-      <p className='font-semibold'>As a registered partner, you earn {commision} % for every purchase made by your recommendation.</p>
+      <p className='font-semibold flex items-center gap-[5px]'><BsExclamationCircle /> As a registered partner, you earn {commision} % for every purchase made by your recommendation.</p>
 
       {
         loading || overviewLoading ?
