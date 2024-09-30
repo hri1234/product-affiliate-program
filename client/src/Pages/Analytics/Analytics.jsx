@@ -62,6 +62,10 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
     },
   });
 
+  const currentMonth = new Date().getMonth() + 1;
+  const currentYear = new Date().getFullYear();
+  console.log(currentMonth, currentYear, selectedYear);
+
 
 
   useEffect(() => {
@@ -201,7 +205,7 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
 
               <Select
                 className='rounded w-full'
-                options={MonthList}
+                options={selectedYear === currentYear ? MonthList.slice(0, currentMonth) : MonthList}
                 onChange={handleMonthChange}
                 defaultValue={MonthList.find(month => month.value === selectedMonth)}
                 styles={{

@@ -21,7 +21,7 @@ function AdminDashboardWrapper() {
 
   useEffect(() => {
     setSearchFilter(ReduxData?.dashboardQuery || '');
-    console.log(ReduxData?.dashboardQuery,'dashboardSearch')
+    console.log(ReduxData?.dashboardQuery, 'dashboardSearch')
   }, [ReduxData])
 
   useEffect(() => {
@@ -37,7 +37,7 @@ function AdminDashboardWrapper() {
   const { data, isLoading, isFetching } = useGetUserListQuery(
     {
       data:
-        { limit: dataPerPage, page: currentPage , search:searchFilter}
+        { limit: dataPerPage, page: currentPage, search: searchFilter }
     }
   );
 

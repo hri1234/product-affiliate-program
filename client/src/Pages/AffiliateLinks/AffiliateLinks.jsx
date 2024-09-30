@@ -160,7 +160,7 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
                   })
                 }
 
-                <div className='w-full flex justify-end py-4'>
+                <div className='w-full flex justify-end mt-4'>
 
                   <Pagination
                     shape="rounded"

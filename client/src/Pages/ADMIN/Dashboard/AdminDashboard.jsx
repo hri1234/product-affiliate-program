@@ -185,7 +185,7 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
                               }
                             </td>
                             <td>{itm?.affiliateCount}</td>
-                            <td className='flex gap-2' style={{padding:'20px'}}>
+                            <td className='flex gap-2' style={{ padding: '20px' }}>
                               <span onClick={() => { handleViewInvoice(itm) }} className=' hover:opacity-85 flex items-center justify-center cursor-pointer  rounded px-1'>
                                 {/* View */}
                                 {/* <IoEyeOutline/> */}

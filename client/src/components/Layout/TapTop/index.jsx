@@ -27,7 +27,7 @@ const Taptop = () => {
     }, []);
 
     return (
-        <div onClick={() => executeScroll()} className="tap-top flex items-center justify-center" style={{ display: tapTopStyle }}>
+        <div onClick={() => executeScroll()} className="tap-top mb-10 flex items-center justify-center" style={{ display: tapTopStyle }}>
             {/* <ChevronsUp onClick={() => executeScroll()} /> */}
             <FaAnglesUp size={20} className=' m-auto px-auto pt-1' />
         </div>

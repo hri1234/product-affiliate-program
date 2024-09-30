@@ -70,7 +70,6 @@ function Dashboard({ loading, listData, overviewLoading, overviewData, setCurren
                         <tr className='py-0'>
                           <th>Transaction Id</th>
                           <th>Product</th>
-                          <th>Domain</th>
                           <th>Commission</th>
                           <th>Status</th>
                           <th>Date</th>
@@ -89,7 +88,7 @@ function Dashboard({ loading, listData, overviewLoading, overviewData, setCurren
                           <tr className='py-2'>
                             <th>Transaction Id</th>
                             <th>Product</th>
-                            <th>Domain</th>
+
                             <th>Commission</th>
                             <th>Status</th>
                             <th>Date</th>
@@ -100,7 +99,7 @@ function Dashboard({ loading, listData, overviewLoading, overviewData, setCurren
                             <tr key={invoice?.id}>
                               <td>{invoice?.transactionId || 'N/A'}</td>
                               <td>{invoice?.themeName}</td>
-                              <td>{invoice?.domain}</td>
+
                               <td style={{ paddingLeft: '40px' }}>${invoice?.commission}</td>
                               <td>{invoice?.status}</td>
                               <td>{invoice?.createdAt

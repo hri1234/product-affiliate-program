@@ -39,7 +39,7 @@ function AdminAffiliateLinksWrapper() {
 
   return (
     <>
-      <div className='page-body px-4 h-full pb-5 '>
+      <div className='page-body px-4 h-full py-4'>
         {/* <AffiliateLinks listData={listData} loading={loading} /> */}
         <AdminAffiliateLinks
           listData={listData}

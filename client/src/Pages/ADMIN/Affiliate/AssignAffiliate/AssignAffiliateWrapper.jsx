@@ -68,7 +68,7 @@ function AssignAffiliateWrapper() {
     }, [AssignedlistFetching, AssignedData, AssignedlistLoading])
 
     return (
-        <div className='page-body pb-5 px-4'>
+        <div className='page-body py-4 px-4'>
             <AssignAffiliate AssignedListData={AssignedListData} Assignedlistloading={Assignedlistloading} NotAssignedlistData={NotAssignedlistData} notAssignedlistloading={notAssignedlistloading} setCurrentPage={setCurrentPage} setAssignedCurrentPage={setAssignedCurrentPage} currentPage={currentPage} AssignedcurrentPage={AssignedcurrentPage} count={count} Assignedcount={Assignedcount} />
         </div>
     )

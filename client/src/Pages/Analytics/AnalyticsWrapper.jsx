@@ -92,7 +92,7 @@ function AnalyticsWrapper() {
 
     return (
         <>
-            <div className='page-body px-4 pb-5'>
+            <div className='page-body px-4'>
                 <Analytics YearList={YearList} selectedYear={selectedYear} setSelectedYear={setSelectedYear} MonthList={MonthList} setSelectedMonth={setSelectedMonth} selectedMonth={selectedMonth} loading={loading} analyticsData={analyticsData} affiliatesData={affiliatesData} count={count} setCurrentPage={setCurrentPage} currentPage={currentPage} />
             </div>
         </>

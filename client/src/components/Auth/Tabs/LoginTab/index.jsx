@@ -33,7 +33,7 @@ const LoginTab = (props) => {
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]{2,}\.[a-zA-Z]{2,}$/;
         return emailRegex.test(value);
       }),
-    password: yup.string().trim("Enter valid password").required("Password field cannot be empty").strict(),
+    password: yup.string().trim("Enter valid password").min(6, "Minimum 6 characters required").required("Password field cannot be empty").strict(),
   });
   useEffect(() => {
     if (isLogged) {

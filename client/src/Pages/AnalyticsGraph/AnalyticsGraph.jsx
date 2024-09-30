@@ -44,6 +44,9 @@ function AnalyticsGraph({ selectedYear, setSelectedYear, YearList, loading, Mont
     },
   });
 
+  const currentMonth = new Date().getMonth() + 1;
+  const currentYear = new Date().getFullYear();
+  console.log(currentMonth, currentYear, selectedYear);
   useEffect(() => {
     // Get day from the date string
     const getDay = (dateString) => new Date(dateString).getDate();
@@ -133,7 +136,7 @@ function AnalyticsGraph({ selectedYear, setSelectedYear, YearList, loading, Mont
 
               <Select
                 className='rounded w-full'
-                options={MonthList}
+                options={selectedYear === currentYear ? MonthList.slice(0, currentMonth) : MonthList}
                 onChange={handleMonthChange}
                 defaultValue={MonthList.find(month => month.value === selectedMonth)}
                 styles={{
