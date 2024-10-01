@@ -319,9 +319,7 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                             <AiOutlineLoading3Quarters />
                         </span>
                     </div>
-
                     :
-
                     <div className=' flex flex-col gap-3'>
                         <div className='mb-3'>
                             <div className='flex w-full justify-start gap-2 px-1 py-2 mb-2'>
@@ -366,23 +364,18 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                         <th>User Email</th>
                                                         <th>Commission</th>
                                                         <th>Location</th>
-
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-
                                                     {
-
                                                         AssignedListData?.rows?.map((itm, indx) => (
                                                             <tr key={indx}>
                                                                 <td className=' flex gap-2 items-center mt-1 pl-[30px]'>
-
                                                                     {/* <input value={itm?.id} checked={DeSelectedUsers?.includes(itm?.id)} onChange={handleDeSelectCheckboxChange} type="checkbox" /> */}
                                                                     <span className='cursor-pointer' onClick={() => { handleDeAssignCLick(itm?.id) }}><MdDelete size={20} /></span>
-
                                                                 </td>
                                                                 <td>{itm?.user?.email || "N/A"}</td>
-                                                                <td>
+                                                                <td className='relative'>
                                                                     {commissionLoading && selectedCommissonIdx == indx ?
                                                                         <span className=' w-fit flex py-1 items-center justify-center m-auto self-center animate-spin'>
                                                                             <AiOutlineLoading3Quarters />
@@ -397,7 +390,6 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                                             className="bg-white border border-black text-black text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5"
                                                                         />}
                                                                     {commisionToast.id === indx && commisionToast.message && <p className='absolute text-red-400 text-[12px] bottom-[2px]'>{commisionToast.message}</p>}
-
                                                                 </td>
                                                                 <td>{itm?.user?.city},  {itm?.user?.country || "N/A"}</td>
                                                             </tr>
@@ -467,31 +459,31 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                                     <tbody>
 
                                                         {NotAssignedlistData?.result?.rows?.map((itm, indx) => (
-                                                                <tr key={indx} className=''>
-                                                                    <td className='  pl-[30px]'>
-                                                                        <input value={itm?.id} checked={SelectedUsers?.includes(itm?.id)} onChange={handleCheckboxChange} type="checkbox" />
-                                                                    </td>
-                                                                    <td className=''>{itm?.email || "N/A"}</td>
-                                                                    <td>
-                                                                        {commissionLoading && selectedCommissonIdx == indx ?
-                                                                            <span className=' w-fit flex py-1 items-center justify-center m-auto self-center animate-spin'>
-                                                                                <AiOutlineLoading3Quarters />
-                                                                            </span> :
-                                                                            <input
+                                                            <tr key={indx} className=''>
+                                                                <td className='  pl-[30px]'>
+                                                                    <input value={itm?.id} checked={SelectedUsers?.includes(itm?.id)} onChange={handleCheckboxChange} type="checkbox" />
+                                                                </td>
+                                                                <td className=''>{itm?.email || "N/A"}</td>
+                                                                <td className='relative'>
+                                                                    {commissionLoading && selectedCommissonIdx == indx ?
+                                                                        <span className=' w-fit flex py-1 items-center justify-center m-auto self-center animate-spin'>
+                                                                            <AiOutlineLoading3Quarters />
+                                                                        </span> :
+                                                                        <input
                                                                             disabled={!SelectedUsers?.includes(itm?.id)}
-                                                                                type="number"
-                                                                                min="1"
-                                                                                max="50"
-                                                                                defaultValue={itm?.commisionByPercentage}
-                                                                                onChange={() => setCommissionToast({ message: "", id: '' })}
-                                                                                onKeyDown={(e) => handleKeyDown(e, e.target.value, itm?.id, indx)} // Only handle keydown
-                                                                                className="bg-white border border-black text-black text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5"
-                                                                            />}
-                                                                        {commisionToast.id === indx && commisionToast.message && <p className='absolute text-red-400 text-[12px] bottom-[2px]'>{commisionToast.message}</p>}
-                                                                    </td>
-                                                                    <td>{itm?.city},  {itm?.country || "N/A"}</td>
-                                                                </tr>
-                                                            ))
+                                                                            type="number"
+                                                                            min="1"
+                                                                            max="50"
+                                                                            defaultValue={itm?.commisionByPercentage}
+                                                                            onChange={() => setCommissionToast({ message: "", id: '' })}
+                                                                            onKeyDown={(e) => handleKeyDown(e, e.target.value, itm?.id, indx)} // Only handle keydown
+                                                                            className="bg-white border border-black text-black text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5"
+                                                                        />}
+                                                                    {commisionToast.id === indx && commisionToast.message && <p className='absolute text-red-400 text-[12px] bottom-[2px]'>{commisionToast.message}</p>}
+                                                                </td>
+                                                                <td>{itm?.city},  {itm?.country || "N/A"}</td>
+                                                            </tr>
+                                                        ))
                                                         }
                                                         <tr className="spacer-row">
                                                             <td colSpan="5"></td>
