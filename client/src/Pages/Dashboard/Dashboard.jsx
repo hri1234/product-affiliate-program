@@ -18,8 +18,8 @@ function Dashboard({ loading, listData, overviewLoading, overviewData, setCurren
 
   return (
     <>
-      <p className='text-[20px] font-semibold'>Overview</p>
-      <p className='font-semibold flex items-center gap-[5px]'><BsExclamationCircle /> As a registered partner, you earn {commision} % for every purchase made by your recommendation.</p>
+      <p className='text-[20px] font-semibold'>Dashboard</p>
+      <p className='font-semibold flex items-center gap-[5px]'><BsExclamationCircle /> As a registered partner, you'll earn {commision} % commission on every purchase made through your referral.</p>
 
       {
         loading || overviewLoading ?
@@ -104,8 +104,15 @@ function Dashboard({ loading, listData, overviewLoading, overviewData, setCurren
                               <td style={{ paddingLeft: '40px' }}>${invoice?.commission}</td>
                               <td>{invoice?.status}</td>
                               <td>{invoice?.createdAt
-                                ? new Date(invoice?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
-                                : 'N/A'}</td>
+                                ? (() => {
+                                  const date = new Date(invoice.createdAt);
+                                  const day = String(date.getDate()).padStart(2, '0');
+                                  const month = date.toLocaleString('en-GB', { month: 'long' });
+                                  const year = date.getFullYear();
+                                  return `${day} ${month}, ${year}`;
+                                })()
+                                : 'N/A'}
+                              </td>
                             </tr>
                           ))}
                           <tr className="spacer-row">

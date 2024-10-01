@@ -33,18 +33,11 @@ function SignUp() {
   const [showConfirmPassword, setShowConfirmPassword] = useState("password");
   const [toasterMessage, setToasterMessage] = useState('');
   const [isChecked, setIsChecked] = useState(false);
-
-
-
   const changeHandler = value => {
     console.log(value, 'country')
     setValue(value)
   }
-
   const [loading, setLoading] = useState(false)
-
-
-
   useEffect(() => {
     if (isLogged) {
       navigate('/dashboard/');
@@ -65,15 +58,15 @@ function SignUp() {
   };
 
   const validationSchema = yup.object().shape({
-    email: yup.string().trim("Enter valid email").required("Email is required").email("Email must be a valid email")
-      .test('is-valid-email', 'Email must be a valid email', value => {
+    email: yup.string().trim("Enter valid email").required("Email is required").email("Enter the valid email address")
+      .test('is-valid-email', 'Enter the valid email address', value => {
         if (!value) return false; // Ensure it's not empty
         // Use a regex to validate email format more strictly if needed
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]{2,}\.[a-zA-Z]{2,}$/;
         return emailRegex.test(value);
       }),
-    payPalAddress: yup.string().trim("Enter valid PayPal address").required("PayPal address is required").email("PayPal address must be valid")
-      .test('is-valid-email', 'PayPal address must be valid', value => {
+    payPalAddress: yup.string().trim("Enter the valid PayPal address").required("PayPal address is required").email("Enter the valid PayPal address")
+      .test('is-valid-email', 'Enter the valid PayPal address', value => {
         if (!value) return false; // Ensure it's not empty
         // Use a regex to validate email format more strictly if needed
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]{2,}\.[a-zA-Z]{2,}$/;
@@ -85,9 +78,9 @@ function SignUp() {
       value: yup.string().required("Country is required")
     }).nullable().required("Country is required"),
     city: yup.string().trim("Enter valid city").required("City is required").strict(),
-    address: yup.string().trim("Enter valid address").required("Address is required").strict(),
-    companyName: yup.string().trim("Enter valid company name").required("Company name is required").strict(),
-    companyUrl: yup.string().url("Enter a valid website url").trim("Enter valid website url").required("Website url is required").strict(),
+    address: yup.string().trim("Enter the valid address").required("Address is required").strict(),
+    companyName: yup.string().trim("Enter the valid company name").strict(),
+    companyUrl: yup.string().url("Enter a valid website url").trim("Enter valid website url").strict(),
     // companyNumber: yup.string().trim("Enter valid number").min(10, "Enter valid number").max(10, "Enter valid number").required("number is required"),
     password: yup.string().trim("Enter valid password").min(6, "Minimum 6 characters required").required("Password is required").strict(),
     confirmPassword: yup.string().oneOf([yup.ref('password')], 'Passwords must match').trim("Enter valid confirm password").required("Confirm password is required").strict(),
@@ -204,7 +197,7 @@ function SignUp() {
                                   {toasterMessage &&
                                     <div className={"flex w-full items-center justify-start absolute"}>
                                       <span className='text-red-500 text-[12px]'>
-                                        {toasterMessage === '"email" must be a valid email' && 'Email must be a valid email'}
+                                        {toasterMessage === '"email" must be a valid email' && 'Enter the valid email address'}
                                       </span>
                                     </div>}
                                 </div>

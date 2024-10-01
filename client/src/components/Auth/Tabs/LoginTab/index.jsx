@@ -26,14 +26,14 @@ const LoginTab = (props) => {
   };
 
   const validationSchema = yup.object().shape({
-    email: yup.string().trim("Enter valid email").required("Email is required").email("Email must be a valid email")
-      .test('is-valid-email', 'Email must be a valid email', value => {
+    email: yup.string().trim("Enter the valid email address").required("Email is required").email("Enter the valid email address")
+      .test('is-valid-email', 'Enter the valid email address', value => {
         if (!value) return false; // Ensure it's not empty
         // Use a regex to validate email format more strictly if needed
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]{2,}\.[a-zA-Z]{2,}$/;
         return emailRegex.test(value);
       }),
-    password: yup.string().trim("Enter valid password").min(6, "Minimum 6 characters required").required("Password field cannot be empty").strict(),
+    password: yup.string().trim("Enter valid password").min(6, "Minimum 6 characters required").required("Password is required").strict(),
   });
   useEffect(() => {
     if (isLogged) {
@@ -92,7 +92,7 @@ const LoginTab = (props) => {
                     <InputComponent label={"Email"} placeholder={"Enter email address"} value={loginProps.values.email} name={"email"} type="text" onChange={handleInputChange} />
                     <div className="flex w-full items-center absolute bottom-[-20px]">
                       <span className="text-red-400 text-[12px]">
-                        {toastMessage == '"email" must be a valid email' && "Enter valid email address"}
+                        {toastMessage == '"email" must be a valid email' && "Enter the valid email address"}
                       </span>
                     </div>
                   </div>

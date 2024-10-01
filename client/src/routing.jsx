@@ -87,7 +87,7 @@ function Routing() {
                             <Route path='/dashboard/' element={<Layout />} >
                                 <Route path='' element={<AdminDashboardWrapper />} />
                                 <Route path='profile' element={<ProfileWrapper />} />
-                                <Route path='customer/profile/:id' element={<CustomerProfileWrapper />} />
+                                {/* <Route path='customer/profile/:id' element={<CustomerProfileWrapper />} /> */}
                                 <Route path='invoice/add/:id' element={<AddInvoiceWrapper />} />
                                 <Route path='invoice/view/:id' element={<ViewInvoiceWrapper />} />
                                 <Route path='invoice/add/:id' element={<AddInvoiceWrapper />} />

@@ -146,7 +146,7 @@ function AddInvoice({ id, email, companyName }) {
                                             <IoArrowBack size={20} />
                                         </span>
                                         <span className=''>
-                                            {companyName || ''}
+                                            {companyName || '-'}
                                         </span>
                                     </div>
 

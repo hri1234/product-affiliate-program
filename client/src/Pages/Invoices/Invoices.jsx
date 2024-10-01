@@ -64,8 +64,15 @@ function Invoices({ listData, loading, count, setCurrentPage, currentPage }) {
                         <td style={{ paddingLeft: '40px' }}>${invoice?.commission}</td>
                         <td>{invoice?.status}</td>
                         <td>{invoice?.createdAt
-                          ? new Date(invoice?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
-                          : 'N/A'}</td>
+                          ? (() => {
+                            const date = new Date(invoice.createdAt);
+                            const day = String(date.getDate()).padStart(2, '0');
+                            const month = date.toLocaleString('en-GB', { month: 'long' });
+                            const year = date.getFullYear();
+                            return `${day} ${month}, ${year}`;
+                          })()
+                          : 'N/A'}
+                        </td>
                       </tr>
                     ))}
                     <tr className="spacer-row">

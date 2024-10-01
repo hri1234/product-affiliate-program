@@ -46,11 +46,11 @@ function AdminAddAffiliateLinks({ listData, loading }) {
     };
 
     const validationSchema = yup.object().shape({
-        name: yup.string().trim("Enter valid name").required("Name is required").strict(),
-        link: yup.string().url("Enter a valid link").trim("Enter a valid link").required("Link is required").strict(),
-        dropboxLink: yup.string().url("Enter a valid dropbox link").trim("Enter a valid dropbox link").required("Dropbox link is required").strict(),
+        name: yup.string().trim("Enter valid product name").required("Product name is required").strict(),
+        link: yup.string().url("Enter valid product link").trim("Enter valid product link").required("Product link is required").strict(),
+        dropboxLink: yup.string().url("Enter valid dropbox link").trim("Enter valid dropbox link").strict(),
         imageUrl: yup.string()
-            .required("Image is required")
+            .required("Product thumbnail image is required")
             .strict()
             .matches(/\.(jpg|jpeg|png)$/, "Image must be a valid JPG, JPEG, or PNG file"),
         // clickCount: yup.string().matches(/^\d+$/, "Click count must be a number").required("Click count is required").strict(),
@@ -167,7 +167,7 @@ function AdminAddAffiliateLinks({ listData, loading }) {
                                         <span onClick={() => { navigate('/dashboard/affiliate-links') }} className='font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
                                             <IoArrowBack size={20} />
                                         </span>
-                                        <p className='text-[20px] font-semibold'>Create Affiliate</p>
+                                        <p className='text-[20px] font-semibold'>Create Affiliate Product</p>
                                     </div>
                                     <Fragment>
                                         <Card className=' w-full'>
@@ -179,13 +179,13 @@ function AdminAddAffiliateLinks({ listData, loading }) {
                                                     <Col md='6'>
 
                                                         {/* {/ Inp/utControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, in! /} */}
-                                                        <InputComponent label={"Name"} type="text" name='name' value={profileProps.values.name} placeholder='Enter affiliate name' onChange={profileProps.handleChange} />
+                                                        <InputComponent label={"Product Name"} type="text" name='name' value={profileProps.values.name} placeholder='Enter product name' onChange={profileProps.handleChange} />
                                                     </Col>
                                                     {/* <Col md='4'>
                                                         <InputComponent label={"Click count"} type={"text"} value={profileProps.values.clickCount} name='clickCount' onChange={profileProps.handleChange} placeholder={"Enter Click count"} />
                                                     </Col> */}
                                                     <Col md='6 mb-3'>
-                                                        <InputComponent label={"Link"} type={"text"} value={profileProps.values.link} name='link' onChange={profileProps.handleChange} placeholder={"Enter your link"} />
+                                                        <InputComponent label={"Product Link"} type={"text"} value={profileProps.values.link} name='link' onChange={profileProps.handleChange} placeholder={"Enter product link"} />
 
                                                     </Col>
                                                     {/* {/ <InputComponent label={"Purchases"} type={"text"} value={profileProps.values.purchases} name='purchases' onChange={profileProps.handleChange} placeholder={"Enter purchase count"} /> /} */}
@@ -203,7 +203,7 @@ function AdminAddAffiliateLinks({ listData, loading }) {
                                                         {
                                                             handleImageUploadloading ?
                                                                 <div  >
-                                                                    <span className=' pl-[3px] font-semibold text-[13px]'>Thumnail Image</span>
+                                                                    <span className=' pl-[3px] font-semibold text-[13px]'>Product Thumbnail Image</span>
                                                                     <div className='border rounded-[10px]'>
                                                                         <span className='w-fit  h-10  flex items-center justify-center m-auto self-center animate-spin'>
                                                                             <span className='w-fit'>
@@ -214,7 +214,7 @@ function AdminAddAffiliateLinks({ listData, loading }) {
                                                                     </div>
                                                                 </div>
                                                                 :
-                                                                <InputComponent onChange={(e) => handleThumbnail(e, profileProps.setFieldValue, profileProps.setFieldError)} name={'imageUrl'} fileName={FileName} type={"file"} label={"Thumnail Image"} />
+                                                                <InputComponent onChange={(e) => handleThumbnail(e, profileProps.setFieldValue, profileProps.setFieldError)} name={'imageUrl'} fileName={FileName} type={"file"} label={"Product Thumbnail Image"} />
                                                         }
                                                     </Col>
                                                 </Row>

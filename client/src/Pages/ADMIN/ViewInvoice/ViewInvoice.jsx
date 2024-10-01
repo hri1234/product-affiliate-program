@@ -66,7 +66,7 @@ function ViewInvoice({ loading, listData, OverViewData, email, companyName, coun
           :
 
           <>
-            <p className='text-[20px] font-semibold'>Invoice View</p>
+            <p className='text-[20px] font-semibold'>Invoices</p>
 
 
 
@@ -81,7 +81,7 @@ function ViewInvoice({ loading, listData, OverViewData, email, companyName, coun
                     <IoArrowBack size={20} />
                   </span>
                   <span className=''>
-                    {companyName || ''}
+                    {companyName || '-'}
                   </span>
                 </div>
 
@@ -179,8 +179,15 @@ function ViewInvoice({ loading, listData, OverViewData, email, companyName, coun
                                 onChange={(e) => { e?.label == itm?.status ? console.log("") : handleSelect(e, itm?.id) }} placeholder={itm?.status} value={itm?.status} className='w-[75%] max-w-[75%] m-0 h-[12px] pt-2  px-0' options={[{ label: "Pending", value: "pending" }, { label: "Paid", value: "paid" }]} />
                               {/* <td>{itm.companyName}</td> */}
                               <td> {itm?.createdAt
-                                ? new Date(itm?.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
-                                : 'N/A'}</td>
+                                ? (() => {
+                                  const date = new Date(itm.createdAt);
+                                  const day = String(date.getDate()).padStart(2, '0');
+                                  const month = date.toLocaleString('en-GB', { month: 'long' });
+                                  const year = date.getFullYear();
+                                  return `${day} ${month}, ${year}`;
+                                })()
+                                : 'N/A'}
+                              </td>
                             </tr>
                           ))
                         }
@@ -194,16 +201,16 @@ function ViewInvoice({ loading, listData, OverViewData, email, companyName, coun
 
               }
             </div>
-                    <div className='w-full flex justify-end py-4'>
-                      <Pagination
-                        shape="rounded"
-                        variant="outlined"
-                        color="standard"
-                        page={currentPage}
-                        count={count}
-                        onChange={handlePageChange}
-                      />
-                    </div>
+            <div className='w-full flex justify-end py-4'>
+              <Pagination
+                shape="rounded"
+                variant="outlined"
+                color="standard"
+                page={currentPage}
+                count={count}
+                onChange={handlePageChange}
+              />
+            </div>
 
           </>
 

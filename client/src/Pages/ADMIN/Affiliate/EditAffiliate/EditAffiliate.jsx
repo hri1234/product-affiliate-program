@@ -174,7 +174,7 @@ function EditAffiliate({ listData, loading }) {
                                             <span onClick={() => { navigate('/dashboard/affiliate-links') }} className='font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
                                                 <IoArrowBack size={20} />
                                             </span>
-                                            <p className='text-[20px] font-semibold'>Edit Affiliate</p>
+                                            <p className='text-[20px] font-semibold'>Edit Affiliate Product</p>
                                         </div>
                                         <Fragment>
                                             <Card className=' w-full'>
@@ -203,7 +203,7 @@ function EditAffiliate({ listData, loading }) {
                                                         <Col md='6 mb-3'>
                                                             <div className='flex flex-col gap-2 '>
 
-                                                                <span className=' font-semibold text-[13px]'>Thumbnail Image</span>
+                                                                <span className=' font-semibold text-[13px]'>Product thumbnail Image</span>
                                                                 <span className=' w-full flex gap-2 items-center '>
                                                                     <div className='relative flex justify-between'>
                                                                         {

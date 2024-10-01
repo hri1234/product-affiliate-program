@@ -50,7 +50,7 @@ const LogoWrapper = () => {
     <div className='logo-wrapper overflow-hidden p-3'>
       <div className='ml-[0px] p-[4px]'>
 
-        <Link style={{ border: 'none', textDecoration: 'none' }}>
+        <div style={{ border: 'none', textDecoration: 'none' }}>
         {/* to={`/dashboard`} */}
           {/* <Image className='img-fluid for-light w-[140px] h-[50px] ml-[10px] mt-[10px]' src={logo} alt='logo' /> */}
 
@@ -59,13 +59,13 @@ const LogoWrapper = () => {
               // <span className=' flex capitalize text-black hover:text-black items-center text-[20px] mt-1 font-semibold justify-center h-[47px] '>
               //   Hello !
               // </span>
-              <span className=' m-auto h-[53px] duration-600 ease-in-out w-[66px] bg-orange hover:text-black my-3 mb-4 flex items-center justify-center text-[19.5px] font-semibold mt-3 pt-2 ml-[11px]'>Hello !</span>
+              <span className=' m-auto h-[53px] cursor-default duration-600 ease-in-out w-[66px] bg-orange hover:text-black my-3 mb-4 flex items-center justify-center text-[19.5px] font-semibold mt-3 pt-2 ml-[11px]'>Hello !</span>
               :
-              <span className='overflow-hidden flex break-all w-[245px] capitalize duration-600 ease-in-out text-black hover:text-black items-center text-[22px] mt-2 font-semibold justify-center h-[50px] '>
-                Hello {decodedData?.role == 'admin' ? "Admin !" : companyName?.slice(0,25) + "!"}
+              <span className='overflow-hidden cursor-default flex break-all w-[245px] capitalize duration-600 ease-in-out text-black hover:text-black items-center text-[22px] mt-2 font-semibold justify-center h-[50px] '>
+                Hello {decodedData?.role == 'admin' ? "Admin !" : companyName?.split(' ')[0] || '' + "!"}
               </span>
           }
-        </Link>
+        </div>
         {/* <hr className='w-full m-auto text-black' /> */}
       </div>
 

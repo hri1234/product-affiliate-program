@@ -39,7 +39,7 @@ function AnalyticsGraph({ selectedYear, setSelectedYear, YearList, loading, Mont
         },
       },
       xaxis: {
-        categories: Array.from({ length: 30 }, (_, i) => (i + 1).toString()), // Days of the month
+        categories: Array.from({ length: new Date(selectedYear, selectedMonth, 0).getDate() }, (_, i) => (i + 1).toString()), // Days of the month
       },
     },
   });
@@ -52,7 +52,7 @@ function AnalyticsGraph({ selectedYear, setSelectedYear, YearList, loading, Mont
     const getDay = (dateString) => new Date(dateString).getDate();
 
     // Initialize an array for days 1 to 30
-    const daysOfMonth = Array.from({ length: 30 }, (_, i) => i + 1);
+   const daysOfMonth = Array.from({ length: new Date(selectedYear, selectedMonth, 0).getDate() }, (_, i) => i + 1);
 
     // Filter analytics data for the selected month
     const filteredData = analyticsData?.filter(click => new Date(click.createdAt).getMonth() + 1 === selectedMonth);

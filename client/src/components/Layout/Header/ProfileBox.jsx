@@ -7,7 +7,7 @@ import { FaAngleDown } from "react-icons/fa6";
 import Cookies from 'js-cookie'
 import { jwtDecode } from 'jwt-decode';
 import { useGetProfileQuery } from '../../../services/ProfileService';
-
+import ProfileImage from './image_2024_10_01T10_35_05_438Z.png';
 const ProfileBox = () => {
 
   const userToken = Cookies.get("isLogged");
@@ -28,7 +28,7 @@ const ProfileBox = () => {
     else {
       setLoading(false);
       setListData(data?.result);
-      setCookieProfile(data?.result?.result?.companyName)
+      setCookieProfile(data?.result?.result?.companyName || "")
 
     }
   }, [listLoading, data, listFetching])
@@ -46,10 +46,12 @@ const ProfileBox = () => {
 
   return (
     <div className=' flex gap-2 pl-4 items-center justify-center'>
-      <span className=' bg-slate-200 w-[50px] h-[50px] rounded-full flex items-center font-semibold justify-center'>{userEmail?.toUpperCase()}</span>
-      <div className=' flex flex-col gap-0 w-fit'>
-        <span className=' m-0 p-0 w-fit capitalize'>{role == 'admin' ? "Admin" : cookieProfile?.slice(0,25) || "Profile"}</span>
-      </div>
+      <span className='  rounded-full flex items-center font-semibold justify-center'><img src={ProfileImage} className='object-cover w-[50px]  rounded-full  h-[50px]' alt="" /></span>
+      {(role == 'admin' || cookieProfile) &&
+        <div className=' flex flex-col gap-0 w-fit'>
+          <span className=' m-0 p-0 w-fit capitalize'>{role == 'admin' ? "Admin" : cookieProfile?.slice(0, 25) || "Profile"}</span>
+        </div>
+      }
     </div>
   );
 };

@@ -39,8 +39,8 @@ function EmailAuth() {
     };
 
     const validationSchema = yup.object().shape({
-        email: yup.string().trim("Enter valid email").required("Email is required").email("Email must be a valid email")
-            .test('is-valid-email', 'Email must be a valid email', value => {
+        email: yup.string().trim("Enter the valid email address").required("Email is required").email("Enter the valid email address")
+            .test('is-valid-email', 'Enter the valid email address', value => {
                 if (!value) return false;
                 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]{2,}\.[a-zA-Z]{2,}$/;
                 return emailRegex.test(value);
@@ -105,9 +105,9 @@ function EmailAuth() {
                                             /> */}
                                             <div className=" w-full flex items-center justify-center login-tab">
                                                 {/* <div className="  bg-white w-[78%] border shadow-md rounded-[10px] py-6 px-6 flex md:flex-row flex-col-reverse gap-14"> */}
-                                                <div className="  bg-white w-[78%] border shadow-md rounded-[10px] py-6 px-6 flex justify-center items-center">
+                                                <div className="  bg-white w-[78%] border shadow-md rounded-[10px] py-6 px-6 flex justify-center items-center flex-col">
                                                     <div className=" w-full md:w-[48.6%]">
-                                                    {/* <div className=" w-full md:w-[48.6%] mt-5"> */}
+                                                        {/* <div className=" w-full md:w-[48.6%] mt-5"> */}
 
                                                         <div className="theme-form flex flex-col gap-3 p-3">
                                                             <div className=' flex flex-col gap-3'>
@@ -135,10 +135,17 @@ function EmailAuth() {
                                                             </Btn> */}
                                                                 <div className='relative'>
                                                                     <div className="flex w-full items-center justify-center absolute top-[-25px]">
-                                                                        <span className="text-red-400 text-[14px]">
-                                                                            {toastMessage === '"email" must be a valid email' ? "Enter valid email address" : toastMessage}
+                                                                        <span className="text-red-400 text-[12px]">
+                                                                            {toastMessage === '"email" must be a valid email' ? "Enter the valid email address" : toastMessage}
                                                                         </span>
                                                                     </div>
+                                                                    {showMessage &&
+                                                                        <div className='text-center text-[12px] absolute top-[-25px] w-full'>
+                                                                            <span className='ms-2 text-green-500'>
+                                                                                Reset link sent successfully to your email address
+                                                                            </span>
+                                                                        </div>
+                                                                    }
                                                                     <button className=" bg-black text-white py-[6.5px] border d-block w-100 mt-1 rounded-full" type="submit">
                                                                         {
                                                                             loading ?
@@ -151,8 +158,7 @@ function EmailAuth() {
                                                                     </button>
                                                                 </div>
                                                             </div>
-                                                            <div className='flex flex-col gap-[3px] pt-1'>
-
+                                                            {/* <div className='flex flex-col gap-[3px] pt-1 w-full'>
                                                                 <P className='text-center mb-0 text-[16px] pt-0 mt-0 '>
                                                                     Remember your password ?
                                                                     <Link className='ms-2 text-black hover:text-black' to={`${process.env.PUBLIC_URL}/login`}>
@@ -165,17 +171,19 @@ function EmailAuth() {
                                                                         Sign up
                                                                     </Link>
                                                                 </P>
-                                                            </div>
-                                                            {
-                                                                showMessage &&
-                                                                <P className='text-center mb-0 text-[16px] pt-1 mt-1 '>
-                                                                    <span className='ms-2 text-green-500'>
-                                                                        Reset link sent successfully to your gmail !
-                                                                    </span>
-                                                                </P>
-                                                            }
+                                                            </div> */}
                                                         </div>
                                                     </div>
+                                                    <p className='text-[16px]'>
+                                                        Remember your password?
+                                                        <Link className='ms-2 text-black hover:text-black pr-[4px]' to={`${process.env.PUBLIC_URL}/login`}>
+                                                            Sign in
+                                                        </Link>
+                                                        |  Want to create an account?
+                                                        <Link className='ms-2 text-black hover:text-black' to={`${process.env.PUBLIC_URL}/register`}>
+                                                            Sign up
+                                                        </Link>
+                                                    </p>
                                                     {/* <div className=" w-full  md:w-[520px] object-contain md:object-cover h-[200px]  md:h-[460px]">
                                                         <img src={banner} className="border shadow-xl object-fit w-full h-full rounded-[16px]" alt="" />
                                                     </div> */}

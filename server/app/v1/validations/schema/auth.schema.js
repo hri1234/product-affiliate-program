@@ -28,13 +28,13 @@ exports.registerSchema = Joi.object({
     country: Joi.string().optional(),
     city: Joi.string().optional(),
     address: Joi.string().optional(),
-    companyName: Joi.string().optional(),
+    companyName: Joi.string().allow(null, '').optional(),
     // companyNumber: Joi.number().optional(),
-    companyUrl: Joi.string().optional(),
+    companyUrl: Joi.string().allow(null, '').optional(),
     phone: Joi.number().max(10).optional(),
     role: Joi.string().valid('admin', 'customer').optional(),
     isActive: Joi.boolean().optional(),
-    commisionByPercentage:Joi.number().optional(),
+    commisionByPercentage: Joi.number().optional(),
 });
 
 exports.resetPasswordSchema = Joi.object({
@@ -50,9 +50,9 @@ exports.updateProfile = Joi.object({
     country: Joi.string().optional(),
     city: Joi.string().optional(),
     address: Joi.string().optional(),
-    companyName: Joi.string().optional(),
+    companyName: Joi.string().allow(null, '').optional(),
     companyNumber: Joi.number().optional(),
-    companyUrl: Joi.string().optional(),
+    companyUrl: Joi.string().allow(null, '').optional(),
     phone: Joi.number().max(10).optional(),
     role: Joi.string().valid('admin', 'customer').optional(),
     isActive: Joi.boolean().optional()

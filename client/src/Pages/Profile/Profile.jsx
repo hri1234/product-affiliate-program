@@ -42,8 +42,8 @@ function Profile({ listData, loading }) {
   };
 
   const validationSchema = yup.object().shape({
-    payPalAddress: yup.string().trim("Enter valid PayPal address").required("PayPal address is required").email("PayPal address must be valid")
-      .test('is-valid-email', 'PayPal address must be valid', value => {
+    payPalAddress: yup.string().trim("Enter the valid PayPal address").required("PayPal address is required").email("Enter the valid PayPal address")
+      .test('is-valid-email', 'Enter the valid PayPal address', value => {
         if (!value) return false; // Ensure it's not empty
         // Use a regex to validate email format more strictly if needed
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]{2,}\.[a-zA-Z]{2,}$/;
@@ -55,8 +55,8 @@ function Profile({ listData, loading }) {
     }).nullable().required("Country is required"),
     city: yup.string().trim("Enter valid city").required("City is required").strict(),
     address: yup.string().trim("Enter valid address").required("Address is required").strict(),
-    companyName: yup.string().trim("Enter valid companyName").required("Company name is required").strict(),
-    companyUrl: yup.string().url("Enter a valid company url").trim("Enter valid company url").required("Company url is required").strict(),
+    companyName: yup.string().trim("Enter valid companyName").strict(),
+    companyUrl: yup.string().url("Enter a valid company url").trim("Enter valid company url").strict(),
     // companyNumber: yup.string().trim("Enter valid number").min(10, "Enter valid number").max(10, "Enter valid number").required("number is required"),
   });
 
@@ -118,7 +118,7 @@ function Profile({ listData, loading }) {
                   </div>
                   :
                   <>
-                    <p className='text-[20px] font-semibold mb-3 pb-2'>Profile</p>
+                    <p className='text-[20px] font-semibold mb-3 pb-2'>Account</p>
                     <Fragment>
                       <Card className=' w-full'>
                         {/* <CardHeader className='pb-0'>
@@ -126,7 +126,7 @@ function Profile({ listData, loading }) {
                       </CardHeader> */}
                         <div className='pb-0 pt-4 px-[26px]'>
                           <span className='text-[20px]'>
-                            Profile Update
+                            Update Profile
                           </span>
                         </div>
                         <CardBody>

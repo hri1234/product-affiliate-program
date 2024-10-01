@@ -11,7 +11,7 @@ export const AdminMenu = [
         bookmark: true
       },
       {
-        title: 'Affiliate Links',
+        title: 'Affiliate Products',
         icon: <FiGitPullRequest />,
         url: `/dashboard/affiliate-links`,
         bookmark: true
