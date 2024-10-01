@@ -24,7 +24,8 @@ const SidebarSubMenu = ({ menu, className, setIsOpen, isOpen, level }) => {
         setIsOpen({ ...isOpen, [level]: item.title });
       }
     });
-  }, [testToken, menu, isOpen, level]);
+  }, [testToken, menu, level]);
+  // , isOpen
 
   return (
     <ul className={className}>

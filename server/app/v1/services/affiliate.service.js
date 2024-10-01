@@ -191,6 +191,58 @@ exports.getAffiliate = async (req, res) => {
     }
 }
 
+//main functionality
+//add assgin affiliate service
+
+// exports.addAssignAffiliate = async (id, details) => {
+//     const transaction = await db.sequelize.transaction();
+//     try {
+
+//         const addedValue = await Promise.all(details.details.map(async (i) => {
+//             const result = await Users.update(
+//                 { commisionByPercentage: i.commision },
+//                 {
+//                     where: { id: i.userId },
+//                     transaction,
+//                 }
+//             );
+
+
+//             if (result[0] === 0) {
+//                 return false
+//             }
+
+//             return {
+//                 affiliateId: id,
+//                 userId: i.userId,
+//             };
+//         }));
+//         if (!addedValue[0] == false) {
+//             const createdAssign = await AssignAffiliate.bulkCreate(addedValue, { transaction });
+
+//             await transaction.commit();
+
+//             return {
+//                 status: true,
+//                 result: createdAssign,
+//             };
+//         }
+//         await transaction.rollback()
+
+//     } catch (error) {
+
+//         await transaction.rollback();
+//         console.log('Error occurred:', error);
+
+//         return {
+//             status: false,
+//             result: error.message,
+//         };
+//     }
+// };
+
+
+
 //add assgin affiliate service
 exports.addAssignAffiliate = async (id, details) => {
     try {

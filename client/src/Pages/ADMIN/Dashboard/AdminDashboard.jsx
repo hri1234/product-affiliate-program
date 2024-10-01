@@ -9,7 +9,9 @@ import { Pagination } from '@mui/material';
 import { useUpdateCommissionMutation, useUserStatusMutation } from '../../../services/AdminService';
 import toast from 'react-hot-toast';
 
-function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count }) {
+function AdminDashboard({
+
+  loading, ListData, setCurrentPage, currentPage, count }) {
   const [status, setStatus] = useState();
   const [statusLoading, setStatusLoading] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState('')
@@ -30,13 +32,14 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
 
   const handleViewInvoice = (itm) => {
     // navigate(`invoice/view/${itm?.id}/${itm?.email}`);
-    console.log(itm?.companyName, 'ITMMMMMMMMMMMMMMMMMMMMMMMMMMM')
     const data = { email: itm?.email, companyName: itm?.companyName };
     navigate(`invoice/view/${itm?.id}`, { state: data });
   }
   const handlePageChange = (e, page) => {
     setCurrentPage(page)
   }
+
+
 
   const handleEmailClick = (id) => {
     console.log('email click................', id);
@@ -54,7 +57,12 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
           setStatusLoading(false)
 
         } else {
-          toast.success("Status Updated");
+          if (isActive) {
+            toast.success("User Activated");
+          }
+          else {
+            toast.success("User Deactivated");
+          }
           setStatusLoading(false)
 
         }
@@ -67,29 +75,67 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
       });
   };
 
+  const [commisionToast, setCommissionToast] = useState({
+    message: '',
+    id: ''
+  });
+  let timeoutId;
   const handleCommission = (value, id, idx) => {
-    setCommissionLoading(true)
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+    if (value === "" || value === null || value === undefined) {
+      setCommissionToast(
+        {
+          message: "Commission is required",
+          id: idx
+        }
+      );
+      // toast.error("Commission is required");
+      return;
+    }
+    const numericValue = Number(value);
+    if (numericValue < 1 || numericValue > 50) {
+      setCommissionToast(
+        {
+          message: "Commission should be between 1-50",
+          id: idx
+        }
+      );
+      // toast.error("Commission should be between 1-50");
+      return;
+    }
+    setCommissionLoading(true);
     setSelectedCommissonIdx(idx);
-    UpdateCommitssion({
-      Id: id, data: {
-        commission: Number(value)
-      }
-    }).then(res => {
-      if (res.error) {
-        console.log(res.error, 'res.error');
-        toast.error("Internal server error");
-        setCommissionLoading(false)
-      }
-      else {
-        console.log(res, 'res');
-        toast.success("Commission updated successfully");
-        setCommissionLoading(false)
-      }
-    }).catch((err) => {
-      console.log(err);
-      setCommissionLoading(false)
-    });
-  }
+    timeoutId = setTimeout(() => {
+      UpdateCommitssion({
+        Id: id,
+        data: {
+          commission: numericValue
+        }
+      }).then(res => {
+        if (res.error) {
+          console.log(res.error, 'res.error');
+          toast.error("Internal server error");
+          setCommissionLoading(false);
+        } else {
+          console.log(res, 'res');
+          toast.success("Commission updated successfully");
+          setCommissionLoading(false);
+        }
+      }).catch((err) => {
+        console.log(err);
+        toast.error("An error occurred while updating the commission");
+        setCommissionLoading(false);
+      });
+    }, 500);
+  };
+  // Function to handle keydown event
+  const handleKeyDown = (e, value, id, idx) => {
+    if (e.key === 'Enter') {
+      handleCommission(value, id, idx);
+    }
+  };
 
   console.log(ListData)
   return (
@@ -153,19 +199,22 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
                             <td>{itm?.companyName}</td>
                             <td>{itm?.userId}</td>
                             <td><span className='hover:underline cursor-pointer' onClick={() => { handleEmailClick(itm?.id) }}>{itm?.email}</span></td>
-                            <td>
-                              {
-                                commissionLoading && selectedCommissonIdx == indx ? <span className=' w-fit flex py-1 items-center justify-center m-auto self-center animate-spin'>
+                            <td className='relative'>
+                              {/* <input type="number" min="1" max="50" defaultValue={itm?.commisionByPercentage} onChange={(e) => { handleCommission(e.target.value, itm?.id, indx) }} className="bg-white border border-black  text-black text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5" /> */}
+                              {commissionLoading && selectedCommissonIdx == indx ?
+                                <span className=' w-fit flex py-1 items-center justify-center m-auto self-center animate-spin'>
                                   <AiOutlineLoading3Quarters />
-                                </span> : <select defaultValue={itm?.commisionByPercentage} onChange={(e) => { handleCommission(e.target.value, itm?.id, indx) }} className="bg-white border border-black text-black text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5">
-                                  <option value="10">10</option>
-                                  <option value="20">20</option>
-                                  <option value="40">40</option>
-                                  <option value="80">80</option>
-                                  <option value="90">90</option>
-                                  <option value="100">100</option>
-                                </select>
-                              }
+                                </span> :
+                                <input
+                                  type="number"
+                                  min="1"
+                                  max="50"
+                                  defaultValue={itm?.commisionByPercentage}
+                                  onChange={() => setCommissionToast({ message: "", id: '' })}
+                                  onKeyDown={(e) => handleKeyDown(e, e.target.value, itm?.id, indx)} // Only handle keydown
+                                  className="bg-white border border-black text-black text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5"
+                                />}
+                              {commisionToast.id === indx && commisionToast.message && <p className='absolute text-red-400 text-[12px] bottom-[2px]'>{commisionToast.message}</p>}
                             </td>
                             <td>
                               {
@@ -174,13 +223,9 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
                                     <AiOutlineLoading3Quarters />
                                   </span>
                                   :
-                                  <select
-                                    name="status"
-                                    value={itm.isActive ? "true" : "false"}
-                                    onChange={(e) => selectHandleStatus(e.target.value === "true", itm, indx)}
-                                  >
-                                    <option value="true">Active</option>
-                                    <option value="false">Deactive</option>
+                                  <select name="status" value={itm.isActive ? "true" : "false"} onChange={(e) => selectHandleStatus(e.target.value === "true", itm, indx)}>
+                                    <option value="true">Activate</option>
+                                    <option value="false">Deactivate</option>
                                   </select>
                               }
                             </td>

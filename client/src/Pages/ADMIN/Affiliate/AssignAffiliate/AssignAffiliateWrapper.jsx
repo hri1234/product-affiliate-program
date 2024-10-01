@@ -23,7 +23,7 @@ function AssignAffiliateWrapper() {
     const [Assignedcount, setAssignedCount] = useState(1);
 
 
-    const { data, isLoading: listLoading, isFetching: listFetching } = useGetAffiliateAvailableUsersQuery({
+    const { data, isLoading: listLoading, isFetching: listFetching,refetch } = useGetAffiliateAvailableUsersQuery({
         Id: AffiliateId?.id,
         data:
             { limit: dataPerPage, page: currentPage, search: ReduxData }
@@ -47,7 +47,7 @@ function AssignAffiliateWrapper() {
 
     ////////////////////  assigned customer list   ////////////////////
 
-    const { data: AssignedData, isLoading: AssignedlistLoading, isFetching: AssignedlistFetching } = useGetAssignedCustomerListQuery({
+    const { data: AssignedData, isLoading: AssignedlistLoading, isFetching: AssignedlistFetching,refetch:assignedRefetch } = useGetAssignedCustomerListQuery({
         Id: AffiliateId?.id,
         data:
             { limit: dataPerPage, page: AssignedcurrentPage, search: ReduxData }
@@ -67,6 +67,14 @@ function AssignAffiliateWrapper() {
         }
     }, [AssignedlistFetching, AssignedData, AssignedlistLoading])
 
+    useEffect(()=>
+        { 
+            assignedRefetch()
+        },[AssignedcurrentPage])
+    useEffect(()=>
+        { 
+          refetch()
+        },[currentPage])
     return (
         <div className='page-body py-4 px-4'>
             <AssignAffiliate AssignedListData={AssignedListData} Assignedlistloading={Assignedlistloading} NotAssignedlistData={NotAssignedlistData} notAssignedlistloading={notAssignedlistloading} setCurrentPage={setCurrentPage} setAssignedCurrentPage={setAssignedCurrentPage} currentPage={currentPage} AssignedcurrentPage={AssignedcurrentPage} count={count} Assignedcount={Assignedcount} />

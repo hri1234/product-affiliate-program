@@ -50,7 +50,8 @@ const LogoWrapper = () => {
     <div className='logo-wrapper overflow-hidden p-3'>
       <div className='ml-[0px] p-[4px]'>
 
-        <Link style={{ border: 'none', textDecoration: 'none' }} to={`/dashboard`}>
+        <Link style={{ border: 'none', textDecoration: 'none' }}>
+        {/* to={`/dashboard`} */}
           {/* <Image className='img-fluid for-light w-[140px] h-[50px] ml-[10px] mt-[10px]' src={logo} alt='logo' /> */}
 
           {

@@ -79,7 +79,7 @@ exports.allUsers = async (req) => {
     }
 }
 
-
+//not assigned
 exports.notAssignedCustomers = async (affiliateId, req) => {
     try {
 
@@ -135,8 +135,7 @@ exports.notAssignedCustomers = async (affiliateId, req) => {
 }
 
 
-exports.
-affiliateListAssign = async (id, req) => {
+exports.affiliateListAssign = async (id, req) => {
     try {
 
         const page = parseInt(req.body.page) || 1;  // Default to page 1

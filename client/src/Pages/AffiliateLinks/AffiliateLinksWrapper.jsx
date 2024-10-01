@@ -63,7 +63,7 @@ function AffiliateLinksWrapper() {
 
   return (
     <>
-      <div className='page-body px-4 h-full pb-5 '>
+      <div className='page-body px-4 h-full py-4 '>
         <AffiliateLinks uniqueId={uniqueId} listData={listData} loading={loading} count={count} setCurrentPage={setCurrentPage} currentPage={currentPage} />
       </div>
     </>

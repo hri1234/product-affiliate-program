@@ -110,7 +110,7 @@ function AddInvoice({ id, email, companyName }) {
                     toast.error(res?.error?.data?.error)
                 }
                 else {
-                    toast.success("Invoice added");
+                    toast.success("Invoice Created");
                     navigate('/dashboard')
                 }
             })
@@ -134,7 +134,7 @@ function AddInvoice({ id, email, companyName }) {
                         (
                             <Form>
                                 <span className='text-[20px] font-semibold'>
-                                    Add Invoice
+                                    Create Invoice
                                 </span>
                                 <div className='flex w-full justify-between mt-4 mb-4 px-1 py-0 '>
 
@@ -315,7 +315,7 @@ function AddInvoice({ id, email, companyName }) {
                                             </Btn> */}
                                             < div className=' w-[120px] mt-3' >
                                                 <button className=" bg-black text-white w-fit py-[6.5px] border w-100 mt-2 rounded-full" type="submit">
-                                                    Submit
+                                                    Create
                                                 </button>
                                             </div >
                                         </CardBody >

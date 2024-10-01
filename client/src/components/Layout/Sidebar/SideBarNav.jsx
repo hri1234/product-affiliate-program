@@ -155,7 +155,7 @@ const SideBarNav = () => {
           }
         }
       >
-        <div onClick={() => setTogglSidebar(!togglSidebar)} className=' text-[36px] bg-transparent toggle-sidebar   hover:shadow duration-100 transition-all ease-linear text-black'>
+        <div onClick={() =>{setTogglSidebar(!togglSidebar); console.log("toggleSidebar")}} className=' text-[36px] bg-transparent toggle-sidebar   hover:shadow duration-100 transition-all ease-linear text-black'>
           {
             togglSidebar ?
 

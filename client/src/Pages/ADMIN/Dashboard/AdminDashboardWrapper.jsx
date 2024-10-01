@@ -34,7 +34,7 @@ function AdminDashboardWrapper() {
   const dataPerPage = 10;
 
 
-  const { data, isLoading, isFetching } = useGetUserListQuery(
+  const { data, isLoading, isFetching,refetch } = useGetUserListQuery(
     {
       data:
         { limit: dataPerPage, page: currentPage, search: searchFilter }
@@ -48,10 +48,9 @@ function AdminDashboardWrapper() {
     else {
       setLoading(false);
       setListData(data?.result);
-      console.log(data?.result?.result?.count, 'count')
       setCount(Math.ceil(data?.result?.result?.count / dataPerPage))
     }
-  }, [isLoading, isFetching, data])
+  }, [isLoading, isFetching, data, currentPage])
 
   console.log(data?.result, 'userList')
 
@@ -70,9 +69,13 @@ function AdminDashboardWrapper() {
 
 
 
+  useEffect(()=>
+    { 
+      refetch()
+    },[currentPage])
   return (
     <div className="page-body px-4  h-full">
-      <AdminDashboard count={count} loading={loading} ListData={ListData?.result} setCurrentPage={setCurrentPage} currentPage={currentPage} />
+      <AdminDashboard refetch={refetch} count={count} loading={loading} ListData={ListData?.result} setCurrentPage={setCurrentPage} currentPage={currentPage} />
     </div>
   )
 }

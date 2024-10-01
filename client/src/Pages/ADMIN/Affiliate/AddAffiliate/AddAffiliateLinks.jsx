@@ -90,7 +90,7 @@ function AdminAddAffiliateLinks({ listData, loading }) {
                 }
                 else {
                     console.log(res, 'res');
-                    //   toast.success("Data updated successfully");
+                    toast.success("Affiliate Created");
                     navigate('/dashboard/affiliate-links')
                     setSubmitLoading(false)
                 }
@@ -167,7 +167,7 @@ function AdminAddAffiliateLinks({ listData, loading }) {
                                         <span onClick={() => { navigate('/dashboard/affiliate-links') }} className='font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
                                             <IoArrowBack size={20} />
                                         </span>
-                                        <p className='text-[20px] font-semibold'>Add Affiliate</p>
+                                        <p className='text-[20px] font-semibold'>Create Affiliate</p>
                                     </div>
                                     <Fragment>
                                         <Card className=' w-full'>
@@ -236,7 +236,7 @@ function AdminAddAffiliateLinks({ listData, loading }) {
                                                                 <AiOutlineLoading3Quarters />
                                                             </span>
                                                             :
-                                                            "Submit"
+                                                            "Create"
                                                     }
                                                 </button>
                                             </CardBody>

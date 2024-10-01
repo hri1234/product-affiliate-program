@@ -44,11 +44,11 @@ function PasswordUpdate({ loading }) {
             .then((res) => {
                 if (res?.error) {
                     console.log(res?.error, 'resError');
-                    toast.error(res?.error?.data?.message=="User Invalid Credential"?"Old password is wrong": "Internal server error");
+                    toast.error(res?.error?.data?.message == "User Invalid Credential" ? "Old password is wrong" : "Internal server error");
                     setSubmitLoading(false);
                 }
                 else {
-                    toast.success("Password updated");
+                    toast.success("Password Changed");
                     resetForm();
                     setSubmitLoading(false);
                 }
@@ -89,7 +89,7 @@ function PasswordUpdate({ loading }) {
                                                 <Card className=' w-full'>
                                                     <div className='pb-0 pt-4 px-[26px]'>
                                                         <span className='text-[20px]'>
-                                                            Password Update
+                                                            Change Password
                                                         </span>
                                                     </div>
                                                     <CardBody>
@@ -123,7 +123,7 @@ function PasswordUpdate({ loading }) {
                                                                             <AiOutlineLoading3Quarters />
                                                                         </span>
                                                                         :
-                                                                        "Update"
+                                                                        "Change"
                                                                 }
                                                             </button>
                                                         </div>

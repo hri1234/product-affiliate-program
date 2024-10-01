@@ -59,7 +59,7 @@ function EditAffiliate({ listData, loading }) {
     const initialValues = {
         name: listData?.name || '',
         // link: '',
-        // dropboxLink: '',
+        dropboxLink: listData?.dropboxLink || '',
         // clickCount: '0',
         // purchases: '0',
         // companyNumber: listData?.companyNumber || '',
@@ -67,6 +67,7 @@ function EditAffiliate({ listData, loading }) {
 
     const validationSchema = yup.object().shape({
         name: yup.string().trim("Enter valid name").required("Name is required").strict(),
+        dropboxLink: yup.string().url("Enter a valid dropbox link").trim("Enter a valid dropbox link").required("Dropbox link is required").strict(),
         // link: yup.string().trim("Enter valid link").required("link is required").strict(),
         // dropboxLink: yup.string().trim("Enter valid dropbox link").required("dropbox link is required").strict(),
         // clickCount: yup.string().matches(/^\d+$/, "Click count must be a number").required("Click count is required").strict(),
@@ -80,7 +81,8 @@ function EditAffiliate({ listData, loading }) {
 
         let DataForApi = {
             "name": data?.name,
-            "imageUrl": ImageUrl
+            "imageUrl": ImageUrl,
+            "dropboxLink":data?.dropboxLink
             // "link": data?.link,
             // "dropboxLink": data?.dropboxLink,
             // "purchases": data?.purchases,
@@ -118,11 +120,11 @@ function EditAffiliate({ listData, loading }) {
                 toast.error("Please upload a valid image file (JPG, JPEG, or PNG).");
                 return; // Stop the function if the file type is invalid
             }
-    
+
             const formData = new FormData();
             formData.append('file', File);
             setImageUploadLoading(true);
-    
+
             UploadImage({ data: formData })
                 .then((res) => {
                     if (res?.error) {
@@ -143,7 +145,7 @@ function EditAffiliate({ listData, loading }) {
             setImageData(null);
         }
     };
-    
+
 
 
     return (
@@ -167,7 +169,7 @@ function EditAffiliate({ listData, loading }) {
                                     </div>
                                     :
                                     <div>
-                                        
+
                                         <div className='flex w-full justify-start gap-2 px-1 py-2 mb-3 mt-0'>
                                             <span onClick={() => { navigate('/dashboard/affiliate-links') }} className='font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
                                                 <IoArrowBack size={20} />
@@ -176,12 +178,20 @@ function EditAffiliate({ listData, loading }) {
                                         </div>
                                         <Fragment>
                                             <Card className=' w-full'>
-                                                
+
                                                 <CardBody>
-                                                    <Row className='g-3 pb-1'>
+                                                    <Row className='g-3 pb-3'>
                                                         <Col md='6'>
                                                             {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, in! */}
                                                             <InputComponent label={"Product Name"} type="text" name='name' value={profileProps.values.name} placeholder='Enter affiliate name' onChange={profileProps.handleChange} />
+                                                        </Col>
+                                                        <br />
+                                                        <br />
+                                                    </Row>
+                                                    <Row className='g-3 pb-1'>
+                                                        <Col md='6'>
+                                                            {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, in! */}
+                                                            <InputComponent label={"Dropbox Link"} type={"text"} value={profileProps.values.dropboxLink} name='dropboxLink' onChange={profileProps.handleChange} placeholder={"Enter dropbox link"} />
                                                         </Col>
                                                         <br />
                                                         <br />

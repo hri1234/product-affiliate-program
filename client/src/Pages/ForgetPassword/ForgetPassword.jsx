@@ -84,10 +84,12 @@ function ForgetPassword() {
                                     <div className="login-card flex-column">
 
                                         <div className=" w-full flex items-center justify-center login-tab">
-                                            <div className="  bg-white w-[78%] border shadow-md rounded-[10px] py-6 px-6 flex md:flex-row flex-col-reverse gap-8">
+                                            <div className="  bg-white w-[78%] border shadow-md rounded-[10px] py-6 px-6 flex justify-center items-center">
+                                                {/* <div className="  bg-white w-[78%] border shadow-md rounded-[10px] py-6 px-6 flex md:flex-row flex-col-reverse gap-8"> */}
                                                 <div className=" w-full md:w-[50%]">
 
-                                                    <div className="theme-form flex flex-col gap-3 p-2 mt-2">
+                                                    <div className="theme-form flex flex-col gap-3 p-2">
+                                                        {/* <div className="theme-form flex flex-col gap-3 p-2 mt-2"> */}
                                                         <div className=' flex flex-col gap-3'>
                                                             {/* <Image
                                                                 className="img-fluid for-light mx-auto h-[65px] w-[65px]"
@@ -129,9 +131,9 @@ function ForgetPassword() {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className=" w-full p-2 md:w-[50%] object-contain md:object-cover h-[200px]  md:h-[460px]">
+                                                {/* <div className=" w-full p-2 md:w-[50%] object-contain md:object-cover h-[200px]  md:h-[460px]">
                                                     <img src={Banner} className=" shadow-xl object-cover w-full h-full rounded-[16px]" alt="" />
-                                                </div>
+                                                </div> */}
                                             </div>
                                         </div>
                                     </div>
