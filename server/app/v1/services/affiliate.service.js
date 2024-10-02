@@ -33,7 +33,13 @@ exports.addAffiliate = async (req, res, shortId) => {
         const host = await req.headers.host
         details.shortUrl = `${host}/${shortId}`
         const result = await Affiliate.create(details)
-        const users = await Users.findAll()
+        const users = await Users.findAll({
+            where: {
+                [Op.not]: [
+                    { role: 'admin' }
+                ]
+            }
+        })
         const bulkData = [];
         for (const user of users) {
             bulkData.push({
@@ -108,7 +114,7 @@ exports.redirectShortLink = async (req, res, userId, assignAffiliateId, deviceId
 
         // // Log the click and increment the 'click' count in one step
         // await Promise.all([
-           await ClickAndPurchases.create({ type: 'clicks', userId, assignAffiliateId: assignAffiliate.id, deviceId: deviceId }),
+        await ClickAndPurchases.create({ type: 'clicks', userId, assignAffiliateId: assignAffiliate.id, deviceId: deviceId }),
 
             await AssignAffiliate.update({ clicks: Sequelize.literal('clicks + 1') }, { where: { id: assignAffiliate.id } })
         // ]);
