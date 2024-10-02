@@ -206,7 +206,10 @@ exports.userAffiliates = async (userId, req) => {
             offset: offset,
 
             where: {
-                userId,
+                [Op.and]: [
+                    { userId: userId },
+                    { type: "assigned" },
+                ]
             },
             include: [
                 {
