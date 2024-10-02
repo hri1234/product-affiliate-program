@@ -40,7 +40,12 @@ module.exports = (sequelize, Sequelize) => {
         purchases: {
             type: Sequelize.INTEGER,
             defaultValue: 0
-        }
+        },
+        type: {
+            type: Sequelize.ENUM,
+            values: ['assigned', 'deAssigned'],
+            defaultValue: "assigned"
+        },
     });
 
 

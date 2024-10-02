@@ -147,7 +147,7 @@ exports.updateUserStatus = async (req, res) => {
     try {
         const userId = req.params.id
         const status = req.body.status
-        const result = await service.updateUserStatus(userId,status)
+        const result = await service.updateUserStatus(userId, status)
         if (result.status) {
             return sendResponse(res, statusCode.OK, true, `User${SuccessMessage.UPDATE}`)
         }
@@ -165,10 +165,63 @@ exports.updateCommission = async (req, res) => {
     try {
         const userId = req.params.id
         const commission = req.body.commission
-        const result = await service.updateCommission(userId,commission)
+        const result = await service.updateCommission(userId, commission)
         if (result.status) {
             return sendResponse(res, statusCode.OK, true, `User${SuccessMessage.UPDATE}`)
         }
+        return sendResponse(res, statusCode.BAD_REQUEST, false, ErrorMessage.BAD_REQUEST)
+
+    } catch (error) {
+        console.error(error);
+        return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
+
+    }
+}
+//update afffilite type
+exports.updateAffiliateType = async (req, res) => {
+    try {
+        const affiliateId = req.params.id
+        const details = req.body.details
+        const result = await service.updateAffiliateType(affiliateId,details)
+        if (result.status) {
+            return sendResponse(res, statusCode.OK, true, `Assign Affiliate ${SuccessMessage.UPDATE}`)
+        }
+        return sendResponse(res, statusCode.BAD_REQUEST, false, ErrorMessage.BAD_REQUEST)
+
+    } catch (error) {
+        console.error(error);
+        return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
+
+    }
+}
+
+//bulk delete affilaite assign
+exports.bulkDeleteAffiliateAssign = async (req, res) => {
+    try {
+        const affiliateIds = req.body.details
+        const result = await service.bulkDeleteAffiliateAssign(affiliateIds)
+        if (result) {
+            return sendResponse(res, statusCode.OK, true, `Assigne Affiliate ${SuccessMessage.DELETE}`)
+        }
+        return sendResponse(res, statusCode.BAD_REQUEST, false, ErrorMessage.BAD_REQUEST)
+
+    } catch (error) {
+        console.error(error);
+        return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.errors);
+
+    }
+}
+
+//get all assigned users of a affiliate
+exports.assignedUsers = async (req, res) => {
+    try {
+        const affiliateId = req.params.id
+
+        const result = await service.assignedUsers(affiliateId,req)
+        if (result.status && result.result) {
+            return sendResponse(res, statusCode.OK, true, `Data ${SuccessMessage.FETCH}`, result.result)
+        }
+
         return sendResponse(res, statusCode.BAD_REQUEST, false, ErrorMessage.BAD_REQUEST)
 
     } catch (error) {

@@ -30,7 +30,7 @@ function AnalyticsGraphWrapper() {
     }, [UserToken])
 
 
-    const { data, isLoading, isFetching } = useGetAnalyticsDetailsQuery({
+    const { data, isLoading, isFetching ,refetch } = useGetAnalyticsDetailsQuery({
         Id: UserId, data: {
             "type": "clicks",
             assignAffiliateId: affiliateId?.id,
@@ -38,6 +38,11 @@ function AnalyticsGraphWrapper() {
             "year": String(selectedYear)
         }
     })
+
+    useEffect(()=>
+    {
+        refetch()
+    },[data])
 
     useEffect(() => {
         if (isLoading || isFetching) {

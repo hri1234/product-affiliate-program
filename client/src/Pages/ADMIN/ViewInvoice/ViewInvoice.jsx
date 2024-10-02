@@ -64,15 +64,10 @@ function ViewInvoice({ loading, listData, OverViewData, email, companyName, coun
             </span>
           </div>
           :
-
           <>
             <p className='text-[20px] font-semibold'>Invoices</p>
-
-
-
             <div className='view-invoices-page'>
               <div className='flex w-full justify-between px-1 py-0 mb-0'>
-
                 {/* <span onClick={() => { navigate('/dashboard') }} className='font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
                       <IoArrowBack size={20} />
                     </span> */}
@@ -84,14 +79,12 @@ function ViewInvoice({ loading, listData, OverViewData, email, companyName, coun
                     {companyName || '-'}
                   </span>
                 </div>
-
                 <span className=' pt-0'>
                   {email || ''}
                 </span>
               </div>
               <div className='flex flex-col gap-3 mt-4'>
                 <div className=' w-full grid md:grid-cols-3 gap-6 grid-cols-1'>
-
                   <div className='w-full hover:shadow-lg duration-200 flex-col flex gap-2 py-3 bg-white rounded border-2 items-center justify-center'>
                     <div className='font-semibold'>
                       Pending
@@ -134,7 +127,6 @@ function ViewInvoice({ loading, listData, OverViewData, email, companyName, coun
                   </div>
                   :
                   <div className='table-container'>
-
                     <table className=''>
                       <thead>
                         <tr>
@@ -162,18 +154,18 @@ function ViewInvoice({ loading, listData, OverViewData, email, companyName, coun
                                 styles={{
                                   control: (baseStyles, state) => ({
                                     ...baseStyles,
-                                    borderRadius: '8px', // Add border-radius
-                                    border: '1px solid rgb(222, 226, 230)', // Default border color
+                                    borderRadius: '8px',
+                                    border: '1px solid rgb(222, 226, 230)',
                                     fontSize: '15px',
                                     letterSpacing: '.8px',
-                                    boxShadow: 'none', // Remove box-shadow entirely
-                                    borderColor: 'rgb(222, 226, 230)', // Keep border consistent on focus/hover
+                                    boxShadow: 'none',
+                                    borderColor: 'rgb(222, 226, 230)',
                                     '&:hover': {
-                                      borderColor: 'rgb(222, 226, 230)', // Gray border on hover
+                                      borderColor: 'rgb(222, 226, 230)',
                                     },
                                   }),
                                   indicatorSeparator: () => ({
-                                    display: 'none', // Hide the line near the arrow button
+                                    display: 'none',
                                   }),
                                 }}
                                 onChange={(e) => { e?.label == itm?.status ? console.log("") : handleSelect(e, itm?.id) }} placeholder={itm?.status} value={itm?.status} className='w-[75%] max-w-[75%] m-0 h-[12px] pt-2  px-0' options={[{ label: "Pending", value: "pending" }, { label: "Paid", value: "paid" }]} />

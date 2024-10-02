@@ -45,7 +45,7 @@ exports.allUsers = async (req) => {
             },
 
             order: [['createdAt', 'DESC']],
-            attributes: ["id", "email", "country", "city", "address", "userId", "companyName", 'isActive','commisionByPercentage', 'createdAt'],
+            attributes: ["id", "email", "country", "city", "address", "userId", "companyName", 'isActive', 'commisionByPercentage', 'createdAt'],
             distinct: true
 
 
@@ -365,13 +365,13 @@ exports.updateUserStatus = async (userId, status) => {
 exports.updateCommission = async (userId, commision) => {
 
     let updatedUserStatus = await Users.update(
-            { commisionByPercentage: commision },
-            {
-                where: {
-                    id: userId
-                }
-            })
-    
+        { commisionByPercentage: commision },
+        {
+            where: {
+                id: userId
+            }
+        })
+
 
     if (updatedUserStatus) {
         return {
@@ -381,4 +381,113 @@ exports.updateCommission = async (userId, commision) => {
     return {
         status: false
     }
+}
+
+
+exports.assignedUsers = async (affiliateId, req) => {
+
+    try {
+
+        const page = parseInt(req.body.page) || 1;  // Default to page 1
+        const limit = parseInt(req.body.limit) || 10;  // Default to 10 items per page
+        const offset = (page - 1) * limit;
+        const query = req.body.search || ""
+
+        let result = await AffiliateAssign.findAndCountAll(
+
+            {
+
+                limit: limit,
+                offset: offset,
+                where: {
+                    affiliateId: affiliateId
+                },
+                include: [{
+                    model: Users,
+                    attributes: { exclude: ['password'] },
+                    where: {
+                        [Op.or]: {
+                            email: {
+                                [Op.like]: `${query}%`,
+                            },
+
+                            city: {
+                                [Op.like]: `${query}%`,
+                            },
+                            country: {
+                                [Op.like]: `${query}%`,
+                            }
+
+                        },
+                    }
+                }]
+            })
+
+
+        if (AffiliateAssign) {
+            return {
+                status: true,
+                result: result,
+            }
+        }
+
+    } catch (error) {
+        return {
+            status: false,
+            result: error
+        }
+    }
+
+}
+
+//update afffilite type
+exports.updateAffiliateType = async (affiliateId, details) => {
+
+    const result = await details.map(async (i) => {
+        await AffiliateAssign.update(
+            { type: i.type },
+            {
+                where: {
+                    [Op.and]: [
+                        { userId: i.userId },
+                        { affiliateId: affiliateId }
+
+                    ]
+                }
+            }
+        )
+    })
+
+
+
+    if (result) {
+        return {
+            status: true
+        }
+    }
+    return {
+        status: false
+    }
+}
+
+exports.bulkDeleteAffiliateAssign = async (details) => {
+
+    const deletedAssigned = await details.map(async (i) => {
+        console.log(i)
+        const deletedClickAndPurchases = await ClickAndPurchases.destroy({
+            where: { assignAffiliateId: i }
+        })
+
+        const deletedAssigned = await AffiliateAssign.destroy({
+            where: { id: i }
+        })
+    })
+
+
+    if (deletedAssigned) {
+        return true
+    }
+
+    return false
+
 }

@@ -13,11 +13,21 @@
   max-width: 300px;
   margin: auto;
 }
-*
-{
+
+* {
   font-family: "Rubik"
 }
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.forRemovingArrows input::-webkit-outer-spin-button,
+.forRemovingArrows input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.forRemovingArrows input[type=number] {
+  -moz-appearance: textfield;
+}

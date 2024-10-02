@@ -33,7 +33,7 @@ exports.addAffiliate = async (req, res, shortId) => {
         const host = await req.headers.host
         details.shortUrl = `${host}/${shortId}`
         const result = await Affiliate.create(details)
-        const users  = await Users.findAll()
+        const users = await Users.findAll()
         const bulkData = [];
         for (const user of users) {
             bulkData.push({
@@ -83,35 +83,35 @@ exports.shortLink = async (req, res, link) => {
 exports.redirectShortLink = async (req, res, userId, assignAffiliateId, deviceId) => {
     try {
         const { shortLinkId } = req.params;
-        const isExistClickAndPurchase = await ClickAndPurchases.findOne({ where: { userId: userId, assignAffiliateId: assignAffiliateId, deviceId: deviceId } })
+        // const isExistClickAndPurchase = await ClickAndPurchases.findOne({ where: { userId: userId, assignAffiliateId: assignAffiliateId, deviceId: deviceId } })
 
 
-        // Fetch affiliate details and handle if not found
+        // // Fetch affiliate details and handle if not found
         const affiliate = await Affiliate.findOne({ where: { shortId: shortLinkId } });
-        if (isExistClickAndPurchase) {
-            return {
-                status: false,
-                isExistClickAndPurchase: true,
-                result: affiliate.link
+        // if (isExistClickAndPurchase) {
+        //     return {
+        //         status: false,
+        //         isExistClickAndPurchase: true,
+        //         result: affiliate.link
 
-            }
-        }
-        if (!affiliate) {
-            return { status: false, message: 'Affiliate not found' };
-        }
+        //     }
+        // }
+        // if (!affiliate) {
+        //     return { status: false, message: 'Affiliate not found' };
+        // }
 
-        // Fetch assign affiliate details and handle if not found
+        // // Fetch assign affiliate details and handle if not found
         const assignAffiliate = await AssignAffiliate.findOne({ where: { userId, affiliateId: affiliate.id } });
-        if (!assignAffiliate) {
-            return { status: false, message: 'AssignAffiliate details not found' };
-        }
+        // if (!assignAffiliate) {
+        //     return { status: false, message: 'AssignAffiliate details not found' };
+        // }
 
-        // Log the click and increment the 'click' count in one step
-        await Promise.all([
-            ClickAndPurchases.create({ type: 'clicks', userId, assignAffiliateId: assignAffiliate.id, deviceId: deviceId }),
+        // // Log the click and increment the 'click' count in one step
+        // await Promise.all([
+           await ClickAndPurchases.create({ type: 'clicks', userId, assignAffiliateId: assignAffiliate.id, deviceId: deviceId }),
 
-            AssignAffiliate.update({ clicks: Sequelize.literal('clicks + 1') }, { where: { id: assignAffiliate.id } })
-        ]);
+            await AssignAffiliate.update({ clicks: Sequelize.literal('clicks + 1') }, { where: { id: assignAffiliate.id } })
+        // ]);
 
         return { status: true, result: affiliate.link };
     } catch (error) {
@@ -128,21 +128,21 @@ exports.getAffiliate = async (req, res) => {
         const limit = parseInt(req.body.limit) || 10;  // Default to 10 items per page
         const offset = (page - 1) * limit;
         const query = req.body.search || ""
-        
-        console.log(query,"query")
+
+        console.log(query, "query")
         const result = await Affiliate.findAndCountAll({
             limit: limit,
             offset: offset,
-            where:{
-                [Op.or]:{
-                name:{
-                    [Op.like]:`${query}%`,
-                    // [Op.like]: {shortId:`${query}%`}
-                },
-                shortId:{
-                    [Op.like]:`${query}%`
+            where: {
+                [Op.or]: {
+                    name: {
+                        [Op.like]: `${query}%`,
+                        // [Op.like]: {shortId:`${query}%`}
+                    },
+                    shortId: {
+                        [Op.like]: `${query}%`
+                    }
                 }
-            }
             },
             order: [
                 ['createdAt', 'DESC'],
@@ -246,8 +246,17 @@ exports.getAffiliate = async (req, res) => {
 //add assgin affiliate service
 exports.addAssignAffiliate = async (id, details) => {
     try {
-        const addedValue = await details.userId.map(async (i) => {
-            return createdAssign = await AssignAffiliate.bulkCreate([{ affiliateId: id, userId: i }])
+        const addedValue = await details.details.map(async (i) => {
+            const result = await Users.update(
+                { commisionByPercentage: i.commision },
+                {
+                    where: { id: i.userId },
+                    // transaction,
+                }
+            );
+
+
+            return createdAssign = await AssignAffiliate.bulkCreate([{ affiliateId: id, userId: i.userId }])
 
         })
         const result = await Promise.all(addedValue).then((i) => {

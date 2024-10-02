@@ -27,7 +27,6 @@ function AssignAffiliateWrapper() {
         Id: AffiliateId?.id,
         data:
             { limit: dataPerPage, page: currentPage, search: ReduxData }
-
     })
 
     const [NotAssignedlistData, setNotAssignedListData] = useState([]);
@@ -62,7 +61,7 @@ function AssignAffiliateWrapper() {
         }
         else {
             setAssignedListLoading(false);
-            setAssignedListData(AssignedData?.result);
+            setAssignedListData(AssignedData?.result?.rows);
             setAssignedCount(Math.ceil(AssignedData?.result?.count / dataPerPage))
         }
     }, [AssignedlistFetching, AssignedData, AssignedlistLoading])

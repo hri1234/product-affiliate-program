@@ -8,8 +8,7 @@ import InputComponent from "../../../InputComponent";
 import { useLoginMutation } from "../../../../services/AuthServices";
 import * as yup from 'yup';
 import { Form, Formik } from "formik";
-import { FiEye } from "react-icons/fi";
-import { FiEyeOff } from "react-icons/fi";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 import { jwtDecode } from 'jwt-decode';
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
@@ -20,16 +19,11 @@ const LoginTab = (props) => {
   const [toastMessage, setToastMessage] = useState('')
   let isLogged = Cookies.get("isLogged");
   const [Login] = useLoginMutation();
-  const initialValues = {
-    email: '',
-    password: '',
-  };
-
+  const initialValues = { email: '', password: '', };
   const validationSchema = yup.object().shape({
     email: yup.string().trim("Enter the valid email address").required("Email is required").email("Enter the valid email address")
       .test('is-valid-email', 'Enter the valid email address', value => {
-        if (!value) return false; // Ensure it's not empty
-        // Use a regex to validate email format more strictly if needed
+        if (!value) return false;
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]{2,}\.[a-zA-Z]{2,}$/;
         return emailRegex.test(value);
       }),

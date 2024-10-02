@@ -167,7 +167,7 @@ function AnalyticsGraph({ selectedYear, setSelectedYear, YearList, loading, Mont
           <div className='w-full flex flex-col gap-12 pt-6'>
             <div className='w-full px-5 py-4 rounded border bg-white'>
               <div className='w-full flex justify-between py-2'>
-                <span className='font-semibold text-[17.5px] pl-5'> Total purchases in  {monthNames[selectedMonth]} : {totalCount}</span>
+                <span className='font-semibold text-[17.5px] pl-5'> Total clicks in  {monthNames[selectedMonth]} : {totalCount}</span>
                 {/* <span className='font-semibold text-[17px]'>
                   Total: {totalCount}
                 </span> */}

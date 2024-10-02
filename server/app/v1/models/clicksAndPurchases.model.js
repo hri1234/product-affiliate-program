@@ -35,6 +35,7 @@ module.exports = (sequelize, Sequelize) => {
         type: {
             type: Sequelize.ENUM,
             values: ['clicks', 'purchases'],
+            defaultValue:"clicks"
 
         },
         deviceId:{

@@ -38,7 +38,12 @@ const Logins = (props) => {
           </Row>
           <div className="support-div absolute bottom-0 right-0 mb-4 mr-4">
             <div className="rounded-[10px] p-2">
-              <a href="https://google.com" target="_blank" className="flex hover:no-underline hover:text-black cursor-pointer gap-1 items-center">
+              <a
+                href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=themes@itgeeks.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex hover:no-underline hover:text-black cursor-pointer gap-1 items-center"
+              >
                 <BiSupport />
                 <span>Support</span>
               </a>

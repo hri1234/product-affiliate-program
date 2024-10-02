@@ -32,44 +32,74 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
   }
 
 
-  // const HandleRedirectClick = async (item, id) => {
-  //   console.log(item)
-  //   try {
-  //     const token = Cookies.get('isLogged'); // Assuming you store a token in cookies
-  //     const apiUrl = `https://8b44-49-249-2-6.ngrok-free.app/${item}`; // Replace with your API URL
-  //     console.log(token)
-  //     // Make the API call
-  //     const response = await axios.post(apiUrl, { id: id },
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //           'Content-Type': 'application/json'
-  //         },
-  //         withCredentials: true,
-  //         validateStatus: (status) => {
-  //           return status >= 200 && status < 300; // default
-  //         }
-  //       }
-  //     );
-  //     console.log('API response:', response?.data?.message?.result);
+  const HandleRedirectClick = async (item, id, userId, redirectLink, utmId) => {
 
-  //     const redirectUrl = response?.data?.message?.result;
+    // const getData = async () => {
+    //   const res = await axios.get("https://api.ipify.org/?format=json");
+    //   console.log(res.data, 'IP data');
+    //   // setIP(res.data.ip);
+    // };
+    // getData()
 
-  //     // Check if the URL exists in the response
-  //     if (redirectUrl) {
-  //       // Redirect the user to the URL
-  //       window.open(redirectUrl, '_blank');
-  //     } else {
-  //       console.error('No URL found in the response.');
-  //     }
+    const token = Cookies.get('isLogged');
+    console.log(item, 'item')
+    console.log(id, 'item id')
+    console.log(userId, 'item userId')
 
+    let data = JSON.parse(localStorage.getItem('userData')) || [];
 
-  //     // Perform further actions like navigating or showing a message
-  //   } catch (error) {
-  //     console.error('Error calling API:', error);
-  //     toast.error('Internal server error')
-  //   }
-  // };
+    const existingUser = data.find(user => user.userId === userId);
+
+    if (existingUser) {
+      const existingItem = existingUser.items.find(i => i.item === item);
+      if (existingItem) {
+        console.log('Item already exists for this user, skipping API call');
+        return window.open(`${redirectLink}?utm_campaign=${utmId}`, '_blank')
+      } else {
+        existingUser.items.push({ item });
+        localStorage.setItem('userData', JSON.stringify(data));
+      }
+    } else {
+      data.push({ userId, items: [{ item }] });
+      localStorage.setItem('userData', JSON.stringify(data));
+    }
+
+    try {
+      const apiUrl = `https://product-affiliate-program-jz6xc.ondigitalocean.app/${item}`;
+      console.log(token)
+      // Make the API call
+      const response = await axios.post(apiUrl, { id: id },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '/*/',
+            'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+          },
+          withCredentials: false,
+          validateStatus: (status) => {
+            return status >= 200 && status < 300;
+          }
+        }
+      );
+      console.log('API response:', response?.data?.message?.result);
+
+      const redirectUrl = response?.data?.message?.result;
+
+      // Check if the URL exists in the response
+      if (redirectUrl) {
+        // Redirect the user to the URL
+        window.open(`${redirectUrl}?utm_campaign=${utmId}`, '_blank');
+      } else {
+        console.error('No URL found in the response.');
+      }
+
+      // Perform further actions like navigating or showing a message
+    } catch (error) {
+      console.error('Error calling API:', error);
+      toast.error('Internal server error')
+    }
+  };
   return (
     <>
       <p className='text-[20px] font-semibold'>Affiliate Links</p>
@@ -126,9 +156,9 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
                                 {/* <a className='hover:text-black' href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank'>
                                   {`${itm?.affiliate?.shortUrl}`}
                                 </a> */}
-                                <span className='hover:text-black hover:underline'>
-                                  {/* onClick={() => { HandleRedirectClick(itm?.affiliate?.shortId, itm?.id) }} */}
-                                  <a href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank' className='hover:text-black hover:underline'>{`${itm?.affiliate?.shortUrl}`}</a>
+                                <span onClick={() => { HandleRedirectClick(itm?.affiliate?.shortId, itm?.id, itm?.userId, itm?.affiliate?.link, listData?.result?.uniqueId) }} className='hover:text-black hover:underline'>
+                                  {itm?.affiliate?.shortUrl}
+                                  {/* <a href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank' className='hover:text-black hover:underline'>{`${itm?.affiliate?.shortUrl}`}</a> */}
                                 </span>
                               </span>
                               <div className=' w-full flex justify-between gap-4'>

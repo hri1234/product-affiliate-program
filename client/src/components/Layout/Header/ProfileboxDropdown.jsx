@@ -10,7 +10,7 @@ const ProfileboxDropdown = () => {
   const navigate = useNavigate()
 
   const logout = () => {
-    localStorage.clear();
+    // localStorage.clear();
 
     Cookies.remove("isLogged"); navigate('/')
     window.location.reload(false)
@@ -23,7 +23,7 @@ const ProfileboxDropdown = () => {
 
 
   return (
-    <UL className="profile-dropdown px-[12px] py-[10px] onhover-show-div border flex flex-col gap-1 shadow-sm">
+    <UL className="profile-dropdown duration-500 px-[12px] py-[10px] onhover-show-div border flex flex-col gap-1 shadow-sm">
       <LI onClick={handleProfile} className="border-0 border-b-2 ">
         <Link style={{ textDecoration: 'none' }} className=' hover:opacity-80 flex w-full text-black hover:text-black items-center gap-3 p-1'>
           <FiUser />
