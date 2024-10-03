@@ -67,7 +67,7 @@ app.get('*', (req, res) => {
 app.use('/', express.static(path.join(parentDirectory, 'images')));
 
 app.use(process.env.BASE_URL, routes);
-app.post('/:shortLinkId', authenticate,redirectShortLink)
+app.post('/:shortLinkId',redirectShortLink)
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;
