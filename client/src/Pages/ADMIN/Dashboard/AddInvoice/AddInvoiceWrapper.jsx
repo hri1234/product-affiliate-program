@@ -7,7 +7,6 @@ function AddInvoiceWrapper() {
   const URLData = useParams();
 
   const location = useLocation();
-  console.log(location.state)
   const { email,companyName } = location.state;
 
   return (

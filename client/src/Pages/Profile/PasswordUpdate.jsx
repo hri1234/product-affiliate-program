@@ -43,7 +43,6 @@ function PasswordUpdate({ loading }) {
         UpdatePassword({ data: dataForApi })
             .then((res) => {
                 if (res?.error) {
-                    console.log(res?.error, 'resError');
                     toast.error(res?.error?.data?.message == "User Invalid Credential" ? "Old password is wrong" : "Internal server error");
                     setSubmitLoading(false);
                 }
@@ -54,7 +53,6 @@ function PasswordUpdate({ loading }) {
                 }
             })
             .catch((err) => {
-                console.log(err, 'catchErr');
                 setSubmitLoading(false);
             })
     };

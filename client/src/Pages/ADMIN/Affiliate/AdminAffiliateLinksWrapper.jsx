@@ -16,8 +16,6 @@ function AdminAffiliateLinksWrapper() {
     setSearchFilter(ReduxData?.searchQuery || '')
   }, [ReduxData])
 
-  console.log(ReduxData?.searchQuery, 'reduxdatatttttttt')
-
   const dataPerPage = 10;
 
   const { data, isLoading: listLoading, isFetching: listFetching } = useGetAffiliateListQuery({

@@ -50,8 +50,6 @@ function EditAffiliate({ listData, loading }) {
     const [UploadImage] = useUploadImageMutation();
     const [EditAffilaite] = useEditAffiliateMutation();
 
-    console.log(listData, 'listDataa');
-
     useEffect(() => {
         setImageUrl(listData?.imageUrl || '')
     }, [listData])
@@ -67,7 +65,7 @@ function EditAffiliate({ listData, loading }) {
 
     const validationSchema = yup.object().shape({
         name: yup.string().trim("Enter valid name").required("Name is required").strict(),
-        dropboxLink: yup.string().url("Enter a valid dropbox link").trim("Enter a valid dropbox link").required("Dropbox link is required").strict(),
+        dropboxLink: yup.string().url("Enter a valid dropbox link").trim("Enter a valid dropbox link").strict(),
         // link: yup.string().trim("Enter valid link").required("link is required").strict(),
         // dropboxLink: yup.string().trim("Enter valid dropbox link").required("dropbox link is required").strict(),
         // clickCount: yup.string().matches(/^\d+$/, "Click count must be a number").required("Click count is required").strict(),
@@ -91,19 +89,16 @@ function EditAffiliate({ listData, loading }) {
         EditAffilaite({ Id: AffiliateId, data: DataForApi })
             .then((res) => {
                 if (res.error) {
-                    console.log(res.error, 'res.error');
                     toast.error(res?.error?.data?.message || "Internal server erro");
                     setSubmitLoading(false)
                 }
                 else {
-                    console.log(res, 'res');
                     //   toast.success("Data updated successfully");
                     navigate('/dashboard/affiliate-links')
                     setSubmitLoading(false)
                 }
             })
             .catch((err) => {
-                console.log(err, 'err');
                 toast.error("Internal server error");
                 setSubmitLoading(false)
             })
@@ -137,7 +132,6 @@ function EditAffiliate({ listData, loading }) {
                     }
                 })
                 .catch((err) => {
-                    console.log(err?.data?.error || "Internal server errors", 'err');
                     setImageUploadLoading(false);
                 });
         } else {
@@ -217,7 +211,7 @@ function EditAffiliate({ listData, loading }) {
                                                                         <span className='absolute right-[-18px] top-[-16px]'>
                                                                             <span className=' w-0 h-0'>
                                                                                 <input className='hidden' type="file" id='thumbnail' onChange={(e) => handleThumbnail(e)} />
-                                                                                <label htmlFor="thumbnail">
+                                                                                <label htmlFor="thumbnail" className='cursor-pointer'>
                                                                                     <FaEdit />
                                                                                 </label>
                                                                             </span>

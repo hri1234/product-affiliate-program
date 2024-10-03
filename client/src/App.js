@@ -22,7 +22,6 @@ class App extends Component {
   render() {
     return (
       <div>
-        {console.log("Hello from APP")}
         <CustomizerProvider>
           <BookmarkProvider>
             <Provider store={Store}>

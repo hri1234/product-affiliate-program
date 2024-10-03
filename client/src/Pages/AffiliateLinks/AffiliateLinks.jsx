@@ -10,7 +10,6 @@ import toast from 'react-hot-toast';
 import { FaDropbox } from "react-icons/fa6";
 function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, currentPage }) {
 
-  console.log(listData, 'ListDataaaa 12');
 
   const navigate = useNavigate();
   // const profileJson = Cookies.get('profileData')
@@ -34,17 +33,7 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
 
   const HandleRedirectClick = async (item, id, userId, redirectLink, utmId) => {
 
-    // const getData = async () => {
-    //   const res = await axios.get("https://api.ipify.org/?format=json");
-    //   console.log(res.data, 'IP data');
-    //   // setIP(res.data.ip);
-    // };
-    // getData()
-
     const token = Cookies.get('isLogged');
-    console.log(item, 'item')
-    console.log(id, 'item id')
-    console.log(userId, 'item userId')
 
     let data = JSON.parse(localStorage.getItem('userData')) || [];
 
@@ -53,7 +42,6 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
     if (existingUser) {
       const existingItem = existingUser.items.find(i => i.item === item);
       if (existingItem) {
-        console.log('Item already exists for this user, skipping API call');
         return window.open(`${redirectLink}?utm_campaign=${utmId}`, '_blank')
       } else {
         existingUser.items.push({ item });
@@ -65,8 +53,7 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
     }
 
     try {
-      const apiUrl = `https://product-affiliate-program-jz6xc.ondigitalocean.app/${item}`;
-      console.log(token)
+      const apiUrl = `https://product-affiliate-program-jz6xc.ondigitalocean.app/${item}?UserId=${userId}`;
       // Make the API call
       const response = await axios.post(apiUrl, { id: id },
         {
@@ -82,7 +69,6 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
           }
         }
       );
-      console.log('API response:', response?.data?.message?.result);
 
       const redirectUrl = response?.data?.message?.result;
 
@@ -100,9 +86,14 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
       toast.error('Internal server error')
     }
   };
+
+  // const HandleRedirectClick = () => {
+
+  // }
+
   return (
     <>
-      <p className='text-[20px] font-semibold'>Affiliate Links</p>
+      <p className='text-[20px] font-semibold'>Affiliate Products Links</p>
       {
         loading ?
           <>
@@ -129,9 +120,8 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
               <div className='w-full flex flex-col h-full items-center gap-8 '>
 
                 {
-                  listData?.result?.rows?.map((itm) => {
-                    console.log(itm)
-                    return <>
+                  listData?.result?.rows?.map((itm, idx) => {
+                    return <div key={idx} className='w-full'>
                       <div className=' hover:shadow-lg duration-200 w-full flex gap-12 py-[28px] px-4 border bg-white shadow-md rounded-2xl'>
                         <div className=' object-contain w-1/2 shadow-sm text-center flex justify-center items-center rounded-xl h-[220px]  p-2 bg-slate-100'>
                           {/* <img className='object-fit h-full w-full' src={`${itm?.affiliate?.imageUrl}`} alt="IMG" /> */}
@@ -156,15 +146,31 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
                                 {/* <a className='hover:text-black' href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank'>
                                   {`${itm?.affiliate?.shortUrl}`}
                                 </a> */}
+
+                                {/* previous click logic */}
+
                                 <span onClick={() => { HandleRedirectClick(itm?.affiliate?.shortId, itm?.id, itm?.userId, itm?.affiliate?.link, listData?.result?.uniqueId) }} className='hover:text-black hover:underline'>
                                   {itm?.affiliate?.shortUrl}
                                   {/* <a href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank' className='hover:text-black hover:underline'>{`${itm?.affiliate?.shortUrl}`}</a> */}
                                 </span>
+
+                                {/* new click logic  */}
+
+                                {/* <span onClick={() => { HandleRedirectClick(itm?.affiliate?.shortId, itm?.id, itm?.userId, itm?.affiliate?.link, listData?.result?.uniqueId) }} className='hover:text-black hover:underline'>
+                                  {itm?.affiliate?.shortUrl}
+                                  <a href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank' className='hover:text-black hover:underline'>{`${itm?.affiliate?.shortUrl}`}</a>
+                                </span> */}
+
                               </span>
                               <div className=' w-full flex justify-between gap-4'>
-                                <span onClick={() => { navigator.clipboard.writeText(`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`); toast.success("Link copied") }} className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
+                                {/* <span onClick={() => { navigator.clipboard.writeText(`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`); toast.success("Link copied") }} className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
+                                  Copy link
+                                </span> */}
+                                <span onClick={() => { navigator.clipboard.writeText(`https://product-affiliate-program-jz6xc.ondigitalocean.app/share?shortId=${itm?.affiliate?.shortId}&Id=${itm?.id}&UserId=${itm?.userId}&AffiliateLink=${itm?.affiliate?.link}&UniqueId=${listData?.result?.uniqueId}`); toast.success("Link copied") }} className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
                                   Copy link
                                 </span>
+
+
                                 <a href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank' className=' hover:text-black border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
                                   {/* <a className='hover:text-black' href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank'>
                                     Visit link
@@ -188,12 +194,10 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
                           </div>
                         </div>
                       </div>
-                    </>
+                    </div>
                   })
                 }
-
                 <div className='w-full flex justify-end mt-4'>
-
                   <Pagination
                     shape="rounded"
                     variant="outlined"
@@ -203,11 +207,9 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
                     onChange={handlePageChange}
                   />
                 </div>
-
               </div>
             </div>
       }
-
     </>
   )
 }

@@ -38,7 +38,6 @@ const ProfileBox = () => {
   useEffect(() => {
     if (userToken) {
       const decodedData = jwtDecode(userToken);
-      console.log(decodedData, 'decodedDATA PROFILE');
       setEmail(decodedData?.email[0])
       setRole(decodedData?.role)
     }

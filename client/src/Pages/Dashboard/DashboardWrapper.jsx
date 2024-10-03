@@ -23,7 +23,6 @@ function DashboardWrapper() {
 
   const ReduxData = useSelector((state) => state.SearchSlice);
   const { data: commision, isLoading: listLoadingCommission, isFetching: listFetchingCommission } = useGetProfileQuery({});
-  console.log(commision?.result?.result?.commisionByPercentage)
 
   useEffect(() => {
     setSearchFilter(ReduxData?.customerInvoiceQuery)
@@ -37,7 +36,6 @@ function DashboardWrapper() {
     const prevData = Cookies.get("profileData");
 
     if (prevData?.length > 10) {
-      console.log("")
     }
     else {
       Cookies.set("profileData", `${JSON.stringify(profileData?.result?.result)}`, { expires: 30 });
@@ -48,15 +46,11 @@ function DashboardWrapper() {
   useEffect(() => {
     if (userToken) {
       const token = jwtDecode(userToken);
-      console.log(token?.id, 'tokenn');
       setUserId(token?.id);
     }
     if (!userToken || userToken === null) {
       navigate('/');
-      console.log('navigating')
     }
-    console.log('navigating!')
-
   }, [userToken])
 
   // const { data, isLoading, isFetching } = useGetDashboardInvoiceListQuery({});
@@ -79,8 +73,6 @@ function DashboardWrapper() {
       setCount(Math.ceil(data?.result?.result?.count / dataPerPage))
     }
   }, [isLoading, isFetching, data])
-
-  console.log(data?.result, 'invoice list');
 
 
   //////// fetching monthly analysis ////////

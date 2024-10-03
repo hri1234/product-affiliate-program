@@ -30,17 +30,7 @@ function SignUp() {
       navigate('/dashboard/');
     }
   }, [isLogged]);
-  const initialValues = {
-    email: '',
-    payPalAddress: '',
-    country: null,
-    city: '',
-    address: '',
-    companyName: '',
-    companyUrl: '',
-    password: '',
-    confirmPassword: ''
-  };
+  const initialValues = { email: '', payPalAddress: '', country: null, city: '', address: '', companyName: '', companyUrl: '', password: '', confirmPassword: '' };
   const validationSchema = yup.object().shape({
     email: yup.string()
       .trim("Enter valid email")
@@ -92,16 +82,7 @@ function SignUp() {
     }
     else {
       setToasterMessage('')
-      let registerData = {
-        "email": data?.email,
-        "paypalAddress": data?.payPalAddress,
-        "country": data?.country.label,
-        "city": data?.city,
-        "address": data?.address,
-        "companyName": data?.companyName,
-        "companyUrl": data?.companyUrl,
-        "password": data?.password,
-      }
+      let registerData = { "email": data?.email, "paypalAddress": data?.payPalAddress, "country": data?.country.label, "city": data?.city, "address": data?.address, "companyName": data?.companyName, "companyUrl": data?.companyUrl, "password": data?.password, }
       setToasterMessage('')
       Register({ data: registerData })
         .then((res) => {
@@ -122,36 +103,7 @@ function SignUp() {
           setToasterMessage("Something went Wrong")
         })
     }
-    // LoginUser({ data: loginData })
-    //   .then((res) => {
-    //     setLoading(false)
-    //     if (res?.data) {
-    //       if (data?.rememberMe) {
-    //         Cookies.set("AuthLogin", `${res?.data?.result?.accessToken}`, { expires: 30 });
-    //         Cookies.set("AuthData", JSON.stringify(data), { expires: 30 });
-    //       }
-    //       else {
-    //         var in30Minutes = 1 / 48;
-    //         Cookies.set("AuthLogin", `${res?.data?.result?.accessToken}`, { expires: in30Minutes });
-    //         Cookies.set("AuthData", JSON.stringify(data), { expires: in30Minutes });
-
-    //       }
-    //       dispatch(setLoginData(data))
-    //       Cookies.set("isLogged", `${res?.data?.result?.accessToken}`, { expires: 30 });
-    //       Cookies.set("isChecked", JSON.stringify(data), { expires: 30 });
-    //       // localStorage.setItem('IsUserLogged', JSON.stringify(data))
-    //       // toast.success("Login Successfull")
-    //       navigate('/dashboard')
-    //     } else if (res?.error) {
-    //       toast.error(res?.error?.data?.message || "Internal server error");
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     setLoading(false);
-    //     toast.error(err.response.data.message || "Internal server error");
-    //   });
   };
-  console.log(userCreateLoader)
   return (
     <Formik
       enableReinitialize
@@ -175,14 +127,9 @@ function SignUp() {
                         <div className=" w-full md:w-[50%] mt-1 px-3">
                           <div className="theme-form flex flex-col gap-3 p-1">
                             <div className=' flex flex-col gap-3'>
-                              {/* <Image
-                                className="img-fluid for-light mx-auto h-[65px] w-[65px]"
-                                src={require("../../Assets/logo/itg_logo.webp")}
-                              /> */}
                               <H4 className="text-center font-semibold text-2xl"> Sign Up</H4>
                             </div>
                             <P className="text-center">Join our affiliate program now and turn your referrals into rewards</P>
-                            {/* <span className='m-auto'>Join our affiliate program now and <br /> turn your referrals into rewards</span> */}
                             <div className=' w-full flex flex-col gap-6 pb-4'>
                               <div className='relative'>
                                 <InputComponent label={"Email"} type={"text"} value={signupProps.values.email} name='email' onChange={handleInputChange} placeholder={"Enter email address"} />
@@ -194,35 +141,8 @@ function SignUp() {
                                   </div>}
                               </div>
                               <InputComponent label={"PayPal Address"} type="text" name='payPalAddress' value={signupProps.values.payPalAddress} placeholder='Enter paypal address' onChange={handleInputChange} />
-                              {/* <Select options={options} name='country' value={value} onChange={changeHandler} /> */}
-                              {/* <div className=' relative'>
-                                <span className=' pl-[3px] font-semibold text-[13px]'>{"Country"}</span>
-                                <Select
-                                  placeholder="Select Country"
-                                  options={options}
-                                  name="country"
-                                  value={signupProps.values.country}
-                                  onChange={value => signupProps.setFieldValue('country', value)}
-                                  className=' rounded-[20px] border-none'
-                                />
-                                <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"country"} component='div' />
-                              </div> */}
                               <div className='relative'>
                                 <span className='pl-[3px] font-semibold text-[13px]'>{"Country"}</span>
-                                {/* <Select
-                                  placeholder="Select Country"
-                                  options={options}
-                                  name="country"
-                                  value={signupProps.values.country}
-                                  onChange={value => signupProps.setFieldValue('country', value)}
-                                  styles={{
-                                    control: (baseStyles) => ({
-                                      ...baseStyles,
-                                      borderRadius: '8px', // Add border-radius here
-                                      border: '1px solid rgb(222, 226, 230)', // You can add custom borders here if needed
-                                    }),
-                                  }}
-                                /> */}
                                 <Select
                                   placeholder="Select country"
                                   options={options}
@@ -231,8 +151,7 @@ function SignUp() {
                                   onChange={value => signupProps.setFieldValue('country', value)}
                                   styles={{
                                     control: (baseStyles, state) => ({
-                                      ...baseStyles,
-                                      borderRadius: '8px', // Add border-radius
+                                      ...baseStyles, borderRadius: '8px', // Add border-radius
                                       border: '1px solid rgb(222, 226, 230)', // Default border color
                                       fontSize: '14px',
                                       letterSpacing: '.8px',
@@ -249,39 +168,27 @@ function SignUp() {
                                 />
                                 <ErrorMessage className='text-red-400 absolute text-[12px] pl-[4px] mt-0' name={"country"} component='div' />
                               </div>
-                              {/* <InputComponent type={"text"} value={signupProps.values.country} name='country' onChange={signupProps.handleChange} placeholder={"Enter country name"} /> */}
                               <InputComponent label={"City"} type={"text"} value={signupProps.values.city} name='city' onChange={handleInputChange} placeholder={"Enter city name"} />
                               <InputComponent label={"Address"} type={"text"} value={signupProps.values.address} name='address' onChange={handleInputChange} placeholder={"Enter address"} />
                               <InputComponent label={"Company Name"} type={"text"} value={signupProps.values.companyName} name='companyName' onChange={handleInputChange} placeholder={"Enter company name"} />
-                              {/* <InputComponent label={"Company number"} type={"text"} value={signupProps.values.companyNumber} name='companyNumber' onChange={signupProps.handleChange} placeholder={"Enter company number"} /> */}
                               <InputComponent label={"Website URL"} type={"text"} value={signupProps.values.companyUrl} name='companyUrl' onChange={handleInputChange} placeholder={"Enter website URL"} />
                               <div className='mt-4 flex flex-col gap-5'>
                                 <div className='relative w-full flex gap-1'>
                                   <InputComponent label={"Password"} type={showPassword == "password" ? "password" : "text"} value={signupProps.values.password} name='password' onChange={handleInputChange} placeholder={"Enter password"} />
                                   <span onClick={() => showPassword == "password" ? setShowPassword("text") : setShowPassword("password")} className=' absolute cursor-pointer right-3 bottom-3'>
-                                    {
-                                      showPassword == "password" ?
-                                        <FiEyeOff />
-                                        :
-                                        <FiEye />
-                                    }
+                                    { showPassword == "password" ? <FiEyeOff /> : <FiEye /> }
                                   </span>
                                 </div>
                                 <div className=' relative w-full flex gap-1'>
                                   <InputComponent label={"Confirm password"} type={showConfirmPassword == "password" ? "password" : "text"} value={signupProps.values.confirmPassword} name='confirmPassword' onChange={handleInputChange} placeholder={"Enter confirm password"} />
                                   <span onClick={() => showConfirmPassword == "password" ? setShowConfirmPassword("text") : setShowConfirmPassword("password")} className=' absolute cursor-pointer right-3 bottom-3'>
-                                    {
-                                      showConfirmPassword == "password" ?
-                                        <FiEyeOff />
-                                        :
-                                        <FiEye />
-                                    }
+                                    { showConfirmPassword == "password" ? <FiEyeOff /> : <FiEye /> }
                                   </span>
                                 </div>
                               </div>
                               <div className=' flex gap-1  mt-[-2.0px] items-center'>
                                 <input onChange={(e) => { e.target.checked ? setIsChecked(true) : setIsChecked(false) }} className=' cursor-pointer p-0 m-0' type="checkbox" id='checkboxx' name='checkboxx' />
-                                <a href='/terms-condition' target='_blank' className=' p-0 m-0 cursor-pointer hover:underline ' htmlFor="checkboxx"> <a target='_blank' className=' text-[14px] text-black hover:text-black'>Accept terms and condition</a></a>
+                                <a href='/terms-condition' target='_blank' className=' p-0 m-0 cursor-pointer hover:underline text-[14px] text-black hover:text-black' htmlFor="checkboxx">Accept terms and condition</a>
                               </div>
                             </div>
                             <div className="position-relative form-group mb-0 mt-[-5px]">
@@ -292,13 +199,7 @@ function SignUp() {
                                   </span>
                                 </div>}
                               <button className=" bg-black text-white py-[6.5px] border d-block w-100 mt-2 relative rounded-full" type="submit">
-                                {userCreateLoader ?
-                                  <span className=' w-fit flex py-1 items-center justify-center m-auto self-center animate-spin'>
-                                    <AiOutlineLoading3Quarters />
-                                  </span>
-                                  :
-                                  "Sign up"
-                                }
+                                {userCreateLoader ? <span className=' w-fit flex py-1 items-center justify-center m-auto self-center animate-spin'> <AiOutlineLoading3Quarters /> </span> : "Sign up" }
                               </button>
                             </div>
                             <P className='text-center mb-0 text-[16px] pt-0 mt-0 '>

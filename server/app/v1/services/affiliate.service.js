@@ -35,9 +35,7 @@ exports.addAffiliate = async (req, res, shortId) => {
         const result = await Affiliate.create(details)
         const users = await Users.findAll({
             where: {
-                [Op.not]: [
-                    { role: 'admin' }
-                ]
+                role: 'customer'
             }
         })
         const bulkData = [];
@@ -91,7 +89,6 @@ exports.redirectShortLink = async (req, res, userId, assignAffiliateId, deviceId
         const { shortLinkId } = req.params;
         // const isExistClickAndPurchase = await ClickAndPurchases.findOne({ where: { userId: userId, assignAffiliateId: assignAffiliateId, deviceId: deviceId } })
 
-
         // // Fetch affiliate details and handle if not found
         const affiliate = await Affiliate.findOne({ where: { shortId: shortLinkId } });
         // if (isExistClickAndPurchase) {
@@ -105,9 +102,11 @@ exports.redirectShortLink = async (req, res, userId, assignAffiliateId, deviceId
         // if (!affiliate) {
         //     return { status: false, message: 'Affiliate not found' };
         // }
+        console.log(affiliate, "affiliate")
 
         // // Fetch assign affiliate details and handle if not found
         const assignAffiliate = await AssignAffiliate.findOne({ where: { userId, affiliateId: affiliate.id } });
+        console.log(assignAffiliate, 'assign affilaite')
         // if (!assignAffiliate) {
         //     return { status: false, message: 'AssignAffiliate details not found' };
         // }
@@ -362,4 +361,68 @@ exports.getAffiliateById = async (id) => {
 
     }
 
+}
+
+//total affilaite clicks
+exports.totalAffiliateClick = async (userId, assignAffiliateId) => {
+    if (assignAffiliateId) {
+        const final = await assignAffiliateId.map(async (i) => {
+            const assignAffiliateid = await AssignAffiliate.findOne({
+                where: {
+                    id: i
+                }
+            })
+            const affiliateName = await Affiliate.findOne({
+                where: {
+                    id: assignAffiliateid.affiliateId
+                }
+            })
+            let user = await ClickAndPurchases.findAndCountAll({
+                where: {
+                    [Op.and]: [
+                        { userId: userId },
+                        { assignAffiliateId: i },
+                        { type: "clicks" }
+                    ],
+                }
+            })
+            
+            user.affiliateName = affiliateName.name
+            return user
+        })
+        const user = await Promise.all(final).then((i) => {
+            return i
+        }).catch((error) => {
+            console.log(error)
+            return error
+
+        })
+        const allCount = await ClickAndPurchases.findAndCountAll({
+            where: {
+                [Op.and]: [
+                    { userId: userId },
+                    { type: "clicks" }
+                ],
+            }
+        })
+        console.log(user)
+        // const result = user.length()
+        return {
+            individualCount: user,
+            allCount: allCount.count
+        }
+    }
+    else {
+        const allCount = await ClickAndPurchases.findAndCountAll({
+            where: {
+                [Op.and]: [
+                    { userId: id },
+                    { type: "clicks" }
+                ],
+            }
+        })
+        return {
+            allCount: allCount.count
+        }
+    }
 }

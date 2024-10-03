@@ -1,11 +1,9 @@
 {
   "files": {
-    "main.css": "/static/css/main.c401fb9a.css",
-    "main.js": "/static/js/main.cb10dce7.js",
-    "static/media/loginBanner.png": "/static/media/loginBanner.e936c0bdca72e31543a9.png",
+    "main.css": "/static/css/main.4959d13b.css",
+    "main.js": "/static/js/main.465afd4a.js",
     "static/media/InterVariable-Italic.woff2": "/static/media/InterVariable-Italic.e295f70fe3e2df296c7b.woff2",
     "static/media/InterVariable.woff2": "/static/media/InterVariable.a0e477f2f1f9d2376fde.woff2",
-    "static/media/new-banner02.jpg": "/static/media/new-banner02.6f9239a17787c056b4bd.jpg",
     "static/media/image_2024_09_23T11_14_52_136Z.png": "/static/media/image_2024_09_23T11_14_52_136Z.82cc75910d1f8fde45d9.png",
     "static/media/new-banner01.jpg": "/static/media/new-banner01.30a5d8f1f29d51909cfa.jpg",
     "static/media/itg_logo.webp": "/static/media/itg_logo.cfa0316d5a44bdf33273.webp",
@@ -14,11 +12,11 @@
     "static/media/cropped-ITGeeks-Technologies-Pvt.-Ltd.-Logo.png": "/static/media/cropped-ITGeeks-Technologies-Pvt.-Ltd.-Logo.d25a6bf544ebe55950e6.png",
     "static/media/image_2024_10_01T10_35_05_438Z.png": "/static/media/image_2024_10_01T10_35_05_438Z.9f6b3fb41cc31dce3ba9.png",
     "index.html": "/index.html",
-    "main.c401fb9a.css.map": "/static/css/main.c401fb9a.css.map",
-    "main.cb10dce7.js.map": "/static/js/main.cb10dce7.js.map"
+    "main.4959d13b.css.map": "/static/css/main.4959d13b.css.map",
+    "main.465afd4a.js.map": "/static/js/main.465afd4a.js.map"
   },
   "entrypoints": [
-    "static/css/main.c401fb9a.css",
-    "static/js/main.cb10dce7.js"
+    "static/css/main.4959d13b.css",
+    "static/js/main.465afd4a.js"
   ]
 }

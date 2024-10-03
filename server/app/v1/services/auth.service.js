@@ -60,13 +60,7 @@ exports.register = async (details, userId) => {
         // remove password
         delete userDetails.dataValues.password;
 
-        // const assignAffiliate = await bulkAssign(userDetails.id)
-        // return userDetails;
-
-        if (userDetails.role != "admin") {
-            const assignAffiliate = await bulkAssign(userDetails.id)
-            return userDetails;
-        }
+        const assignAffiliate = await bulkAssign(userDetails.id)
         return userDetails;
     }
 
@@ -273,7 +267,7 @@ exports.resetPassword = async (token, password, role) => {
     try {
         const hashPassword = await bcrypt.hash(password, parseInt(process.env.SALT_ROUND));
         const decoded = jwtDecode(token)
-        const isExist = await Users.update({ password: hashPassword }, { where: { id: decoded.id } });
+        const isExist = await Users.update({ password: hashPassword }, { where: { id:decoded.id } });
         if (!isExist[0]) {
             return {
 

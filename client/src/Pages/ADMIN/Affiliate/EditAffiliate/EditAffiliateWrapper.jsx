@@ -6,7 +6,6 @@ import { useGetSingleAffiliateQuery } from '../../../../services/AdminService';
 function EditAffiliateWrapper() {
 
     const paramData = useParams();
-    console.log(paramData,'paramdat');
 
     const { data, isLoading: listLoading, isFetching: listFetching } = useGetSingleAffiliateQuery({Id:paramData?.id})
 

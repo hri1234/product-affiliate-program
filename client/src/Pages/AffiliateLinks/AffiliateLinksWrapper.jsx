@@ -23,9 +23,7 @@ function AffiliateLinksWrapper() {
   useEffect(() => {
     if (UserToken) {
       const decodedToken = jwtDecode(UserToken);
-      console.log(decodedToken?.id, 'decodedTOKEN')
       setUserId(decodedToken?.id)
-      console.log(decodedToken?.uniqueId, 'UID')
       setUniqueId(decodedToken?.uniqueId)
     }
   }, [UserToken])

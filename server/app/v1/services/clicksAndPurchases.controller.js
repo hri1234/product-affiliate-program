@@ -11,14 +11,14 @@ const Affiliate = db.affiliate;
 //add click and purchases services
 exports.addClickAndPurchases = async (req, res, type, assignId) => {
     try {
-        const isExistAssignIdAffiliate = await AffiliateAssign.findOne({ where: { id: assignId } })
-        if (!isExistAssignIdAffiliate) {
-            return {
-                status: false,
-                isExist: false
-            }
-        }
-        const result = await ClickAndPurchases.create({ type: type, userId: isExistAssignIdAffiliate.userId, assignAffiliateId: assignId })
+        // const isExistAssignIdAffiliate = await AffiliateAssign.findOne({ where: { id: assignId } })
+        // if (!isExistAssignIdAffiliate) {
+        //     return {
+        //         status: false,
+        //         isExist: false
+        //     }
+        // }
+        const result = await ClickAndPurchases.create({ type: type, assignAffiliateId: assignId })
         if (result) {
             return {
                 status: true,

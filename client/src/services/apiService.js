@@ -13,7 +13,7 @@ const CreateApi = createApi({
             }
             return headers;
         },
-        mode: 'cors', // Ensure mode is set to 'cors'
+        mode: 'cors',
     }),
     endpoints: () => ({}),
     tagTypes: ["adminPanel", "links", "adminAffiliate", "assignCustomer", "profile", "analysis"]

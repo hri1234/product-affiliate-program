@@ -16,7 +16,7 @@ const { ENUM } = require('sequelize');
 module.exports = (sequelize, Sequelize) => {
     /**
      * @type {Model}
-     */
+     */ 
     const Users = sequelize.define("users", {
         userId:{
             type:Sequelize.STRING

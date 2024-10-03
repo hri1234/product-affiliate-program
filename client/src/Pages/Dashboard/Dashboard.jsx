@@ -10,8 +10,6 @@ function Dashboard({ loading, listData, overviewLoading, overviewData, setCurren
 
   const navigate = useNavigate();
 
-  console.log(overviewData, 'overViewData')
-
   const handlePageChange = (e, page) => {
     setCurrentPage(page)
   }

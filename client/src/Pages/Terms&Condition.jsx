@@ -77,7 +77,6 @@ const TermAndConditions = () => {
     ];
     return (
         <div className='page-body py-4'>
-
             <div style={{ width: '60%', margin: 'auto', display: 'flex', flexDirection: 'column', gap: '30px' }}>
                 <h1 style={{ fontSize: '24px', color: 'black', fontWeight: '600', textAlign: 'center' }}>Terms and conditions</h1>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>

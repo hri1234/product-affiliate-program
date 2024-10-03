@@ -60,6 +60,8 @@ db.users.hasMany(db.ClickAndPurchases)
 db.ClickAndPurchases.belongsTo(db.users)
 
 
+// Users.hasMany(sequelize.models.affiliateAssign, { foreignKey: 'userId' });
+// AffiliateAssign.belongsTo(sequelize.models.users, { foreignKey: 'userId' });
 
 
 module.exports = db;

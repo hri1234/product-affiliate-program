@@ -33,6 +33,7 @@ import EditAffiliateWrapper from './Pages/ADMIN/Affiliate/EditAffiliate/EditAffi
 import CustomerProfileWrapper from './Pages/ADMIN/CustomerProfile/CustomerProfileWrapper';
 import NoPageFound from './Pages/NoPageFound';
 import TermAndConditions from './Pages/Terms&Condition';
+import ShareAffiliate from './Pages/ADMIN/Affiliate/ShareAffiliate';
 
 function Routing() {
     const navigate = useNavigate()
@@ -45,7 +46,7 @@ function Routing() {
     useEffect((e) => {
         if (!userToken || userToken === null) {
             setAthenticateLogin(false)
-            if (!window.location.pathname.includes('reset-password') && !window.location.pathname.includes('terms-condition') && !window.location.pathname.includes('forgot-password') && !window.location.pathname.includes('register')) {
+            if (!window.location.pathname.includes('reset-password') && !window.location.pathname.includes('terms-condition') && !window.location.pathname.includes('forgot-password') && !window.location.pathname.includes('register') && !window.location.pathname.includes('affiliate') && !window.location.pathname.includes('share')) {
                 navigate('/');
             }
         }
@@ -56,15 +57,14 @@ function Routing() {
     useEffect(() => {
         if (userToken?.length > 1) {
             const decodingToken = jwtDecode(userToken);
-            console.log(decodingToken?.role, 'decodedToken');
             setRole(decodingToken?.role)
         }
-        console.log('')
     }, [userToken, authenticateLogin])
     return (
         <div className=' w-full h-full'>
             {/* <Header/> */}
             <Routes>
+                <Route path="/share" element={<><ShareAffiliate /></>} />
                 <Route path="" element={<Logins auth={setAthenticateLogin} setRole={setRole} />} />
                 <Route path="/login" element={<Logins auth={setAthenticateLogin} setRole={setRole} />} />
                 <Route path="/register" element={<SignUp auth={setAthenticateLogin} />} />

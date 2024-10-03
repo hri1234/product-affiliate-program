@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './AssignAffiliate.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { IoArrowBack, IoEyeOutline } from "react-icons/io5";
-import { MdDelete, MdRemoveRedEye } from "react-icons/md";
+import { MdDelete, MdOutlineDeleteOutline, MdRemoveRedEye } from "react-icons/md";
 import { FaSquarePlus } from "react-icons/fa6";
 import { useAssignAffiliateMutation, useDeAssignAffiliateMutation, useDeleteMultiAssignedUserMutation, useUpdateAssignOfAffiliatMutation, useUpdateCommissionMutation } from '../../../../services/AdminService';
 import toast from 'react-hot-toast';
@@ -31,18 +31,16 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
     const [commissionLoading, setCommissionLoading] = useState(false);
     const [selectedCommissonIdx, setSelectedCommissonIdx] = useState();
 
+    //states and functions for select all 
+    const [isAllSelected, setIsAllSelected] = useState(false);
+
+
     const paramData = useParams();
-    console.log(paramData, 'paramdta');
-
-
-
     const handleCheckboxChange = (e) => {
         const isChecked = e.target.checked;
         const value = parseInt(e.target.value);
-        console.log(value);
-
         if (isChecked) {
-            setSelectedUsers([...SelectedUsers, { userId: value }])
+            setSelectedUsers([...SelectedUsers, { userId: value }]);
         }
         else {
             setSelectedUsers((prev) => {
@@ -80,20 +78,16 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
             toast.error("Select at least one user")
         }
         else {
-            console.log(SelectedUsers, "this is the selected user in 121")
             let dataForApi = {
                 "details": SelectedUsers
             }
-            console.log(SelectedUsers, "selected users in api")
             AssignAffiliate({ Id: paramData?.id, data: dataForApi })
                 .then((res) => {
                     if (res.error) {
-                        console.log(res.error, 'res.error');
                         toast.error("Internal server error");
                         setSubmitLoading(false)
                     }
                     else {
-                        console.log(res, 'res');
                         toast.success("Affiliate assigned successfull")
                         setSubmitLoading(false);
                         setSelectedUsers([]);
@@ -101,23 +95,11 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                     }
                 })
                 .catch((err) => {
-                    console.log(err, 'err');
                     toast.error("Internal server error");
                     setSubmitLoading(false)
                 })
         }
-
-
-
-
-        console.log(SelectedUsers, 'selectedUsers');
-
     }
-    console.log(
-
-        AssignedListData
-    )
-
     const handleDeAssignSubmit = () => {
         if (DeSelectedUsers?.length <= 0) {
             toast.error("Select at least one user")
@@ -130,24 +112,20 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
             DeAssign({ Id: paramData?.id, data: dataForApi })
                 .then((res) => {
                     if (res.error) {
-                        console.log(res.error, 'res.error');
                         toast.error("Internal server error");
                         setSubmitLoading(false)
                     }
                     else {
-                        console.log(res, 'res');
                         toast.success("Affiliate assigned successfull")
                         setSubmitLoading(false);
                         setSelectedUsers([])
                     }
                 })
                 .catch((err) => {
-                    console.log(err, 'err');
                     toast.error("Internal server error");
                     setSubmitLoading(false)
                 })
         }
-        console.log(DeSelectedUsers, 'DeselectedUsers');
     }
 
     const handlePageChange = (e, page) => {
@@ -160,23 +138,19 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
 
     const handleDeleteYes = () => {
         let userIds = checkedOptions.map((itm) => itm?.id);
-        console.log(userIds);
         DeleteMulti({ details: userIds })
             .then((res) => {
                 if (res.error) {
-                    console.log(res.error, 'res.error');
                     toast.error("Internal server error");
                     setSubmitLoading(false)
                 }
                 else {
-                    console.log(res, 'res');
                     toast.success("Deleted user successfully")
                     setSubmitLoading(false);
                     setSelectedUsers([])
                 }
             })
             .catch((err) => {
-                console.log(err, 'err');
                 toast.error("Internal server error");
                 setSubmitLoading(false)
             })
@@ -197,19 +171,16 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
     //         }
     //     }).then(res => {
     //         if (res.error) {
-    //             console.log(res.error, 'res.error');
     //             toast.error("Internal server error");
     //             setAssignedlistloadingCommission(false);
 
     //         }
     //         else {
-    //             console.log(res, 'res');
     //             toast.success("Commission updated successfully");
     //             setAssignedlistloadingCommission(false);
 
     //         }
     //     }).catch((err) => {
-    //         console.log(err);
     //         setAssignedlistloadingCommission(false);
     //     });
     // }
@@ -249,44 +220,32 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                 }
             }).then(res => {
                 if (res.error) {
-                    console.log(res.error, 'res.error');
                     toast.error("Internal server error");
                     setCommissionLoading(false);
                 } else {
-                    console.log(res, 'res');
                     toast.success("Commission updated successfully");
                     setCommissionLoading(false);
                 }
             }).catch((err) => {
-                console.log(err);
                 toast.error("An error occurred while updating the commission");
                 setCommissionLoading(false);
             });
         }, 500);
     };
     const handleCommissionArray = (value, id, idx) => {
-        console.log(value, id, idx, "inside handle commission array");
         if (timeoutId) {
             clearTimeout(timeoutId);
         }
         if (value === "" || value === null || value === undefined) {
             setCommissionToast(
-                {
-                    message: "Commission is required",
-                    id: idx
-                }
+                { message: "Commission is required", id: idx }
             );
             // toast.error("Commission is required");
             return;
         }
         const numericValue = Number(value);
         if (numericValue < 1 || numericValue > 50) {
-            setCommissionToast(
-                {
-                    message: "Commission should be between 1-50",
-                    id: idx
-                }
-            );
+            setCommissionToast({ message: "Commission should be between 1-50", id: idx });
             // toast.error("Commission should be between 1-50");
             return;
         }
@@ -302,7 +261,6 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                     }
                     selectedUsr[indexToMatch] = dobj
                 }
-                console.log(selectedUsr)
                 return selectedUsr;
             })
         }, 500);
@@ -313,7 +271,6 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
             if (newValue === '' || /^\d{1,2}$/.test(newValue)) {
                 setCommissionToast({ message: "", id: '' });
                 e.target.value = newValue;
-                console.log("new value before going in handle commission array", newValue);
                 handleCommissionArray(newValue, id, idx);
             } else {
                 e.target.value = e.target.value.slice(0, 2);
@@ -339,44 +296,38 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
             e.target.value = oldValue;
         }
     }
-    console.log(AssignedListData, NotAssignedlistData);
 
     const selectHandleAssign = (type, userID, indx, affiliateID) => {
         setAssignLoading(true);
         setSelectedAssign(indx);
-        console.log(type, userID, indx);
-        UpdateAssign({
-            details: [
-                { "userId": userID, "type": type },
-            ], affiliatId: affiliateID
-        })
-            .then((res) => {
-                console.log(res);
-                if (res.error) {
-                    toast.error("Internal server error");
-                    setAssignLoading(false)
-
+        UpdateAssign({ details: [{ "userId": userID, "type": type },], affiliatId: affiliateID }).then((res) => {
+            if (res.error) {
+                toast.error("Internal server error");
+                setAssignLoading(false);    
+            } else {
+                if (type === "assigned") {
+                    toast.success("User Assigned");
                 } else {
-                    if (type = "assigned") {
-                        toast.success("User Assigned");
-
-                    }
-                    else {
-                        toast.success("User Deassigned");
-                    }
-                    setAssignLoading(false)
-
+                    toast.success("User Deassigned");
                 }
-            })
-            .catch((err) => {
-                console.error(err);
-                setAssignLoading(true)
-
-                toast.error("Failed to update status");
-            });
+                setAssignLoading(false)
+            }
+        }).catch((err) => {
+            setAssignLoading(true);
+            toast.error("Failed to update status");
+        });
     }
 
-    console.log(AssignedcurrentPage,Assignedcount,handleAssignedPageChange,"424 pagination console")
+    useEffect(() => {
+        console.log(checkedOptions, AssignedListData)
+        if (AssignedListData?.length > 0) {
+            if (checkedOptions?.length === AssignedListData?.length) {
+                setIsAllSelected(true);
+            } else {
+                setIsAllSelected(false);
+            }
+        }
+    }, [checkedOptions])
     return (
         <>
             {
@@ -388,12 +339,17 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                     </div> : <div className=' flex flex-col gap-3'>
                         <div className='mb-3'>
                             <div className='flex w-full justify-start gap-2 px-1 py-2 mb-2'>
-                                <span onClick={() => { navigate('/dashboard/affiliate-links') }} className='font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
-                                    <IoArrowBack size={20} />
-                                </span>
-                                <span className=' font-semibold text-[20px]'>
-                                    Assigned Users
-                                </span>
+                                <div className='flex w-full gap-2 justify-start'>
+                                    <span onClick={() => { navigate('/dashboard/affiliate-links') }} className='font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
+                                        <IoArrowBack size={20} />
+                                    </span>
+                                    <span className=' font-semibold text-[20px]'>
+                                        Assigned Users
+                                    </span>
+                                </div>
+                                {checkedOptions?.length > 0 &&
+                                    <div onClick={() => { handleDeAssignCLick() }} className='mb-1 w-[150px] flex gap-2 text-[14px] text-center justify-center  rounded-full bg-[#ff0000] text-white shadow-sm shadow-red-300  right-0 items-center px-2 cursor-pointer transition duration-300'> Delete {checkedOptions?.length} users </div>
+                                }
                             </div>
                             <hr className='my-2' />
                             {
@@ -421,79 +377,82 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                             <table className=''>
                                                 <thead>
                                                     <tr>
-                                                        <th>Action</th>
+                                                        <th className='flex gap-2'>
+                                                            <div >
+
+                                                                <input checked={isAllSelected} onChange={(e) => {
+                                                                    if (e.target.checked) {
+
+                                                                        setCheckedOptions(AssignedListData);
+                                                                        setIsAllSelected(true);
+                                                                    } else {
+                                                                        setCheckedOptions([]);
+                                                                        setIsAllSelected(false)
+                                                                    }
+                                                                }}
+                                                                    type="checkbox"
+                                                                    style={{ accentColor: "black" }}
+                                                                />
+
+                                                            </div>
+                                                            Action</th>
                                                         <th>User Email</th>
                                                         <th>Assigned Affiliate</th>
                                                         <th>Commission</th>
                                                         <th>Location</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody className="relative">
-                                                    <div className='flex w-full justify-start gap-2 px-1 py-2 mb-2'>
-                                                        {checkedOptions.length > 0 && (
-                                                            <div className='absolute top-0 mb-1 w-full flex border justify-between right-0 items-center px-3'>
-                                                                <span className=''>{checkedOptions.length}, selected user</span>
-                                                                <button
-                                                                    className='ml-2 p-1 rounded-full'
-                                                                    onClick={() => { handleDeAssignCLick() }}
-                                                                >
-                                                                    <MdDelete size={20} />
-                                                                </button>
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                    {
-                                                        AssignedListData?.map((itm, indx) => (
-                                                            <tr key={indx}>
-                                                                <td className='pl-[25px]'>
-                                                                    {/* <input value={itm?.id} checked={DeSelectedUsers?.includes(itm?.id)} onChange={handleDeSelectCheckboxChange} type="checkbox" /> */}
-                                                                    <input value={itm} checked={checkedOptions.includes(itm)} onChange={(e) => {
-                                                                        if (checkedOptions.includes(itm)) {
-                                                                            setCheckedOptions(prev => prev.filter(obj => obj !== itm))
-                                                                        } else {
-                                                                            setCheckedOptions(prev => [...prev, itm])
-                                                                        }
-                                                                    }} type="checkbox" style={{ accentColor: "black" }} />
-                                                                    {/* <span className='cursor-pointer' onClick={() => { handleDeAssignCLick(itm?.id) }}><MdDelete size={20} /></span> */}
-                                                                </td>
-                                                                <td>{itm?.user?.email || "N/A"}</td>
-                                                                <td>
-                                                                    {
-                                                                        assignLoading && selectedAssign == indx ?
-                                                                            <span className=' w-fit flex py-1 items-center justify-center m-auto self-center animate-spin'>
-                                                                                <AiOutlineLoading3Quarters />
-                                                                            </span>
-                                                                            :
-                                                                            <select name="status" value={itm?.type} onChange={(e) => selectHandleAssign(e.target.value, itm?.user?.id, indx, itm?.affiliateId)}>
-                                                                                <option value="assigned">Assign</option>
-                                                                                <option value="deAssigned">Deassign</option>
-                                                                            </select>
-                                                                    }
-                                                                </td>
-                                                                <td className='relative '>
-                                                                    {commissionLoading && selectedCommissonIdx == indx ?
-                                                                        <span className=' w-full flex py-[13px] items-center justify-center m-auto self-center animate-spin'>
-                                                                            <AiOutlineLoading3Quarters />
-                                                                        </span> :
-                                                                        <div className='flex relative forRemovingArrows'><input
-                                                                            type="number"
-                                                                            min="1"
-                                                                            max="50"
-                                                                            defaultValue={itm?.user?.commisionByPercentage}
-                                                                            onChange={handleChange}
-                                                                            onKeyDown={(e) => handleKeyDown(e, e.target.value, itm?.user?.id, indx, 'notAssign')}
-                                                                            onBlur={(e) => handleBlur(e, itm?.user?.commisionByPercentage)}
-                                                                            className="bg-white border border-black text-black text-sm rounded-lg focus:ring-black focus:border-black block w-[60%] p-2.5"
-                                                                        />
-                                                                            <span className='absolute text-[14px] top-[25%] left-[45%]'>%</span>
-                                                                        </div>
-                                                                    }
-                                                                    {commisionToast.id === indx && commisionToast.message && <p className='absolute text-red-400 text-[12px] bottom-[2px]'>{commisionToast.message}</p>}
-                                                                </td>
-                                                                <td>{itm?.user?.city},  {itm?.user?.country || "N/A"}</td>
-                                                            </tr>
-                                                        ))
-                                                    }
+                                                <tbody >{AssignedListData?.map((itm, indx) => (
+                                                    <tr key={indx}>
+                                                        <td className='pl-[25px]'>
+                                                            {/* <input value={itm?.id} checked={DeSelectedUsers?.includes(itm?.id)} onChange={handleDeSelectCheckboxChange} type="checkbox" /> */}
+                                                            <input value={itm} checked={checkedOptions.includes(itm)} onChange={(e) => {
+                                                                if (checkedOptions.includes(itm)) {
+                                                                    setCheckedOptions(prev => prev.filter(obj => obj !== itm))
+                                                                } else {
+                                                                    setCheckedOptions(prev => [...prev, itm])
+                                                                }
+                                                            }} type="checkbox" style={{ accentColor: "black" }} />
+                                                            {/* <span className='cursor-pointer' onClick={() => { handleDeAssignCLick(itm?.id) }}><MdDelete size={20} /></span> */}
+                                                        </td>
+                                                        <td>{itm?.user?.email || "N/A"}</td>
+                                                        <td>
+                                                            {
+                                                                assignLoading && selectedAssign == indx ?
+                                                                    <span className=' w-fit flex py-1 items-center justify-center m-auto self-center animate-spin'>
+                                                                        <AiOutlineLoading3Quarters />
+                                                                    </span>
+                                                                    :
+                                                                    <select name="status" value={itm?.type} onChange={(e) => selectHandleAssign(e.target.value, itm?.user?.id, indx, itm?.affiliateId)}>
+                                                                        <option value="assigned">Assign</option>
+                                                                        <option value="deAssigned">Deassign</option>
+                                                                    </select>
+                                                            }
+                                                        </td>
+                                                        <td className='relative '>
+                                                            {commissionLoading && selectedCommissonIdx == indx ?
+                                                                <span className=' w-full flex py-[13px] items-center justify-center m-auto self-center animate-spin'>
+                                                                    <AiOutlineLoading3Quarters />
+                                                                </span> :
+                                                                <div className='flex relative forRemovingArrows'><input
+                                                                    type="number"
+                                                                    min="1"
+                                                                    max="50"
+                                                                    defaultValue={itm?.user?.commisionByPercentage}
+                                                                    onChange={handleChange}
+                                                                    onKeyDown={(e) => handleKeyDown(e, e.target.value, itm?.user?.id, indx, 'notAssign')}
+                                                                    onBlur={(e) => handleBlur(e, itm?.user?.commisionByPercentage)}
+                                                                    className="bg-white border border-black text-black text-sm rounded-lg focus:ring-black focus:border-black block w-[60%] p-2.5"
+                                                                />
+                                                                    <span className='absolute text-[14px] top-[25%] left-[45%]'>%</span>
+                                                                </div>
+                                                            }
+                                                            {commisionToast.id === indx && commisionToast.message && <p className='absolute text-red-400 text-[12px] bottom-[2px]'>{commisionToast.message}</p>}
+                                                        </td>
+                                                        <td>{itm?.user?.city},  {itm?.user?.country || "N/A"}</td>
+                                                    </tr>
+                                                ))
+                                                }
                                                     <tr className="spacer-row">
                                                         <td colSpan="5"></td>
                                                     </tr>
@@ -517,10 +476,6 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                                     </div>
                             }
                         </div>
-
-                        {/* <br /> */}
-                        <hr />
-
                         {/* <div className=' mt-1'>
                             <span className='font-semibold text-[20px]'>
                                 Not Assigned Users
@@ -612,7 +567,6 @@ function AssignAffiliate({ AssignedcurrentPage, setAssignedCurrentPage, Assigned
                             }
                         </div> */}
                     </div>
-
             }
         </>
     );

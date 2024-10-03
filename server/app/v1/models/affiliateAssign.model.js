@@ -17,7 +17,7 @@ const { toDefaultValue } = require('sequelize/lib/utils');
 module.exports = (sequelize, Sequelize) => {
     /**
      * @type {Model}
-     */
+     */ 
     const AffiliateAssign = sequelize.define("affiliateAssign", {
         userId: {
             type: Sequelize.INTEGER,

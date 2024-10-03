@@ -18,7 +18,8 @@ exports.allUsers = async (req) => {
         const page = parseInt(req.body.page) || 1;  // Default to page 1
         const limit = parseInt(req.body.limit) || 10;  // Default to 10 items per page
         const offset = (page - 1) * limit;
-        const query = req.body.search || ""
+        const query = req.body.search || "";
+
 
         const result = await Users.findAndCountAll({
             limit: limit,
@@ -31,43 +32,35 @@ exports.allUsers = async (req) => {
                     },
                     userId: {
                         [Op.like]: `${query}%`,
-
                     },
                     companyName: {
-                        [Op.like]: `${query}%`
-                    }
-                }
+                        [Op.like]: `${query}%`,
+                    },
+                },
             },
-            include:
-            {
+            include: [{
                 model: AffiliateAssign,
-                attributes: ['affiliateId']
-            },
-
-            order: [['createdAt', 'DESC']],
-            attributes: ["id", "email", "country", "city", "address", "userId", "companyName", 'isActive', 'commisionByPercentage', 'createdAt'],
-            distinct: true
-
-
+                attributes: ['id', 'affiliateId', "clicks"], // Get only the affiliateId field
+            }],
+            distinct: true,
         });
+        for (const user of result.rows) {
+            let totalClicks = 0;
+            let totalAffiliateAssign = 0;
+            if (user?.affiliateAssigns?.length) {
+                for (const assingAffiliate of user.affiliateAssigns) {
+                    totalAffiliateAssign += 1
+                    totalClicks += assingAffiliate?.clicks || 0;
+                }
 
-
-        if (result) {
-            await result?.rows?.map(user => {
-                const affiliateCount = user.affiliateAssigns.length;
-                user.dataValues.affiliateCount = affiliateCount;
-                delete user.dataValues.affiliateAssigns
-            });
-
-            return {
-                status: true,
-                result: result
             }
+            user.dataValues.totalClicks = totalClicks
+            user.dataValues.affiliateCount = totalAffiliateAssign
         }
-        else {
-            return {
-                status: false
-            }
+
+        return {
+            status: true,
+            result: result
         }
 
     } catch (error) {
@@ -78,6 +71,7 @@ exports.allUsers = async (req) => {
         }
     }
 }
+
 
 //not assigned
 exports.notAssignedCustomers = async (affiliateId, req) => {
@@ -206,10 +200,7 @@ exports.userAffiliates = async (userId, req) => {
             offset: offset,
 
             where: {
-                [Op.and]: [
-                    { userId: userId },
-                    { type: "assigned" },
-                ]
+                userId,
             },
             include: [
                 {
@@ -409,6 +400,7 @@ exports.assignedUsers = async (affiliateId, req) => {
                     model: Users,
                     attributes: { exclude: ['password'] },
                     where: {
+                        role: 'customer',
                         [Op.or]: {
                             email: {
                                 [Op.like]: `${query}%`,

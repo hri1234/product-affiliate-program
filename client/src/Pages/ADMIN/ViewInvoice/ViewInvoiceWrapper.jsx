@@ -9,7 +9,6 @@ function ViewInvoiceWrapper() {
 
   const paramData = useParams();
   const id = paramData?.id;
-  console.log('param id viewInvoice', id);
 
   const ReduxData = useSelector((state) => state.SearchSlice);
 
@@ -53,20 +52,20 @@ function ViewInvoiceWrapper() {
       setLoading(false);
       setListData(data?.result);
       setCount(Math.ceil(data?.result?.result?.count / dataPerPage));
-      console.log(data?.result?.result?.count)
     }
   }, [isLoading, isFetching, data])
-  console.log(ListData, 'Invoice view listData');
 
 
   const { data: analysisData, isFetching: isAnalysisFetching, isLoading: isAnalysisLoading } = useGetMonthlyAnalysisQuery({
     data: {
-      "month": new Date().getMonth() + 1,
-      "year": new Date().getFullYear()
+      "month": "09",
+      "year": "2024"
     },
     Id: id
   }
   )
+
+  
 
   useEffect(() => {
     if (isAnalysisFetching || isAnalysisLoading) {

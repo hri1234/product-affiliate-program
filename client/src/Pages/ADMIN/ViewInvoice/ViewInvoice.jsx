@@ -11,15 +11,9 @@ import { Pagination } from '@mui/material';
 
 function ViewInvoice({ loading, listData, OverViewData, email, companyName, count, currentPage, setCurrentPage }) {
 
-
-  console.log(listData, 'ListDataaa')
-
   const totalPaidCommission = listData?.rows
     ?.filter(item => item.status === "Paid")
     ?.reduce((total, item) => total + item.commission, 0);
-
-  console.log(totalPaidCommission, ';-----------------------totalPaidCommission');
-
 
   const navigate = useNavigate();
   const [UpdateStatus] = useUpdateInvoiceStatusMutation();
@@ -28,15 +22,12 @@ function ViewInvoice({ loading, listData, OverViewData, email, companyName, coun
 
 
   const handleSelect = (e, id) => {
-    console.log(e);
-    console.log(id, 'id')
     const dataForApi = {
       "status": e?.label
     }
     UpdateStatus({ Id: id, data: dataForApi })
       .then((res) => {
         if (res?.error) {
-          console.log(res?.error, 'resError');
           toast.error(res?.error?.data?.message || "Internal server error")
         }
         else {

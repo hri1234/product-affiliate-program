@@ -54,11 +54,12 @@ exports.addAffiliate = async (req, res) => {
 // redirect short link 
 exports.redirectShortLink = async (req, res) => {
     try {
-        const token = req.headers['authorization']
-        const decoded = jwtDecode(token)
+        // const token = req.headers['authorization']
+        // const decoded = jwtDecode(token)
+        const userId = req.query.UserId
         const assignAffiliateId = req.body.id
         const deviceId = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-        const result = await service.redirectShortLink(req, res, decoded.id, assignAffiliateId, deviceId)
+        const result = await service.redirectShortLink(req, res, userId, assignAffiliateId, deviceId)
         if (result.isExistClickAndPurchase || result.result) {
             return sendResponse(res, statusCode.OK, true, result)
 
@@ -224,3 +225,21 @@ exports.fileUpload = async (request, response) => {
         return sendResponse(response, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR);
     }
 };
+
+//total affilaite clicks
+exports.totalAffiliateClick = async (req, res) => {
+
+    try {
+        const userId = req.body.userId
+        const assignAffiliateId = req.body.id
+        const result = await service.totalAffiliateClick(userId,assignAffiliateId);
+        if (result) {
+            return sendResponse(res, statusCode.OK, true, `Affiliate ${SuccessMessage.FETCH} fully`, result)
+        }
+    } catch (error) {
+        console.log(error)
+        return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR)
+
+    }
+
+}

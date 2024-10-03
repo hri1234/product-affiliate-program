@@ -17,7 +17,6 @@ function AnalyticsWrapper() {
     const [currentPage, setCurrentPage] = useState(1);
     const dataPerPage = 10
     const ReduxData = useSelector((state) => state.SearchSlice.userAnalyticsSearchQuery);
-    console.log(selectedYear, 'seleyear')
 
     const UserToken = Cookies.get("isLogged");
     const [UserId, setUserId] = useState(0);
@@ -45,9 +44,6 @@ function AnalyticsWrapper() {
             search: ReduxData
         }
     })
-
-    console.log(analyticsData, '-----------------------------analyticsDetail');
-
     useEffect(() => {
         if (isLoading || isFetching || listLoading || listFetching) {
             setLoading(true);

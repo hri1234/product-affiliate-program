@@ -10,7 +10,7 @@ const uploads = multer({ storage: storage });
 
 
 
-const { authenticate } = require('../middleware/authentication.js')
+const { authenticate ,authAdmin} = require('../middleware/authentication.js')
 
 router.post('/add', authenticate, controllers.addAffiliate);
 router.put('/updateAffiliate/:id',controllers.updateAffiliate)
@@ -19,6 +19,7 @@ router.post("/upload", uploads.single("file"), controllers.fileUpload);
 router.post('/list', authenticate, controllers.getAffiliate)
 // router.get('/:id', controllers.redirectShortLink);
 router.post('/assign-affiliate/add/:id',controllers.addAssignAffiliate)
+router.post('/total-clicks',controllers.totalAffiliateClick)
 // router.get('/assigned-affiliate/get',controllers) //get affiliate customer
 
 module.exports = router;

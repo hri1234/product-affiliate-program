@@ -24,25 +24,15 @@ function AdminAddAffiliateLinks({ listData, loading }) {
     const [handleImageUploadloading, sethandleImageUploadLoading] = useState(false);
 
     const [UploadImage] = useUploadImageMutation();
-
-    console.log(submitLoading, 'SubmitLoading')
-
-    console.log(listData, 'listDataProf');
     const previousCountryName = listData?.country;
     const previousCountryCode = useMemo(() => countryList().getValue(previousCountryName || ""));
     const PreviousCountryData = { value: previousCountryCode, label: previousCountryName }
-
-    console.log(PreviousCountryData, 'prevData of Country')
-
 
     const initialValues = {
         name: '',
         link: '',
         dropboxLink: '',
         imageUrl: null
-        // clickCount: '0',
-        // purchases: '0',
-        // companyNumber: listData?.companyNumber || '',
     };
 
     const validationSchema = yup.object().shape({
@@ -60,11 +50,6 @@ function AdminAddAffiliateLinks({ listData, loading }) {
 
     const handleSubmit = (data) => {
         setSubmitLoading(true);
-        // const formData = new FormData();
-        // formData.append('image', ImageUrl);
-        // formData.append('name', data?.name);
-        // formData.append('link', data?.link);
-        // formData.append('dropboxLink', data?.dropboxLink);
         let DataForApi = {
             "name": data?.name,
             "link": data?.link,
@@ -84,19 +69,16 @@ function AdminAddAffiliateLinks({ listData, loading }) {
         AddAffiliate({ data: DataForApi })
             .then((res) => {
                 if (res.error) {
-                    console.log(res.error, 'res.error');
                     toast.error(res?.error?.data?.message === "Affiliate With Given Name Already Exist." && "Affiliate with this name already exists");
                     setSubmitLoading(false)
                 }
                 else {
-                    console.log(res, 'res');
                     toast.success("Affiliate Created");
                     navigate('/dashboard/affiliate-links')
                     setSubmitLoading(false)
                 }
             })
             .catch((err) => {
-                console.log(err, 'err');
                 toast.error("Internal server error");
                 setSubmitLoading(false)
             })
@@ -111,17 +93,14 @@ function AdminAddAffiliateLinks({ listData, loading }) {
                 // Set file name and reset image URL if needed
                 setFileName(file.name);
                 setImageUrl(''); // Clear previous image URL if you want
-
                 // Optionally: You can proceed with the upload here if needed
                 const formData = new FormData();
                 formData.append('file', file);
                 sethandleImageUploadLoading(true);
-
                 UploadImage({ data: formData })
                     .then((res) => {
                         if (res?.error) {
                             sethandleImageUploadLoading(false);
-                            console.log(res?.error?.data?.message || "Internal server error", 'reserror');
                         } else {
                             const url = res?.data?.result?.url;
                             setImageUrl(url);
@@ -130,7 +109,6 @@ function AdminAddAffiliateLinks({ listData, loading }) {
                         }
                     })
                     .catch((err) => {
-                        console.log(err?.data?.error || "Internal server errors", 'err');
                         sethandleImageUploadLoading(false);
                     });
             } else {

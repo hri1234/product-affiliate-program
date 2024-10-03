@@ -21,7 +21,6 @@ function AdminDashboardWrapper() {
 
   useEffect(() => {
     setSearchFilter(ReduxData?.dashboardQuery || '');
-    console.log(ReduxData?.dashboardQuery, 'dashboardSearch')
   }, [ReduxData])
 
   useEffect(() => {
@@ -52,15 +51,12 @@ function AdminDashboardWrapper() {
     }
   }, [isLoading, isFetching, data, currentPage])
 
-  console.log(data?.result, 'userList')
-
   const { data: profileData, isLoading: listLoading, isFetching: listFetching } = useGetProfileQuery({});
 
   useEffect(() => {
     const prevData = Cookies.get("profileData");
 
     if (prevData?.length > 10) {
-      console.log("")
     }
     else {
       Cookies.set("profileData", `${JSON.stringify(profileData?.result?.result)}`, { expires: 30 });

@@ -17,7 +17,6 @@ import { useGetAffiliateListQuery, useGetIndividualAffiliateListQuery } from '..
 import { IoArrowBack } from 'react-icons/io5';
 
 function AddInvoice({ id, email, companyName }) {
-    console.log(companyName)
     const [listData, setListData] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -55,7 +54,6 @@ function AddInvoice({ id, email, companyName }) {
             setListData(transformedData);
         }
     }, [listLoading, data, listFetching])
-    console.log(listData, '----------------------------------------------listData');
 
 
 
@@ -90,8 +88,6 @@ function AddInvoice({ id, email, companyName }) {
     });
 
     const handleSubmit = (data, { resetForm }) => {
-
-        console.log('---------------------------------submit');
         let dataForApi = {
             "userId": id,
             "themeName": data?.themeName?.label,
@@ -102,11 +98,9 @@ function AddInvoice({ id, email, companyName }) {
             "invoiceId": data?.invoiceId,
             "status": data?.paymentStatus?.label,
         }
-        console.log(dataForApi, 'dataforAPI')
         AddInvoice({ data: dataForApi })
             .then((res) => {
                 if (res?.error?.status == 400) {
-                    console.log(res?.error, 'resError');
                     toast.error(res?.error?.data?.error)
                 }
                 else {
@@ -115,7 +109,6 @@ function AddInvoice({ id, email, companyName }) {
                 }
             })
             .catch((err) => {
-                console.log(err, 'catchErr')
             })
     };
 

@@ -19,16 +19,9 @@ function Profile({ listData, loading }) {
   const [UpdateProfile] = useUpdateProfileMutation();
   const [submitLoading, setSubmitLoading] = useState(false);
 
-
-  console.log(submitLoading, 'SubmitLoading')
-
-  console.log(listData, 'listDataProf');
   const previousCountryName = listData?.country;
   const previousCountryCode = useMemo(() => countryList().getValue(previousCountryName || ""));
   const PreviousCountryData = { value: previousCountryCode, label: previousCountryName }
-
-  console.log(PreviousCountryData, 'prevData of Country')
-
 
   const initialValues = {
     email: listData?.email,
@@ -63,7 +56,6 @@ function Profile({ listData, loading }) {
   const handleSubmit = (data) => {
 
     setSubmitLoading(true);
-    console.log('Handle profile submit')
 
     let DataForApi = {
       "paypalAddress": data?.payPalAddress,
@@ -75,8 +67,6 @@ function Profile({ listData, loading }) {
       "companyUrl": data?.companyUrl,
     }
 
-    console.log(DataForApi, 'submitData');
-
     UpdateProfile({ data: DataForApi })
       .then((res) => {
         if (res.error) {
@@ -84,13 +74,11 @@ function Profile({ listData, loading }) {
           setSubmitLoading(false)
         }
         else {
-          console.log(res, 'res');
           toast.success("Profile updated ");
           setSubmitLoading(false)
         }
       })
       .catch((err) => {
-        console.log(err, 'err');
         toast.error("Internal server error");
         setSubmitLoading(false)
       })

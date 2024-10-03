@@ -92,7 +92,6 @@ const SideBarNav = () => {
   useEffect(() => {
     if (TokenData?.length > 1) {
       const decodingToken = jwtDecode(TokenData);
-      console.log(decodingToken?.role, 'decodedToken');
       setRole(decodingToken?.role)
     }
   }, [TokenData, testToken]);

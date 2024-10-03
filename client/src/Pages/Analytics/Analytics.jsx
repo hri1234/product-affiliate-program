@@ -62,11 +62,9 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
       },
     },
   });
-  console.log(chartState)
 
   const currentMonth = new Date().getMonth() + 1;
   const currentYear = new Date().getFullYear();
-  console.log(currentMonth, currentYear, selectedYear);
 
 
 
@@ -105,7 +103,6 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
     // Function to process the data
     const result = Clicks.map(theme => {
       // Initialize an array of 30 zeros for each day of the month
-      console.log(selectedMonth,selectedYear);
       const dayCounts = Array(new Date(selectedYear, selectedMonth, 0).getDate()).fill(0);
 
       // Count the occurrences of each day in the theme's data
@@ -120,7 +117,6 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
       };
     });
 
-    console.log(result);
     setClicksData(result)
 
   }, [])
@@ -140,7 +136,6 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
     });
 
     // Output the result in the desired format
-    console.log(counts, 'PURCHASE COUNT');
     setPurchasesData(counts)
 
     const totalPurchases = counts.reduce((total, count) => total + count, 0);
@@ -149,9 +144,6 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
 
 
   }, [analyticsData, selectedMonth, selectedYear])
-
-  console.log(purchaseCount, '---------------------purchaseCount');
-  console.log(affiliatesData?.result, 'purdata')
 
 
   const viewGraphHandle = (id, name) => {
@@ -162,7 +154,6 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
   const handlePageChange = (e, page) => {
     setCurrentPage(page)
   }
-  console.log(datesInMonth,purchasesData,purchaseCount)
   return (
     <>
       {loading ? <div className=' w-full flex h-[70vh] items-center justify-center'>

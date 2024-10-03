@@ -15,11 +15,9 @@ function InvoicesWrapper() {
   const dataPerPage = 10;
   const [invoiceFiltered, setInvoiceFiltered] = useState();
   const ReduxData = useSelector((state) => state.SearchSlice.userPageInvoiceQuery);
-  console.log(ReduxData);
   useEffect(() => {
     if (userToken) {
       const token = jwtDecode(userToken);
-      console.log(token?.id, 'tokenn');
       setUserId(token?.id)
     }
   }, [userToken])
@@ -45,9 +43,6 @@ function InvoicesWrapper() {
       setCount(Math.ceil(data?.result?.result?.count / dataPerPage))
     }
   }, [listLoading, data, listFetching])
-
-  console.log(listData, 'listdata invoice page')
-
   return (
     <div className='page-body px-4 pb-5'>
       <Invoices listData={listData?.result} loading={loading} count={count} setCurrentPage={setCurrentPage} currentPage={currentPage} />

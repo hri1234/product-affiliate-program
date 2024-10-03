@@ -43,9 +43,6 @@ const LogoWrapper = () => {
       // setCookieProfile(data?.result?.result?.companyName)
     }
   }, [listLoading, data, listFetching])
-
-  console.log(decodedData?.role, 'decodedData')
-
   return (
     <div className='logo-wrapper overflow-hidden p-3'>
       <div className='ml-[0px] p-[4px]'>

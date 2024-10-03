@@ -41,13 +41,11 @@ const LoginTab = (props) => {
       .then((res) => {
         if (res.error) {
           setToastMessage(res?.error?.data?.message || res.error?.data?.error)
-          console.log(res?.error, 'errrrrrrrrrrrrrrrrrrrrrr')
           setLoading(false);
         }
         else {
           Cookies.set("isLogged", `${res?.data?.result?.accessToken}`, { expires: 30 });
           const decodedToken = jwtDecode(res?.data?.result?.accessToken);
-          console.log("DECODEDTOKEN", decodedToken);
           props.props.auth(true);
           props.props.setRole(decodedToken?.role)
           resetForm();
@@ -57,7 +55,6 @@ const LoginTab = (props) => {
         }
       })
       .catch((err) => {
-        console.log(err, 'errrrrrrr')
         setToastMessage(err?.data?.message || "Something went wrong")
         setLoading(false)
       })
