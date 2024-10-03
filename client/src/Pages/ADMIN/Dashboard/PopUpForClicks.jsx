@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import './PopUpForClicks.css';
 import { useGetAffiliateTotalClicksQuery } from '../../../services/AdminService';
 import LoadingImage from '../../../Assets/logo/loading-7528_512.gif';
+import Pagination from '@mui/material/Pagination';
 
 const PopUpForClicks = ({ isPopUp, setIsPopUp, affiliateAssign }) => {
     const [listData, setListData] = useState([]);
-    console.log(affiliateAssign.id)
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 5;
     const affiliateIds = affiliateAssign.affiliateAssigns.map(item => item.id);
     const { data, isLoading } = useGetAffiliateTotalClicksQuery({
         data: {
@@ -24,6 +26,17 @@ const PopUpForClicks = ({ isPopUp, setIsPopUp, affiliateAssign }) => {
             document.body.style.overflow = '';
         };
     }, [isPopUp]);
+    // Calculate the index of the last item on the current page
+    const indexOfLastItem = currentPage * itemsPerPage;
+    // Calculate the index of the first item on the current page
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    // Slice the data for the current page
+    const currentItems = listData?.individualCount?.slice(indexOfFirstItem, indexOfLastItem);
+    // Total number of items
+    const totalCount = listData?.individualCount?.length;
+    const handlePageChange = (event, value) => {
+        setCurrentPage(value);
+    };
     return (
         <div className='clicks-popups-overlay'>
             <div className='clicks-popups-content'>
@@ -41,30 +54,42 @@ const PopUpForClicks = ({ isPopUp, setIsPopUp, affiliateAssign }) => {
                         <img src={LoadingImage} height={40} width={40} alt="Loading" />
                     </div>
                 ) : (
-                    <table className='min-w-full border-collapse border border-gray-200'>
-                        <thead>
-                            <tr className='bg-gray-100'>
-                                <th className='border border-gray-200 px-4 py-2'>Affiliate Name</th>
-                                <th className='border border-gray-200 px-4 py-2'>Count</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {listData?.individualCount?.length > 0 ? (
-                                listData.individualCount.map((item, index) => (
-                                    <tr key={index} className='hover:bg-gray-50'>
-                                        <td className='border border-gray-200 px-4 py-2'>{item?.affiliateName}</td>
-                                        <td className='border border-gray-200 px-4 py-2'>{item.count}</td>
-                                    </tr>
-                                ))
-                            ) : (
-                                <tr>
-                                    <td colSpan={2} className='border border-gray-200 px-4 py-2 text-center text-gray-500'>
-                                        No Data Found
-                                    </td>
+                    <>
+                        <table className='min-w-full border-collapse border border-gray-200'>
+                            <thead>
+                                <tr className='bg-gray-100'>
+                                    <th className='border border-gray-200 px-4 py-2'>Products Name</th>
+                                    <th className='border border-gray-200 px-4 py-2'>Clicks</th>
                                 </tr>
-                            )}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {currentItems?.length > 0 ? (
+                                    currentItems.map((item, index) => (
+                                        <tr key={index} className='hover:bg-gray-50'>
+                                            <td className='border border-gray-200 px-4 py-2'>{item?.affiliateName}</td>
+                                            <td className='border border-gray-200 px-4 py-2'>{item.count}</td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan={2} className='border border-gray-200 px-4 py-2 text-center text-gray-500'>
+                                            No Data Found
+                                        </td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                        <div className='absolute bottom-[20px] right-[20px]'>
+                            <Pagination
+                                shape="rounded"
+                                variant="outlined"
+                                color="standard"
+                                page={currentPage}
+                                count={Math.ceil(totalCount / itemsPerPage)}
+                                onChange={handlePageChange}
+                            />
+                        </div>
+                    </>
                 )}
             </div>
         </div>

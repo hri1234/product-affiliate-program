@@ -22,8 +22,7 @@ function DashboardWrapper() {
   const [searchFilter, setSearchFilter] = useState('');
 
   const ReduxData = useSelector((state) => state.SearchSlice);
-  const { data: commision, isLoading: listLoadingCommission, isFetching: listFetchingCommission } = useGetProfileQuery({});
-
+  const { data: commision, isLoading: listLoadingCommission, isFetching: listFetchingCommission } = useGetProfileQuery({}, { refetchOnMountOrArgChange: true });
   useEffect(() => {
     setSearchFilter(ReduxData?.customerInvoiceQuery)
   }, [ReduxData])

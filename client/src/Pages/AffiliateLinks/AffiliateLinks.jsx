@@ -171,17 +171,17 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
                                 </span>
 
 
-                                <a href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank' className=' hover:text-black border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
-                                  {/* <a className='hover:text-black' href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank'>
+                                {/* <a className='hover:text-black' href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank'>
                                     Visit link
                                   </a> */}
+                                {/* <a href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank' className=' hover:text-black border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
                                   <span className='hover:text-black hover:underline' >
-                                    {/* onClick={() => { HandleRedirectClick(itm?.affiliate?.shortId) }} */}
                                     Visit link
                                   </span>
-                                </a>
+                                </a> */}
+                                {/* onClick={() => { HandleRedirectClick(itm?.affiliate?.shortId) }} */}
                               </div>
-                              <a href={itm?.affiliate?.dropboxLink} target='_blank' className='w-full py-2 rounded px-2 text-center hover:text-white hover:no-underline flex justify-center gap-2 items-center hover:text-decoration-none text-[#fff] bg-slate-600 border'> <FaDropbox /> <p>Dropbox Link</p> </a>
+                              {itm?.affiliate?.dropboxLink && <a href={itm?.affiliate?.dropboxLink} target='_blank' className='w-full py-2 rounded px-2 text-center hover:text-white hover:no-underline flex justify-center gap-2 items-center hover:text-decoration-none text-[#fff] bg-slate-600 border'> <FaDropbox /> <p>Dropbox Link</p> </a>}
                             </div>
                           </div>
                           <div className=' flex gap-6'>

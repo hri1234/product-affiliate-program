@@ -23,19 +23,8 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage, c
     }
 
     const handleEdit = (id, name) => {
-
-
-
-
-
-
-
-
-
-
         navigate(`edit/${id}`)
     }
-
     const handleDeleteYes = (id) => {
         DeleteAffiliate({ Id: id })
             .then((res) => {
@@ -49,13 +38,10 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage, c
             .catch((err) => {
                 toast.error(err?.data || "")
             })
-
     }
-
     const handleDeleteClick = (id, name) => {
         AlertComponent({ heading: `Are you sure you want to delete the ${name} ? `, handleDeleteYes: () => handleDeleteYes(id) })
     }
-
     return (
         <>
             {
@@ -132,12 +118,12 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage, c
                                                                     {/* <span onClick={() => { navigator.clipboard.writeText(itm?.link); toast.success("Link copied") }} className=' border p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
                                                                         Copy link
                                                                     </span> */}
-                                                                    <a href={itm?.link} target='_blank' className=' border hover:text-black p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
+                                                                    {/* <a href={itm?.link} target='_blank' className=' border hover:text-black p-[6px] w-full rounded flex items-center justify-center bg-slate-200 cursor-pointer'>
                                                                         <span className='hover:text-black' >
                                                                             Visit link
                                                                         </span>
-                                                                    </a>
-                                                                    <a href={itm?.dropboxLink} target='_blank' className='w-full py-2 rounded px-1 text-center hover:text-white hover:no-underline mt-0 flex justify-center gap-2 items-center hover:text-decoration-none text-[#fff] bg-slate-600 border'> <FaDropbox /> <p>Dropbox Link</p> </a>
+                                                                    </a> */}
+                                                                    {itm?.dropboxLink && <a href={itm?.dropboxLink} target='_blank' className='w-full py-2 rounded px-1 text-center hover:text-white hover:no-underline mt-0 flex justify-center gap-2 items-center hover:text-decoration-none text-[#fff] bg-slate-600 border'> <FaDropbox /> <p>Dropbox Link</p> </a>}
                                                                 </div>
                                                             </div>
                                                         </div>
