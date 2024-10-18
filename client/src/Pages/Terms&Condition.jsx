@@ -56,7 +56,8 @@ const TermAndConditions = () => {
             description: "Commissions are earned based on successful sales referrals and are subject to the following:",
             list: [
                 'A waiting period applies before commission payouts to account for returns or cancellations.',
-                'Payments are made on the monthly schedule via paypal.',
+                'Commissions will be paid 30 days after the purchase to account.',
+                'Payments are made via paypal only.',
             ]
         },
         {
