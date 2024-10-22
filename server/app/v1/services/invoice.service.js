@@ -98,3 +98,18 @@ exports.updateStatus = async (id, status) => {
         }
     }
 }
+
+
+exports.updateInvoice = async (id, body) => {
+    await Invoice.update(
+        body,
+        {
+            where: {
+                id: id,
+            },
+        },
+    
+    )
+
+return true;
+}

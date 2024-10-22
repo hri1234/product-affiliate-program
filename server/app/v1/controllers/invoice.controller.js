@@ -81,3 +81,17 @@ exports.updateStatus = async (req, res) => {
         return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.error)
     }
 }
+
+exports.updateInvoice = async (req, res) => {
+    try {
+
+        const id = req.params.id
+        const body = req.body
+        const result = await service.updateInvoice(id, body)
+        return sendResponse(res, statusCode.OK, true, `Status  ${SuccessMessage.UPDATE}`, result);
+
+    } catch (error) {
+        console.log('error in update status api', error);
+        return sendResponse(res, statusCode.INTERNAL_SERVER_ERROR, false, ErrorMessage.INTERNAL_SERVER_ERROR, error?.error)
+    }
+}
