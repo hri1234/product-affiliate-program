@@ -8,6 +8,7 @@ exports.createInvoiceSchema = Joi.object({
     transactionId: Joi.string().required(),
     invoiceId: Joi.string().allow(null, "").optional(),
     status:Joi.string().allow(null, "").optional(),
+    shopifyUrl:Joi.string().allow(null, "").optional(),
 })
 
 
