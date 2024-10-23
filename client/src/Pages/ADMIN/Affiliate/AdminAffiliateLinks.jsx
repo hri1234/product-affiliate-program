@@ -111,7 +111,7 @@ function AdminAffiliateLinks({ listData, loading, setCurrentPage, currentPage, c
                                                                     <FaLink />
                                                                     <a className='text-black hover:text-black' href={itm?.link} target='_blank'>
                                                                         {/* Visit link */}
-                                                                        {itm?.shortUrl}
+                                                                        {itm?.link}
                                                                     </a>
                                                                 </span>
                                                                 <div className=' w-full flex justify-between gap-4'>

@@ -59,12 +59,11 @@ function AddInvoice({ id, email, companyName }) {
 
     const initialValues = {
         themeName: null,
-        // domain: '',
         commission: '',
-        // paymentMethod: null,
         transactionId: '',
         invoiceId: '',
-        paymentStatus: null
+        paymentStatus: null,
+        shopifyUrl: ""
     };
 
     const validationSchema = yup.object().shape({
@@ -83,20 +82,23 @@ function AddInvoice({ id, email, companyName }) {
         //     label: yup.string().required("PaymentMethod is required"),
         //     value: yup.string().required("PaymentMethod is required")
         // }).nullable().required("ThemeName is required"),
-        transactionId: yup.string().required("TransactionId is required").trim("Enter valid transactionId"),
+        // transactionId: yup.string().required("TransactionId is required").trim("Enter valid transactionId"),
         invoiceId: yup.string().trim("Enter valid invoiceId"),
+        shopifyUrl: yup.string()
+            .url("Enter a valid shopify url").required("Url is required")
+            .trim("Enter valid shopify url").strict(),
     });
 
     const handleSubmit = (data, { resetForm }) => {
         let dataForApi = {
             "userId": id,
             "themeName": data?.themeName?.label,
-            // "domain": data?.domain,
             "commission": data?.commission,
             "paymentMethod": 'payPal',
             "transactionId": data?.transactionId,
             "invoiceId": data?.invoiceId,
             "status": data?.paymentStatus?.label,
+            "shopifyUrl": data?.shopifyUrl
         }
         AddInvoice({ data: dataForApi })
             .then((res) => {
@@ -130,10 +132,6 @@ function AddInvoice({ id, email, companyName }) {
                                     Create Invoice
                                 </span>
                                 <div className='flex w-full justify-between mt-4 mb-4 px-1 py-0 '>
-
-                                    {/* <span onClick={() => { navigate('/dashboard') }} className='font-semibold underline text-[16px] w-fit px-1 py-1 bg-white border rounded cursor-pointer'>
-                      <IoArrowBack size={20} />
-                    </span> */}
                                     <div className=' flex gap-2 items-center'>
                                         <span onClick={() => { navigate('/dashboard') }} className=' w-fit font-semibold underline text-[16px]  px-1 py-1 bg-white border rounded cursor-pointer'>
                                             <IoArrowBack size={20} />
@@ -194,12 +192,7 @@ function AddInvoice({ id, email, companyName }) {
                                                     {/* </Col> */}
                                                     {/* <InputComponent label={"Theme name"} type="text" name='themeName' value={profileProps.values.themeName} placeholder='Enter theme name' onChange={profileProps.handleChange} /> */}
                                                 </Col>
-                                                {/* <Col md='6'> */}
-                                                {/* <InputControl controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('last_name', { required: 'is Required.' }) }} /> */}
-                                                {/* Inp control Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, dolorum. */}
-                                                {/* <InputComponent label={"Domain"} type={"text"} value={profileProps.values.domain} name='domain' onChange={profileProps.handleChange} placeholder={"Enter domain"} /> */}
-                                                {/* <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"domain"} component='div' /> */}
-                                                {/* </Col> */}
+
                                                 <Col md='6'>
                                                     <div className=' relative'>
                                                         <span className=' pl-[3px] font-semibold text-[14px]'>{"Payment Status"}</span>
@@ -240,55 +233,10 @@ function AddInvoice({ id, email, companyName }) {
                                             </Row >
                                             <br></br>
                                             <Row className='g-3'>
-                                                {/* <Col md='6'> */}
-                                                {/* <InputControl pereFix='@' controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('user_name', { required: 'is Required.' }) }} /> */}
-                                                {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias quo accusantium incidunt eum distinctio atque! */}
-                                                {/* <InputComponent label={"Payment Method"} type={"text"} value={profileProps.values.paymentMethod} name='paymentMethod' onChange={profileProps.handleChange} placeholder={"Enter Source Id"} /> */}
-                                                {/* <div className=' relative'>
-                                                        <span className=' pl-[3px] font-semibold text-[13px]'>{"Payment Method"}</span>
-                                                        <Select
-                                                            placeholder="Select payment method"
-                                                            options={paymentMethodsDetails}
-                                                            name="paymentMethod"
-                                                            value={profileProps.values.paymentMethod}
-                                                            // value={[{value:"IN",label:'India'}]}
-                                                            onChange={value => profileProps.setFieldValue('paymentMethod', value)}
-                                                            styles={{
-                                                                control: (baseStyles, state) => ({
-                                                                    ...baseStyles,
-                                                                    borderRadius: '8px', // Add border-radius
-                                                                    border: '1px solid rgb(222, 226, 230)', // Default border color
-                                                                    fontSize: '15px',
-                                                                    letterSpacing: '.8px',
-                                                                    boxShadow: 'none', // Remove box-shadow entirely
-                                                                    borderColor: 'rgb(222, 226, 230)', // Keep border consistent on focus/hover
-                                                                    '&:hover': {
-                                                                        borderColor: 'rgb(222, 226, 230)', // Gray border on hover
-                                                                    },
-                                                                }),
-
-                                                                option: (baseStyles, state) => ({
-                                                                    ...baseStyles,
-                                                                    fontSize: '15px' // Smaller font size for each option
-
-                                                                }),
-                                                                indicatorSeparator: () => ({
-                                                                    display: 'none', // Hide the line near the arrow button
-                                                                }),
-                                                            }}
-                                                        />
-                                                        <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"paymentMethod"} component='div' />
-                                                    </div> */}
-                                                {/* </Col> */}
                                                 <Col md='6'>
-                                                    {/* <InputControl pereFix='@' controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('user_name', { required: 'is Required.' }) }} /> */}
-                                                    {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias quo accusantium incidunt eum distinctio atque! */}
                                                     <InputComponent label={"Transaction Id"} type={"text"} value={profileProps.values.transactionId} name='transactionId' onChange={profileProps.handleChange} placeholder={"Enter transaction id"} />
-                                                    {/* <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"transactionId"} component='div' /> */}
                                                 </Col>
                                                 <Col md='6'>
-                                                    {/* <InputControl pereFix='@' controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('user_name', { required: 'is Required.' }) }} /> */}
-                                                    {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias quo accusantium incidunt eum distinctio atque! */}
                                                     <InputComponent label={"Invoice Id"} type={"text"} value={profileProps.values.invoiceId} name='invoiceId' onChange={profileProps.handleChange} placeholder={"Enter invoice id"} />
                                                     <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"invoiceId"} component='div' />
                                                 </Col >
@@ -296,16 +244,25 @@ function AddInvoice({ id, email, companyName }) {
                                             <br></br>
                                             <Row className='g-3'>
                                                 <Col md='6'>
-                                                    {/* <InputControl pereFix='@' controlInput='input' className='form-control' type='text' errors={errors} placeholder='Enter Last Name *' register={{ ...register('user_name', { required: 'is Required.' }) }} /> */}
-                                                    {/* InputControl Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias quo accusantium incidunt eum distinctio atque! */}
-                                                    <InputComponent label={"Commission"} type={"text"} value={profileProps.values.commission} name='commission' onChange={profileProps.handleChange} placeholder={"Enter commission"} />
-                                                    {/* <ErrorMessage className='text-red-400 absolute text-[14px] pl-[4px]  mt-0' name={"commission"} component='div' /> */}
+                                                    <InputComponent
+                                                        label={"Commission"}
+                                                        type={"text"}
+                                                        value={profileProps.values.commission}
+                                                        name='commission'
+                                                        onChange={profileProps.handleChange}
+                                                        placeholder={"Enter commission"} />
                                                 </Col>
-
+                                                <Col md='6'>
+                                                    <InputComponent
+                                                        label={"Shopify Url"}
+                                                        type={"text"}
+                                                        value={profileProps.values.shopifyUrl}
+                                                        name='shopifyUrl'
+                                                        onChange={profileProps.handleChange}
+                                                        placeholder={"Enter Shopify Url"} />
+                                                </Col>
                                             </Row >
-                                            {/* <Btn color="primary" type="submit" className="d-block mt-4  w-[120px] rounded-full">
-                                                Submit
-                                            </Btn> */}
+
                                             < div className=' w-[120px] mt-3' >
                                                 <button className=" bg-black text-white w-fit py-[6.5px] border w-100 mt-2 rounded-full" type="submit">
                                                     Create
@@ -319,7 +276,6 @@ function AddInvoice({ id, email, companyName }) {
                             </Form >
                         )
                     }
-                    {/* Profile Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sunt veniam velit porro fugit nulla eligendi iusto veritatis nemo quod! Veniam quia aperiam omnis repellendus, pariatur molestias inventore perferendis ullam magni consequuntur amet repudiandae. Porro debitis perspiciatis modi excepturi ipsa soluta odio cumque provident sapiente sint fugit temporibus, culpa, harum dolor. */}
                 </Formik >
             }
         </>

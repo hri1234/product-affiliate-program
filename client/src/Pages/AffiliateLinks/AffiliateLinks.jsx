@@ -32,15 +32,16 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
 
 
   const HandleRedirectClick = async (item, id, userId, redirectLink, utmId) => {
-
+    console.log(userId);
+    
     const token = Cookies.get('isLogged');
 
     let data = JSON.parse(localStorage.getItem('userData')) || [];
 
-    const existingUser = data.find(user => user.userId === userId);
+    const existingUser = data?.find(user => user?.userId === userId);
 
     if (existingUser) {
-      const existingItem = existingUser.items.find(i => i.item === item);
+      const existingItem = existingUser?.items?.find(i => i.item === item);
       if (existingItem) {
         return window.open(`${redirectLink}?utm_campaign=${utmId}`, '_blank')
       } else {
@@ -150,8 +151,7 @@ function AffiliateLinks({ uniqueId, listData, loading, count, setCurrentPage, cu
                                 {/* previous click logic */}
 
                                 <span onClick={() => { HandleRedirectClick(itm?.affiliate?.shortId, itm?.id, itm?.userId, itm?.affiliate?.link, listData?.result?.uniqueId) }} className='hover:text-black hover:underline'>
-                                  {itm?.affiliate?.shortUrl}
-                                  {/* <a href={`${itm?.affiliate?.link}?utm_campaign=${listData?.result?.uniqueId}`} target='_blank' className='hover:text-black hover:underline'>{`${itm?.affiliate?.shortUrl}`}</a> */}
+                                  {itm?.affiliate?.link}
                                 </span>
 
                                 {/* new click logic  */}

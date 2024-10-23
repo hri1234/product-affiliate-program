@@ -298,7 +298,7 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
                           <thead className=' py-2'>
                             <tr className='py-2'>
                               <th>Product</th>
-                              <th>Total Clicks</th>
+                              {/* <th>Total Clicks</th> */}
                               <th>Date</th>
                               <th>View Graph</th>
                             </tr>
@@ -307,7 +307,7 @@ function Analytics({ setSelectedYear, selectedYear, YearList, MonthList, loading
                             {affiliatesData?.result?.rows?.map(affiliate => (
                               <tr key={affiliate?.id}>
                                 <td>{affiliate.affiliate?.name}</td>
-                                <td className='pl-[30px]'>{affiliate?.clicks}</td>
+                                {/* <td className='pl-[30px]'>{affiliate?.clicks}</td> */}
                                 <td>{affiliate?.createdAt
                                   ? (() => {
                                     const date = new Date(affiliate.createdAt);

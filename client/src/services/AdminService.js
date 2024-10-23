@@ -28,6 +28,18 @@ const AdminService = CreateApi.injectEndpoints(
                         )
                     }
                 ),
+                UpdateInvoice: builder.mutation(
+                    {
+                        invalidatesTags: ['admin', "analysis"],
+                        query: ({ Id, data }) => (
+                            {
+                                url: `/invoice/update-invoice/${data?.id}`,
+                                method: "PUT",
+                                body: data
+                            }
+                        )
+                    }
+                ),
                 GetIndividualInvoiceList: builder.query(
                     {
                         providesTags: ["admin"],
@@ -221,6 +233,7 @@ const AdminService = CreateApi.injectEndpoints(
 export const { useUpdateCommissionMutation,
     useGetUserListQuery,
     useAddInvoiceMutation,
+    useUpdateInvoiceMutation,
     useGetIndividualInvoiceListQuery,
     useUpdateInvoiceStatusMutation,
     useGetAffiliateAvailableUsersQuery,

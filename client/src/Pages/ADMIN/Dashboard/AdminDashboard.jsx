@@ -157,7 +157,7 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
                     <th>Commission</th>
                     <th>Status</th>
                     <th>Products</th>
-                    <th>Clicks</th>
+                    {/* <th>Clicks</th> */}
                     <th>Invoices</th>
                   </tr>
                 </thead>
@@ -178,7 +178,7 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
                       <th>Commission</th>
                       <th>Status</th>
                       <th>Products</th>
-                      <th>Clicks</th>
+                      {/* <th>Clicks</th> */}
                       <th>Invoices</th>
                     </tr>
                   </thead>
@@ -219,9 +219,9 @@ function AdminDashboard({ loading, ListData, setCurrentPage, currentPage, count 
                           }
                         </td>
                         <td>{itm?.affiliateCount}</td>
-                        <td>
+                        {/* <td>
                           <div onClick={() => openPopup(itm)} className='border text-center p-[5px] rounded cursor-pointer hover:bg-gray-100 duration-300'>{itm?.totalClicks}</div>
-                        </td>
+                        </td> */}
                         <td className='flex gap-2' style={{ padding: '20px' }}>
                           <span onClick={() => { handleViewInvoice(itm) }} className=' hover:opacity-85 flex items-center justify-center cursor-pointer  rounded px-1'>
                             <MdRemoveRedEye size={22} />

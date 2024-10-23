@@ -34,6 +34,8 @@ import CustomerProfileWrapper from './Pages/ADMIN/CustomerProfile/CustomerProfil
 import NoPageFound from './Pages/NoPageFound';
 import TermAndConditions from './Pages/Terms&Condition';
 import ShareAffiliate from './Pages/ADMIN/Affiliate/ShareAffiliate';
+import UpdateInvoice from './Pages/ADMIN/Dashboard/AddInvoice/UpdateInvoice';
+import UpdateIncoiceWrapper from './Pages/ADMIN/Dashboard/AddInvoice/UpdateIncoiceWrapper';
 
 function Routing() {
     const navigate = useNavigate()
@@ -84,14 +86,14 @@ function Routing() {
                         </Route>
                         :
                         authenticateLogin ?
-                            <Route path='/dashboard/' element={<Layout />} >
+                        <Route path='/dashboard/' element={<Layout />} >
                                 <Route path='' element={<AdminDashboardWrapper />} />
                                 <Route path='profile' element={<ProfileWrapper />} />
-                                {/* <Route path='customer/profile/:id' element={<CustomerProfileWrapper />} /> */}
                                 <Route path='invoice/add/:id' element={<AddInvoiceWrapper />} />
                                 <Route path='invoice/view/:id' element={<ViewInvoiceWrapper />} />
                                 <Route path='invoice/add/:id' element={<AddInvoiceWrapper />} />
                                 <Route path='invoice/view/:id' element={<ViewInvoiceWrapper />} />
+                                <Route path='invoice/update/' element={<UpdateIncoiceWrapper />} />
                                 <Route path='affiliate-links' element={<AdminAffiliateLinksWrapper />} />
                                 <Route path='affiliate-links/add' element={<AdminAddAffiliateLinksWrapper />} />
                                 <Route path='affiliate-links/edit/:id' element={<EditAffiliateWrapper />} />

@@ -7,6 +7,8 @@ import { useUpdateInvoiceStatusMutation } from '../../../services/AdminService';
 import toast from 'react-hot-toast';
 import { IoArrowBack } from "react-icons/io5";
 import { Pagination } from '@mui/material';
+import { MdModeEditOutline, MdRemoveRedEye } from 'react-icons/md';
+import { FaSquarePlus } from 'react-icons/fa6';
 
 
 function ViewInvoice({ loading, listData, OverViewData, email, companyName, count, currentPage, setCurrentPage }) {
@@ -18,8 +20,9 @@ function ViewInvoice({ loading, listData, OverViewData, email, companyName, coun
   const navigate = useNavigate();
   const [UpdateStatus] = useUpdateInvoiceStatusMutation();
 
-  // const paramData = useParams();
+  const paramData = useParams();
 
+  console.log(paramData.id);
 
   const handleSelect = (e, id) => {
     const dataForApi = {
@@ -43,6 +46,10 @@ function ViewInvoice({ loading, listData, OverViewData, email, companyName, coun
   // handle pagination
   const handlePageChange = (e, page) => {
     setCurrentPage(page);
+  }
+  const handleUpdateInvoice = (itm) => {
+    const data = { ...itm, email: email, companyName: companyName }
+    navigate(`/dashboard/invoice/update/`, { state: data })
   }
 
   return (
@@ -126,6 +133,7 @@ function ViewInvoice({ loading, listData, OverViewData, email, companyName, coun
                           <th>Commission</th>
                           <th>Status</th>
                           <th>Date</th>
+                          <th>Update</th>
                           {/* <th>Company name</th> */}
                           {/* <th>Invoices</th> */}
                         </tr>
@@ -171,12 +179,14 @@ function ViewInvoice({ loading, listData, OverViewData, email, companyName, coun
                                 })()
                                 : 'N/A'}
                               </td>
+                              <td>
+                                <span onClick={() => handleUpdateInvoice(itm)} className='hover:opacity-85 rounded cursor-pointer '>
+                                  <MdModeEditOutline size={20} />
+                                </span></td>
                             </tr>
                           ))
                         }
-                        <tr className="spacer-row">
-                          <td colSpan="6"></td>
-                        </tr>
+
                       </tbody>
 
                     </table>

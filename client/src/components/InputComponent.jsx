@@ -45,7 +45,7 @@ function InputComponent(
                 />
             }
 
-            {name &&<ErrorMessage className='text-red-400 absolute text-[12px] pl-[4px]  mt-0' name={name} component='div' />}
+            {name && <ErrorMessage className='text-red-400 absolute text-[12px] pl-[4px]  mt-0' name={name} component='div' />}
         </div>
 
     )
