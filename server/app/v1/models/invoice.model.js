@@ -50,6 +50,9 @@ module.exports = (sequelize, Sequelize) => {
             values: ['Pending', 'Paid', 'Failed'],
             defaultValue: "Pending"
         }, 
+        shopifyUrl:{
+            type:Sequelize.STRING
+        }
     });
 
 

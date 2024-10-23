@@ -5,9 +5,10 @@ exports.createInvoiceSchema = Joi.object({
     domain: Joi.string().optional(),
     commission: Joi.number().integer().required(),
     paymentMethod: Joi.string().required().valid("payPal"),
-    transactionId: Joi.string().required(),
+    transactionId: Joi.string().allow(null, "").optional(),
     invoiceId: Joi.string().allow(null, "").optional(),
     status:Joi.string().allow(null, "").optional(),
+    shopifyUrl:Joi.string().allow(null, "").optional(),
 })
 
 

@@ -7,5 +7,6 @@ const { authAdmin, authenticate } = require('../middleware/authentication.js')
 router.post('/createInvoice', validation.addInvoice, authAdmin, controllers.createInvoice);
 router.post('/userInvoiceList/:id', authenticate, controllers.userInvoiceList);
 router.put('/updateStatus/:id', validation.updateStatus, authAdmin, controllers.updateStatus);
+router.put('/update-invoice/:id', authAdmin, controllers.updateInvoice);
 
 module.exports = router;
