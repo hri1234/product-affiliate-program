@@ -19,6 +19,8 @@
     "author": "bezkoder",
     "license": "ISC",
     "dependencies": {
+        "@fontsource/righteous": "^5.2.5",
+        "@fontsource/urbanist": "^5.2.5",
         "aws-sdk": "^2.1691.0",
         "axios": "^1.7.2",
         "bcrypt": "^5.1.1",

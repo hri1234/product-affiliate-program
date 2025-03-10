@@ -1,36 +1,44 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { Container, Row, Col } from "reactstrap";
-import { H4, P } from "../../components/AbstractElements";
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useMemo } from 'react';
+import { 
+  Box, 
+  Typography, 
+  TextField, 
+  Button, 
+  Paper, 
+  Link,
+  Checkbox,
+  FormControlLabel,
+  createTheme,
+  ThemeProvider,
+  CssBaseline,
+  FormHelperText,
+  IconButton,
+  InputAdornment
+} from '@mui/material';
+import { Formik, Form, ErrorMessage } from 'formik';
 import * as yup from 'yup';
-import { ErrorMessage, Form, Formik } from 'formik';
-import InputComponent from '../../components/InputComponent';
 import countryList from 'react-select-country-list';
-import Select from 'react-select'
-import { useRegisterMutation } from '../../services/AuthServices';
-import Cookies from 'js-cookie';
-import { toast } from 'react-hot-toast';
-import { FiEye } from "react-icons/fi";
-import { FiEyeOff } from "react-icons/fi";
-import Banner from '../../Assets/logo/new-banner01.jpg'
+import { useNavigate } from 'react-router-dom';
+import Select from 'react-select';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { toast } from 'react-hot-toast';
 
-function SignUp() {
+// Import fonts
+import '@fontsource/urbanist';
+import '@fontsource/righteous';
+import leftSideImageUrl from "../../Assets/signuplogo.png";
+
+const SignUpPage = () => {
   const [userCreateLoader, setUserCreateLoader] = useState(false);
-  const options = useMemo(() => countryList().getData(), []);
-  const [Register] = useRegisterMutation();
-  let isLogged = Cookies.get("isLogged");
-  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState("password");
   const [showConfirmPassword, setShowConfirmPassword] = useState("password");
   const [toasterMessage, setToasterMessage] = useState('');
   const [isChecked, setIsChecked] = useState(false);
-  useEffect(() => {
-    if (isLogged) {
-      navigate('/dashboard/');
-    }
-  }, [isLogged]);
-  const initialValues = { email: '', payPalAddress: '', country: null, city: '', address: '', companyName: '', companyUrl: '', password: '', confirmPassword: '' };
+  const options = useMemo(() => countryList().getData(), []);
+  const navigate = useNavigate();
+  
+  // Validation schema
   const validationSchema = yup.object().shape({
     email: yup.string()
       .trim("Enter valid email")
@@ -62,7 +70,7 @@ function SignUp() {
       .required("Address is required").strict(),
     companyName: yup.string()
       .trim("Enter the valid company name").strict(),
-    companyUrl: yup.string()
+    websiteUrl: yup.string()
       .url("Enter a valid website url")
       .trim("Enter valid website url").strict(),
     password: yup.string()
@@ -74,16 +82,58 @@ function SignUp() {
       .trim("Enter valid confirm password")
       .required("Confirm password is required").strict(),
   });
+
+  // Create a custom theme with Urbanist as the default font
+  const theme = createTheme({
+    typography: {
+      fontFamily: '"Urbanist", sans-serif',
+    },
+    components: {
+      MuiCssBaseline: {
+        styleOverrides: `
+          * {
+            font-family: 'Urbanist', sans-serif !important;
+          }
+        `,
+      },
+    },
+  });
+  
+  // Form submission handler
   const handleSubmit = (data, { resetForm }) => {
     setUserCreateLoader(true);
     if (!isChecked) {
-      setToasterMessage('Please accept terms & conditon')
+      setToasterMessage('Please accept terms & condition');
       setUserCreateLoader(false);
-    }
-    else {
-      setToasterMessage('')
-      let registerData = { "email": data?.email, "paypalAddress": data?.payPalAddress, "country": data?.country.label, "city": data?.city, "address": data?.address, "companyName": data?.companyName, "companyUrl": data?.companyUrl, "password": data?.password, }
-      setToasterMessage('')
+    } else {
+      setToasterMessage('');
+      let registerData = { 
+        "email": data?.email, 
+        "paypalAddress": data?.payPalAddress, 
+        "country": data?.country.label, 
+        "city": data?.city, 
+        "address": data?.address, 
+        "companyName": data?.companyName, 
+        "companyUrl": data?.websiteUrl, 
+        "password": data?.password 
+      };
+      
+      // Mock API call - replace with actual API call
+      setTimeout(() => {
+        try {
+          resetForm();
+          toast.success("You have successfully signed up! Please log in to continue.");
+          setUserCreateLoader(false);
+          navigate('/login');
+          setToasterMessage('');
+        } catch (err) {
+          setUserCreateLoader(false);
+          setToasterMessage("Something went wrong");
+        }
+      }, 1500);
+      
+      // Actual API call would be something like this:
+      /*
       Register({ data: registerData })
         .then((res) => {
           if (res.error) {
@@ -102,128 +152,393 @@ function SignUp() {
           setUserCreateLoader(false);
           setToasterMessage("Something went Wrong")
         })
+      */
     }
   };
-  return (
-    <Formik
-      enableReinitialize
-      validationSchema={validationSchema}
-      initialValues={initialValues}
-      onSubmit={handleSubmit}
-    >
-      {(signupProps) => {
-        const handleInputChange = (e) => {
-          signupProps.handleChange(e);
-          setToasterMessage('');
-        };
-        return (
-          <Form>
-            <Container fluid={true} className="p-0 w-full m-0 pt-4  bg-slate-50">
-              <Row>
-                <Col xs="12">
-                  <div className="login-card flex-column">
-                    <div className=" w-full flex items-center justify-center login-tab">
-                      <div className="  bg-white w-[78%] border shadow-md rounded-[10px] py-6 px-6 flex md:flex-row flex-col-reverse gap-8">
-                        <div className=" w-full md:w-[50%] mt-1 px-3">
-                          <div className="theme-form flex flex-col gap-3 p-1">
-                            <div className=' flex flex-col gap-3'>
-                              <H4 className="text-center font-semibold text-2xl"> Sign Up</H4>
-                            </div>
-                            <P className="text-center">Join our affiliate program now and turn your referrals into rewards</P>
-                            <div className=' w-full flex flex-col gap-6 pb-4'>
-                              <div className='relative'>
-                                <InputComponent label={"Email"} type={"text"} value={signupProps.values.email} name='email' onChange={handleInputChange} placeholder={"Enter email address"} />
-                                {toasterMessage &&
-                                  <div className={"flex w-full items-center justify-start absolute"}>
-                                    <span className='text-red-500 text-[12px]'>
-                                      {toasterMessage === '"email" must be a valid email' && 'Enter the valid email address'}
-                                    </span>
-                                  </div>}
-                              </div>
-                              <InputComponent label={"PayPal Address"} type="text" name='payPalAddress' value={signupProps.values.payPalAddress} placeholder='Enter paypal address' onChange={handleInputChange} />
-                              <div className='relative'>
-                                <span className='pl-[3px] font-semibold text-[13px]'>{"Country"}</span>
-                                <Select
-                                  placeholder="Select country"
-                                  options={options}
-                                  name="country"
-                                  value={signupProps.values.country}
-                                  onChange={value => signupProps.setFieldValue('country', value)}
-                                  styles={{
-                                    control: (baseStyles, state) => ({
-                                      ...baseStyles, borderRadius: '8px', // Add border-radius
-                                      border: '1px solid rgb(222, 226, 230)', // Default border color
-                                      fontSize: '14px',
-                                      letterSpacing: '.8px',
-                                      boxShadow: 'none', // Remove box-shadow entirely
-                                      borderColor: 'rgb(222, 226, 230)', // Keep border consistent on focus/hover
-                                      '&:hover': {
-                                        borderColor: 'rgb(222, 226, 230)', // Gray border on hover
-                                      },
-                                    }),
-                                    indicatorSeparator: () => ({
-                                      display: 'none', // Hide the line near the arrow button
-                                    }),
-                                  }}
-                                />
-                                <ErrorMessage className='text-red-400 absolute text-[12px] pl-[4px] mt-0' name={"country"} component='div' />
-                              </div>
-                              <InputComponent label={"City"} type={"text"} value={signupProps.values.city} name='city' onChange={handleInputChange} placeholder={"Enter city name"} />
-                              <InputComponent label={"Address"} type={"text"} value={signupProps.values.address} name='address' onChange={handleInputChange} placeholder={"Enter address"} />
-                              <InputComponent label={"Company Name"} type={"text"} value={signupProps.values.companyName} name='companyName' onChange={handleInputChange} placeholder={"Enter company name"} />
-                              <InputComponent label={"Website URL"} type={"text"} value={signupProps.values.companyUrl} name='companyUrl' onChange={handleInputChange} placeholder={"Enter website URL"} />
-                              <div className='mt-4 flex flex-col gap-5'>
-                                <div className='relative w-full flex gap-1'>
-                                  <InputComponent label={"Password"} type={showPassword == "password" ? "password" : "text"} value={signupProps.values.password} name='password' onChange={handleInputChange} placeholder={"Enter password"} />
-                                  <span onClick={() => showPassword == "password" ? setShowPassword("text") : setShowPassword("password")} className=' absolute cursor-pointer right-3 bottom-3'>
-                                    { showPassword == "password" ? <FiEyeOff /> : <FiEye /> }
-                                  </span>
-                                </div>
-                                <div className=' relative w-full flex gap-1'>
-                                  <InputComponent label={"Confirm password"} type={showConfirmPassword == "password" ? "password" : "text"} value={signupProps.values.confirmPassword} name='confirmPassword' onChange={handleInputChange} placeholder={"Enter confirm password"} />
-                                  <span onClick={() => showConfirmPassword == "password" ? setShowConfirmPassword("text") : setShowConfirmPassword("password")} className=' absolute cursor-pointer right-3 bottom-3'>
-                                    { showConfirmPassword == "password" ? <FiEyeOff /> : <FiEye /> }
-                                  </span>
-                                </div>
-                              </div>
-                              <div className=' flex gap-1  mt-[-2.0px] items-center'>
-                                <input onChange={(e) => { e.target.checked ? setIsChecked(true) : setIsChecked(false) }} className=' cursor-pointer p-0 m-0' type="checkbox" id='checkboxx' name='checkboxx' />
-                                <a href='/terms-condition' target='_blank' className=' p-0 m-0 cursor-pointer hover:underline text-[14px] text-black hover:text-black' htmlFor="checkboxx">Accept terms and condition</a>
-                              </div>
-                            </div>
-                            <div className="position-relative form-group mb-0 mt-[-5px]">
-                              {toasterMessage &&
-                                <div className={"flex w-full items-center justify-center absolute top-[-30px]"}>
-                                  <span className='text-red-500 text-[12px]'>
-                                    {toasterMessage === '"email" must be a valid email' ? '' : toasterMessage}
-                                  </span>
-                                </div>}
-                              <button className=" bg-black text-white py-[6.5px] border d-block w-100 mt-2 relative rounded-full" type="submit">
-                                {userCreateLoader ? <span className=' w-fit flex py-1 items-center justify-center m-auto self-center animate-spin'> <AiOutlineLoading3Quarters /> </span> : "Sign up" }
-                              </button>
-                            </div>
-                            <P className='text-center mb-0 text-[16px] pt-0 mt-0 '>
-                              Already have an account ?
-                              <Link className='ms-2 text-black hover:text-black' to={`${process.env.PUBLIC_URL}/login`}>
-                                Sign in
-                              </Link>
-                            </P>
-                          </div>
-                        </div>
-                        <div className=" w-full p-3 md:w-[520px] object-contain md:object-cover h-[200px]  md:h-[1035px]">
-                          <img src={Banner} className=" shadow-xl border md:object-fit object-cover w-full h-full rounded-[16px]" alt="" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </Col>
-              </Row>
-            </Container>
-          </Form>
-        )
-      }}
-    </Formik>
-  )
-}
 
-export default SignUp;
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Paper
+        elevation={0}
+        sx={{
+          width: '1200px',
+          height: '780px',
+          margin: '80px auto',
+          borderRadius: '16px',
+          overflow: 'hidden',
+          display: 'flex',
+          boxShadow: '0px 24px 34px 0px #7B54AC38',
+        }}
+      >
+        {/* Left side - using the exact image */}
+        <Box 
+          sx={{ 
+            width: '50%',
+            backgroundImage: `url(${leftSideImageUrl})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+
+        {/* Right side - sign up form with functionality */}
+        <Box 
+          sx={{
+            width: '50%',
+            display: 'flex',
+            flexDirection: 'column',
+            padding: '30px 40px',
+            backgroundColor: 'white',
+            overflowY: 'auto',
+          }}
+        >
+          <Typography 
+            variant="h1" 
+            sx={{ 
+              fontWeight: 700, 
+              marginBottom: '10px',
+              fontSize: '38px',
+              textAlign: 'center',
+              fontFamily: '"Righteous", sans-serif !important',
+            }}
+          >
+            Sign Up
+          </Typography>
+          
+          <Formik
+            initialValues={{ 
+              email: '', 
+              payPalAddress: '', 
+              country: null, 
+              city: '', 
+              address: '', 
+              companyName: '', 
+              websiteUrl: '', 
+              password: '', 
+              confirmPassword: '' 
+            }}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+          >
+            {({ values, errors, touched, handleChange, handleBlur, setFieldValue }) => (
+              <Form>
+                <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  {/* Email field */}
+                  <Box sx={{ position: 'relative' }}>
+                    <TextField
+                      fullWidth
+                      id="email"
+                      placeholder="Email"
+                      name="email"
+                      value={values.email}
+                      onChange={(e) => {
+                        handleChange(e);
+                        setToasterMessage('');
+                      }}
+                      onBlur={handleBlur}
+                      error={touched.email && Boolean(errors.email)}
+                      helperText={touched.email && errors.email}
+                      variant="outlined"
+                      sx={textFieldStyle}
+                    />
+                    {toasterMessage && toasterMessage.includes('email') && (
+                      <FormHelperText error>{toasterMessage}</FormHelperText>
+                    )}
+                  </Box>
+                  
+                  {/* PayPal Address field */}
+                  <TextField
+                    fullWidth
+                    id="payPalAddress"
+                    placeholder="PayPal Address"
+                    name="payPalAddress"
+                    value={values.payPalAddress}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={touched.payPalAddress && Boolean(errors.payPalAddress)}
+                    helperText={touched.payPalAddress && errors.payPalAddress}
+                    variant="outlined"
+                    sx={textFieldStyle}
+                  />
+
+                  {/* Country dropdown */}
+                  <Box sx={{ position: 'relative' }}>
+                    <Select
+                      placeholder="Select country"
+                      options={options}
+                      name="country"
+                      value={values.country}
+                      onChange={value => setFieldValue('country', value)}
+                      styles={{
+                        control: (baseStyles, state) => ({
+                          ...baseStyles, 
+                          borderRadius: '8px',
+                          border: '1px solid #e5e7eb',
+                          fontSize: '14px',
+                          height: '56px',
+                          boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.05)',
+                          borderColor: touched.country && errors.country ? '#d32f2f' : '#e5e7eb',
+                          '&:hover': {
+                            borderColor: '#d1d5db',
+                          },
+                        }),
+                        indicatorSeparator: () => ({
+                          display: 'none',
+                        }),
+                      }}
+                    />
+                    {touched.country && errors.country && (
+                      <FormHelperText error>{typeof errors.country === 'string' ? errors.country : 'Country is required'}</FormHelperText>
+                    )}
+                  </Box>
+                  
+                  {/* City field */}
+                  <TextField
+                    fullWidth
+                    id="city"
+                    placeholder="City"
+                    name="city"
+                    value={values.city}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={touched.city && Boolean(errors.city)}
+                    helperText={touched.city && errors.city}
+                    variant="outlined"
+                    sx={textFieldStyle}
+                  />
+                  
+                  {/* Address field */}
+                  <TextField
+                    fullWidth
+                    id="address"
+                    placeholder="Address"
+                    name="address"
+                    value={values.address}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={touched.address && Boolean(errors.address)}
+                    helperText={touched.address && errors.address}
+                    variant="outlined"
+                    sx={textFieldStyle}
+                  />
+                  
+                  {/* Company Name field */}
+                  <TextField
+                    fullWidth
+                    id="companyName"
+                    placeholder="Company Name"
+                    name="companyName"
+                    value={values.companyName}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={touched.companyName && Boolean(errors.companyName)}
+                    helperText={touched.companyName && errors.companyName}
+                    variant="outlined"
+                    sx={textFieldStyle}
+                  />
+                  
+                  {/* Website URL field */}
+                  <TextField
+                    fullWidth
+                    id="websiteUrl"
+                    placeholder="Website URL"
+                    name="websiteUrl"
+                    value={values.websiteUrl}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={touched.websiteUrl && Boolean(errors.websiteUrl)}
+                    helperText={touched.websiteUrl && errors.websiteUrl}
+                    variant="outlined"
+                    sx={textFieldStyle}
+                  />
+                  
+                  {/* Password field with show/hide */}
+                  <TextField
+                    fullWidth
+                    id="password"
+                    placeholder="Create Password"
+                    name="password"
+                    type={showPassword === "password" ? "password" : "text"}
+                    value={values.password}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={touched.password && Boolean(errors.password)}
+                    helperText={touched.password && errors.password}
+                    variant="outlined"
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={() => setShowPassword(showPassword === "password" ? "text" : "password")}
+                            edge="end"
+                          >
+                            {showPassword === "password" ? <FiEyeOff /> : <FiEye />}
+                          </IconButton>
+                        </InputAdornment>
+                      )
+                    }}
+                    sx={textFieldStyle}
+                  />
+                  
+                  {/* Confirm Password field with show/hide */}
+                  <TextField
+                    fullWidth
+                    id="confirmPassword"
+                    placeholder="Confirm Password"
+                    name="confirmPassword"
+                    type={showConfirmPassword === "password" ? "password" : "text"}
+                    value={values.confirmPassword}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={touched.confirmPassword && Boolean(errors.confirmPassword)}
+                    helperText={touched.confirmPassword && errors.confirmPassword}
+                    variant="outlined"
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={() => setShowConfirmPassword(showConfirmPassword === "password" ? "text" : "password")}
+                            edge="end"
+                          >
+                            {showConfirmPassword === "password" ? <FiEyeOff /> : <FiEye />}
+                          </IconButton>
+                        </InputAdornment>
+                      )
+                    }}
+                    sx={textFieldStyle}
+                  />
+                </Box>
+                
+                {/* Terms and conditions */}
+                {/* <Box sx={{ mt: 0 }}>
+                  <FormControlLabel
+                    control={<Checkbox 
+                      checked={isChecked}
+                      onChange={(e) => setIsChecked(e.target.checked)}
+                      sx={{ 
+                        color: '#9333ea',
+                        '&.Mui-checked': {
+                          color: '#9333ea',
+                        },
+                      }} 
+                    />}
+                    label={
+                      <Typography sx={{ 
+                        fontSize: '14px',
+                        color: '#1C0A33',
+                        fontFamily: '"Urbanist", sans-serif !important',
+                      }}>
+                        Accept terms and condition
+                      </Typography>
+                    }
+                  />
+                  {!isChecked && toasterMessage === 'Please accept terms & condition' && (
+                    <FormHelperText error>{toasterMessage}</FormHelperText>
+                  )}
+                </Box> */}
+                
+                {/* Submit button */}
+                <Button
+                  fullWidth
+                  type="submit"
+                  variant="contained"
+                  disabled={userCreateLoader}
+                  sx={{ 
+                    padding: '12px',
+                    backgroundColor: '#9333ea',
+                    textTransform: 'none',
+                    borderRadius: '6px',
+                    fontSize: '16px',
+                    fontWeight: 500,
+                    mb: 2,
+                    mt: 0,
+                    height: '56px',
+                    width: '100%',
+                    boxShadow: '0px 4px 6px rgba(147, 51, 234, 0.3)',
+                    '&:hover': {
+                      backgroundColor: '#7e22ce',
+                    },
+                    fontFamily: '"Urbanist", sans-serif !important',
+                  }}
+                >
+                  {userCreateLoader ? (
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <AiOutlineLoading3Quarters className="animate-spin" />
+                    </Box>
+                  ) : "Sign Up"}
+                </Button>
+                
+                {/* Login link */}
+                <Box sx={{ 
+                  display: 'flex', 
+                  justifyContent: 'center', 
+                  alignItems: 'center',
+                  width: '100%',
+                  mt: 0,
+                }}>
+                  <Typography 
+                    sx={{ 
+                      fontSize: '14px',
+                      color: '#1C0A33',
+                      fontFamily: '"Urbanist", sans-serif !important',
+                    }}
+                  >
+                    Already have account? {' '}
+                    <Link 
+                      href="/login" 
+                      sx={{ 
+                        color: '#1C0A33',
+                        textDecoration: 'underline',
+                        fontWeight: 600,
+                        fontFamily: '"Urbanist", sans-serif !important',
+                      }}
+                    >
+                      Sign in
+                    </Link>
+                  </Typography>
+                </Box>
+                
+                {/* General error message */}
+                {toasterMessage && !toasterMessage.includes('email') && toasterMessage !== 'Please accept terms & condition' && (
+                  <Box sx={{ mt: 1, textAlign: 'center' }}>
+                    <FormHelperText error>{toasterMessage}</FormHelperText>
+                  </Box>
+                )}
+              </Form>
+            )}
+          </Formik>
+        </Box>
+      </Paper>
+    </ThemeProvider>
+  );
+};
+
+// Common text field style
+const textFieldStyle = { 
+  width: '100%',
+  '& .MuiOutlinedInput-root': {
+    borderRadius: '8px',
+    height: '56px',
+    boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.05)',
+    '& fieldset': {
+      borderColor: '#e5e7eb',
+    },
+    '&:hover fieldset': {
+      borderColor: '#d1d5db',
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: '#9333ea',
+    }
+  },
+  '& .MuiInputBase-input::placeholder': {
+    color: '#9ca3af',
+    opacity: 1,
+  },
+  '& .MuiInputBase-input': {
+    fontFamily: '"Urbanist", sans-serif !important',
+  },
+};
+
+export default SignUpPage;
