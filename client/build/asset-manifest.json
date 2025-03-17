@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/static/css/main.a712abbb.css",
+    "main.css": "/static/css/main.fa231ab1.css",
     "main.js": "/static/js/main.b8d740e8.js",
     "static/media/banner.png": "/static/media/banner.b3686b6cb38021f25ebc.png",
     "static/media/signuplogo.png": "/static/media/signuplogo.5bc396c978503bff1b09.png",
@@ -20,11 +20,11 @@
     "static/media/righteous-latin-ext-400-normal.woff": "/static/media/righteous-latin-ext-400-normal.d5209d3222193272e5fc.woff",
     "static/media/righteous-latin-ext-400-normal.woff2": "/static/media/righteous-latin-ext-400-normal.c8eff68a7456cce7e462.woff2",
     "index.html": "/index.html",
-    "main.a712abbb.css.map": "/static/css/main.a712abbb.css.map",
+    "main.fa231ab1.css.map": "/static/css/main.fa231ab1.css.map",
     "main.b8d740e8.js.map": "/static/js/main.b8d740e8.js.map"
   },
   "entrypoints": [
-    "static/css/main.a712abbb.css",
+    "static/css/main.fa231ab1.css",
     "static/js/main.b8d740e8.js"
   ]
 }
