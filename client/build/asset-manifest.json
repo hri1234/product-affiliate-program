@@ -1,22 +1,30 @@
 {
   "files": {
-    "main.css": "/static/css/main.c310fc62.css",
-    "main.js": "/static/js/main.859efa8d.js",
+    "main.css": "/static/css/main.a712abbb.css",
+    "main.js": "/static/js/main.b8d740e8.js",
+    "static/media/banner.png": "/static/media/banner.b3686b6cb38021f25ebc.png",
+    "static/media/signuplogo.png": "/static/media/signuplogo.5bc396c978503bff1b09.png",
     "static/media/InterVariable-Italic.woff2": "/static/media/InterVariable-Italic.e295f70fe3e2df296c7b.woff2",
     "static/media/InterVariable.woff2": "/static/media/InterVariable.a0e477f2f1f9d2376fde.woff2",
-    "static/media/image_2024_09_23T11_14_52_136Z.png": "/static/media/image_2024_09_23T11_14_52_136Z.82cc75910d1f8fde45d9.png",
-    "static/media/new-banner01.jpg": "/static/media/new-banner01.30a5d8f1f29d51909cfa.jpg",
     "static/media/itg_logo.webp": "/static/media/itg_logo.cfa0316d5a44bdf33273.webp",
     "static/media/No_Page_Found09_23T11_11_59_496Z.png": "/static/media/No_Page_Found09_23T11_11_59_496Z.0851c15a070a472054e0.png",
+    "static/media/righteous-latin-400-normal.woff": "/static/media/righteous-latin-400-normal.40a2381ada8e700fbd80.woff",
+    "static/media/urbanist-latin-400-normal.woff": "/static/media/urbanist-latin-400-normal.780c3039154684b840c7.woff",
     "static/media/loading-7528_512.gif": "/static/media/loading-7528_512.77926b8d27137c1189c9.gif",
+    "static/media/righteous-latin-400-normal.woff2": "/static/media/righteous-latin-400-normal.ff971242700f520e3f61.woff2",
+    "static/media/urbanist-latin-400-normal.woff2": "/static/media/urbanist-latin-400-normal.29456ffa33d4f710c56e.woff2",
     "static/media/cropped-ITGeeks-Technologies-Pvt.-Ltd.-Logo.png": "/static/media/cropped-ITGeeks-Technologies-Pvt.-Ltd.-Logo.d25a6bf544ebe55950e6.png",
     "static/media/image_2024_10_01T10_35_05_438Z.png": "/static/media/image_2024_10_01T10_35_05_438Z.9f6b3fb41cc31dce3ba9.png",
+    "static/media/urbanist-latin-ext-400-normal.woff": "/static/media/urbanist-latin-ext-400-normal.0bb11634423ce19d490a.woff",
+    "static/media/urbanist-latin-ext-400-normal.woff2": "/static/media/urbanist-latin-ext-400-normal.fbda94a57fe760744c0e.woff2",
+    "static/media/righteous-latin-ext-400-normal.woff": "/static/media/righteous-latin-ext-400-normal.d5209d3222193272e5fc.woff",
+    "static/media/righteous-latin-ext-400-normal.woff2": "/static/media/righteous-latin-ext-400-normal.c8eff68a7456cce7e462.woff2",
     "index.html": "/index.html",
-    "main.c310fc62.css.map": "/static/css/main.c310fc62.css.map",
-    "main.859efa8d.js.map": "/static/js/main.859efa8d.js.map"
+    "main.a712abbb.css.map": "/static/css/main.a712abbb.css.map",
+    "main.b8d740e8.js.map": "/static/js/main.b8d740e8.js.map"
   },
   "entrypoints": [
-    "static/css/main.c310fc62.css",
-    "static/js/main.859efa8d.js"
+    "static/css/main.a712abbb.css",
+    "static/js/main.b8d740e8.js"
   ]
 }
